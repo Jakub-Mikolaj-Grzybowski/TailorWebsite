@@ -1,0 +1,16 @@
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.ViewModels\bin\Debug\net8.0\TailorWebsite.ViewModels.deps.json
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.ViewModels\bin\Debug\net8.0\TailorWebsite.ViewModels.dll
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.ViewModels\bin\Debug\net8.0\TailorWebsite.ViewModels.pdb
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.ViewModels\bin\Debug\net8.0\TailorWebsite.Model.dll
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.ViewModels\bin\Debug\net8.0\TailorWebsite.Model.pdb
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.ViewModels\obj\Debug\net8.0\TailorWebsite.ViewModels.csproj.AssemblyReference.cache
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.ViewModels\obj\Debug\net8.0\TailorWebsite.ViewModels.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.ViewModels\obj\Debug\net8.0\TailorWebsite.ViewModels.AssemblyInfoInputs.cache
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.ViewModels\obj\Debug\net8.0\TailorWebsite.ViewModels.AssemblyInfo.cs
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.ViewModels\obj\Debug\net8.0\TailorWebsite.ViewModels.csproj.CoreCompileInputs.cache
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.ViewModels\obj\Debug\net8.0\TailorWebsite.ViewModels.sourcelink.json
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.ViewModels\obj\Debug\net8.0\TailorWe.A28FC613.Up2Date
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.ViewModels\obj\Debug\net8.0\TailorWebsite.ViewModels.dll
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.ViewModels\obj\Debug\net8.0\refint\TailorWebsite.ViewModels.dll
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.ViewModels\obj\Debug\net8.0\TailorWebsite.ViewModels.pdb
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.ViewModels\obj\Debug\net8.0\ref\TailorWebsite.ViewModels.dll
