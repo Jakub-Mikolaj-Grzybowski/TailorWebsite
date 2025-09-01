@@ -1,0 +1,16 @@
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\bin\Debug\net8.0\TailorWebsite.DAL.deps.json
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\bin\Debug\net8.0\TailorWebsite.DAL.dll
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\bin\Debug\net8.0\TailorWebsite.DAL.pdb
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\bin\Debug\net8.0\TailorWebsite.Model.dll
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\bin\Debug\net8.0\TailorWebsite.Model.pdb
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\obj\Debug\net8.0\TailorWebsite.DAL.csproj.AssemblyReference.cache
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\obj\Debug\net8.0\TailorWebsite.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\obj\Debug\net8.0\TailorWebsite.DAL.AssemblyInfoInputs.cache
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\obj\Debug\net8.0\TailorWebsite.DAL.AssemblyInfo.cs
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\obj\Debug\net8.0\TailorWebsite.DAL.csproj.CoreCompileInputs.cache
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\obj\Debug\net8.0\TailorWebsite.DAL.sourcelink.json
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\obj\Debug\net8.0\TailorWe.2BE02D0D.Up2Date
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\obj\Debug\net8.0\TailorWebsite.DAL.dll
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\obj\Debug\net8.0\refint\TailorWebsite.DAL.dll
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\obj\Debug\net8.0\TailorWebsite.DAL.pdb
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\obj\Debug\net8.0\ref\TailorWebsite.DAL.dll

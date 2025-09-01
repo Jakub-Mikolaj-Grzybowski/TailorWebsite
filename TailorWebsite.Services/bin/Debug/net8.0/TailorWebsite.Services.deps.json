@@ -1,0 +1,73 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "TailorWebsite.Services/1.0.0": {
+        "dependencies": {
+          "TailorWebsite.DAL": "1.0.0",
+          "TailorWebsite.Model": "1.0.0",
+          "TailorWebsite.ViewModels": "1.0.0"
+        },
+        "runtime": {
+          "TailorWebsite.Services.dll": {}
+        }
+      },
+      "TailorWebsite.DAL/1.0.0": {
+        "dependencies": {
+          "TailorWebsite.Model": "1.0.0"
+        },
+        "runtime": {
+          "TailorWebsite.DAL.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "TailorWebsite.Model/1.0.0": {
+        "runtime": {
+          "TailorWebsite.Model.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
+      "TailorWebsite.ViewModels/1.0.0": {
+        "dependencies": {
+          "TailorWebsite.Model": "1.0.0"
+        },
+        "runtime": {
+          "TailorWebsite.ViewModels.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      }
+    }
+  },
+  "libraries": {
+    "TailorWebsite.Services/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "TailorWebsite.DAL/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "TailorWebsite.Model/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "TailorWebsite.ViewModels/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

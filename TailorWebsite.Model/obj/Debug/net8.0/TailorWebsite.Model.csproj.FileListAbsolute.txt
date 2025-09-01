@@ -1,0 +1,12 @@
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.Model\bin\Debug\net8.0\TailorWebsite.Model.deps.json
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.Model\bin\Debug\net8.0\TailorWebsite.Model.dll
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.Model\bin\Debug\net8.0\TailorWebsite.Model.pdb
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.Model\obj\Debug\net8.0\TailorWebsite.Model.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.Model\obj\Debug\net8.0\TailorWebsite.Model.AssemblyInfoInputs.cache
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.Model\obj\Debug\net8.0\TailorWebsite.Model.AssemblyInfo.cs
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.Model\obj\Debug\net8.0\TailorWebsite.Model.csproj.CoreCompileInputs.cache
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.Model\obj\Debug\net8.0\TailorWebsite.Model.sourcelink.json
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.Model\obj\Debug\net8.0\TailorWebsite.Model.dll
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.Model\obj\Debug\net8.0\refint\TailorWebsite.Model.dll
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.Model\obj\Debug\net8.0\TailorWebsite.Model.pdb
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.Model\obj\Debug\net8.0\ref\TailorWebsite.Model.dll
