@@ -73,8 +73,8 @@ namespace TailorWebsite.Web.Areas.Identity.Pages.Account
         public class InputModel
         {
             [Required]
-            [Display(Name = "First Name")]
-            public string FirstName { get; set; }
+            [Display(Name = "Name")]
+            public string Name { get; set; }
 
             [Required]
             [Display(Name = "Surname")]
@@ -133,8 +133,9 @@ namespace TailorWebsite.Web.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = CreateUser();
-                user.Name = Input.FirstName;
+                user.Name = Input.Name;
                 user.Surname = Input.Surname;
+           
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
