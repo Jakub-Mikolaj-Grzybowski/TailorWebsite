@@ -1,4 +1,5 @@
 C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\bin\Debug\net8.0\TailorWebsite.DAL.deps.json
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\bin\Debug\net8.0\TailorWebsite.DAL.runtimeconfig.json
 C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\bin\Debug\net8.0\TailorWebsite.DAL.dll
 C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\bin\Debug\net8.0\TailorWebsite.DAL.pdb
 C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\bin\Debug\net8.0\TailorWebsite.Model.dll
@@ -13,4 +14,5 @@ C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\
 C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\obj\Debug\net8.0\TailorWebsite.DAL.dll
 C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\obj\Debug\net8.0\refint\TailorWebsite.DAL.dll
 C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\obj\Debug\net8.0\TailorWebsite.DAL.pdb
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\obj\Debug\net8.0\TailorWebsite.DAL.genruntimeconfig.cache
 C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.DAL\obj\Debug\net8.0\ref\TailorWebsite.DAL.dll
