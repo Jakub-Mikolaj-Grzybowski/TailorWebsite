@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\buildMultiTargeting\TailorWebsite.Web.props" />
-</Project>
