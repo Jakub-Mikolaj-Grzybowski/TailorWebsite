@@ -135,7 +135,7 @@ namespace TailorWebsite.Web.Areas.Identity.Pages.Account
                 var user = CreateUser();
                 user.Name = Input.Name;
                 user.Surname = Input.Surname;
-           
+
                 await _userStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -181,7 +181,14 @@ namespace TailorWebsite.Web.Areas.Identity.Pages.Account
                 }
                 foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError(string.Empty, error.Description);
+                    if (error.Code.Contains("Password"))
+                    {
+                        ModelState.AddModelError("Input.Password", error.Description);
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
                 }
             }
 
