@@ -1663,7 +1663,12 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "Microsoft.Extensions.Identity.Stores": "8.0.19"
+          "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "8.0.19",
+          "Microsoft.EntityFrameworkCore": "8.0.19",
+          "Microsoft.EntityFrameworkCore.Proxies": "8.0.19",
+          "Microsoft.EntityFrameworkCore.SqlServer": "8.0.19",
+          "Microsoft.Extensions.Identity.Stores": "8.0.19",
+          "Npgsql.EntityFrameworkCore.PostgreSQL": "8.0.11"
         },
         "compile": {
           "bin/placeholder/TailorWebsite.Model.dll": {}
@@ -4371,11 +4376,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "c:\\Users\\miota\\OneDrive\\Dokumenty\\Programowanie\\praca_inzynierska\\TailorWebsite\\TailorWebsite.DAL\\TailorWebsite.DAL.csproj",
+      "projectUniqueName": "C:\\Users\\miota\\OneDrive\\Dokumenty\\Programowanie\\praca_inzynierska\\TailorWebsite\\TailorWebsite.DAL\\TailorWebsite.DAL.csproj",
       "projectName": "TailorWebsite.DAL",
-      "projectPath": "c:\\Users\\miota\\OneDrive\\Dokumenty\\Programowanie\\praca_inzynierska\\TailorWebsite\\TailorWebsite.DAL\\TailorWebsite.DAL.csproj",
+      "projectPath": "C:\\Users\\miota\\OneDrive\\Dokumenty\\Programowanie\\praca_inzynierska\\TailorWebsite\\TailorWebsite.DAL\\TailorWebsite.DAL.csproj",
       "packagesPath": "C:\\Users\\miota\\.nuget\\packages\\",
-      "outputPath": "c:\\Users\\miota\\OneDrive\\Dokumenty\\Programowanie\\praca_inzynierska\\TailorWebsite\\TailorWebsite.DAL\\obj\\",
+      "outputPath": "C:\\Users\\miota\\OneDrive\\Dokumenty\\Programowanie\\praca_inzynierska\\TailorWebsite\\TailorWebsite.DAL\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
