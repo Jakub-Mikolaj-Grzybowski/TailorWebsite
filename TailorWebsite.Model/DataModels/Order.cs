@@ -1,4 +1,3 @@
-
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TailorWebsite.Model.DataModels;
@@ -11,21 +10,16 @@ public class Order
     public string Status { get; set; } = null!; // e.g., "Pending", "In Progress", "Completed"
     public int Quantity { get; set; }
 
-
-
     // Foreign key to Customer
     public int UserId { get; set; }
-    public virtual  User User { get; set; } = null!;
+    public virtual User User { get; set; } = null!;
 
     //Navigation property for Service
     public int ServiceId { get; set; }
     public virtual Service Service { get; set; } = null!;
-    
+
     [NotMapped]
     public decimal TotalPrice { get; }
 
-    public Order()
-    {
-     
-    }
+    public Order() { }
 }

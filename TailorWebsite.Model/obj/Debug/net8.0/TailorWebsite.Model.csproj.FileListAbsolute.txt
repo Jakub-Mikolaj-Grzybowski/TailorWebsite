@@ -11,3 +11,5 @@ C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\
 C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.Model\obj\Debug\net8.0\refint\TailorWebsite.Model.dll
 C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.Model\obj\Debug\net8.0\TailorWebsite.Model.pdb
 C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.Model\obj\Debug\net8.0\ref\TailorWebsite.Model.dll
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.Model\bin\Debug\net8.0\TailorWebsite.Model.runtimeconfig.json
+C:\Users\miota\OneDrive\Dokumenty\Programowanie\praca_inzynierska\TailorWebsite\TailorWebsite.Model\obj\Debug\net8.0\TailorWebsite.Model.genruntimeconfig.cache
