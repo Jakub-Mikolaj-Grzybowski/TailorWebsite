@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TailorWebsite.Model")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+169bdb190444ac3137f02c3af9e88ea84a489cbc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+2ea8820f7ff6daed83d007f90e0c3dc3d5faa99b")]
 [assembly: System.Reflection.AssemblyProductAttribute("TailorWebsite.Model")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TailorWebsite.Model")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
