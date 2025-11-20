@@ -7,7 +7,7 @@ public class Order
     public int Id { get; set; }
     public DateTime OrderDate { get; set; } = DateTime.Now;
     public DateTime? OrderDueDate { get; set; } // null => Pending termin
-    public string Status { get; set; } = null!; // e.g., "Pending", "In Progress", "Completed"
+    public OrderStatus Status { get; set; } = OrderStatus.Pending;
     public int Quantity { get; set; }
     public decimal TotalPrice { get; set; } 
 

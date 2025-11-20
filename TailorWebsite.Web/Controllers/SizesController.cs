@@ -44,7 +44,7 @@ public class SizesController : Controller
         }
 
         size.UserId = userId;
-        await _sizeService.CreateAsync(size);
+        await  _sizeService.CreateAsync(size);
         return RedirectToAction(nameof(List));
     }
 

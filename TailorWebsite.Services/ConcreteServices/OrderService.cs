@@ -7,8 +7,10 @@ using Microsoft.Extensions.Logging;
 using TailorWebsite.DAL.EF;
 using TailorWebsite.Model.DataModels;
 using TailorWebsite.Services.Interface;
+using TailorWebsite.ViewModels.VM;
 
 namespace TailorWebsite.Services.ConcreteServices;
+
 
 public class OrderService : BaseService, IOrderService
 {
@@ -19,12 +21,10 @@ public class OrderService : BaseService, IOrderService
     )
         : base(dbContext, mapper, logger) { }
 
-    public async Task<Order> PlaceOrderAsync(Order order)
+    public async Task<OrderCreateViewModel> PlaceOrderAsync(OrderCreateViewModel vm, int userId)
     {
-        // Basic defaults/enforcement
-        if (string.IsNullOrWhiteSpace(order.Status))
-            order.Status = "Pending";
-        
+        var order = Mapper.Map<Order>(vm);
+        order.UserId = userId;
         DbContext.Orders.Add(order);
         await DbContext.SaveChangesAsync();
         Logger.LogInformation(
@@ -33,21 +33,22 @@ public class OrderService : BaseService, IOrderService
             order.UserId,
             order.ServiceId
         );
-        return order;
+        return Mapper.Map<OrderCreateViewModel>(order);
     }
 
-    public async Task<Order?> GetByIdAsync(int id)
+    public async Task<OrderCreateViewModel?> GetByIdAsync(int id)
     {
-        // Lazy loading is enabled, but keep a sample Include for clarity if needed later
-        return await DbContext.Orders.FirstOrDefaultAsync(o => o.Id == id);
+        var order = await DbContext.Orders.FirstOrDefaultAsync(o => o.Id == id);
+        return order == null ? null : Mapper.Map<OrderCreateViewModel>(order);
     }
 
-    public async Task<IEnumerable<Order>> GetByUserAsync(int userId)
+    public async Task<IEnumerable<OrderCreateViewModel>> GetByUserAsync(int userId)
     {
-        return await DbContext
+        var orders = await DbContext
             .Orders.Where(o => o.UserId == userId)
             .OrderByDescending(o => o.OrderDate)
             .ToListAsync();
+        return orders.Select(o => Mapper.Map<OrderCreateViewModel>(o)).ToList();
     }
 
     public async Task<bool> CancelOrderAsync(int id)
@@ -55,7 +56,6 @@ public class OrderService : BaseService, IOrderService
         var entity = await DbContext.Orders.FindAsync(id);
         if (entity == null)
             return false;
-
         DbContext.Orders.Remove(entity);
         await DbContext.SaveChangesAsync();
         Logger.LogInformation("Cancelled Order {OrderId}", id);

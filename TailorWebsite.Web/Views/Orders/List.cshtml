@@ -1,4 +1,4 @@
-@model IEnumerable<TailorWebsite.Model.DataModels.Order>
+@model IEnumerable<TailorWebsite.ViewModels.VM.OrderCreateViewModel>
 @{
     ViewData["Title"] = "Moje zamówienia";
 }
@@ -38,11 +38,11 @@
                 <td>@o.OrderDate.ToString("yyyy-MM-dd")</td>
                 <td>@(o.OrderDueDate.HasValue ? o.OrderDueDate.Value.ToString("yyyy-MM-dd") : "Pending")</td>
                 <td>@o.Quantity</td>
-                <td>@o.Status</td>
+                <td>@o.Status.ToString()</td>
                 <td>@o.Service?.Name</td>
                 <td>@o.TotalPrice</td>
                 <td>
-                    @if (string.Equals(o.Status, "Pending", StringComparison.OrdinalIgnoreCase))
+                    @if (o.Status == TailorWebsite.Model.DataModels.OrderStatus.Pending)
                     {
                         <form asp-action="Cancel" method="post" class="d-inline">
                             @Html.AntiForgeryToken()
