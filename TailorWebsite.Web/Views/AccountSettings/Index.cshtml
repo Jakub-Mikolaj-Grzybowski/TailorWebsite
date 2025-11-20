@@ -1,0 +1,44 @@
+@{
+    ViewData["Title"] = "Ustawienia konta";
+}
+<h2 class="mb-4">Ustawienia konta</h2>
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+<div class="row g-4">
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Zmiana hasła</h5>
+                <p class="card-text">Zmień swoje hasło do konta.</p>
+                <a asp-action="ChangePassword" class="btn btn-primary mt-auto">Zmień hasło</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Dodaj numer telefonu</h5>
+                <p class="card-text">Dodaj lub zaktualizuj swój numer telefonu.</p>
+                <a asp-action="AddPhoneNumber" class="btn btn-primary mt-auto">Dodaj numer telefonu</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-12 col-md-6 col-lg-4">
+        <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+                <h5 class="card-title">Usuń konto</h5>
+                <p class="card-text">Trwale usuń swoje konto.</p>
+                <form asp-action="DeleteAccount" method="post" onsubmit="return confirm('Czy na pewno chcesz usunąć konto?');">
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger mt-auto">Usuń konto</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

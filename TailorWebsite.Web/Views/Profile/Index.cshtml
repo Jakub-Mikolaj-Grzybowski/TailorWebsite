@@ -9,7 +9,7 @@
         <p class="text-muted mb-0"> Email: @Model.Email</p>
     </div>
     <div class="col-md-4 text-md-end mt-3 mt-md-0">
-        <a class="btn btn-outline-secondary" asp-area="Identity" asp-page="/Account/Manage/Index">Ustawienia konta</a>
+        <a asp-action="Index" asp-controller="AccountSettings" class="btn btn-primary">Ustawienia konta</a>
     </div>
 </div>
 

@@ -1,0 +1,15 @@
+@model TailorWebsite.ViewModels.VM.AddPhoneNumberViewModel
+@{
+    ViewData["Title"] = "Dodaj numer telefonu";
+}
+<h2 class="mb-4">Dodaj numer telefonu</h2>
+<form asp-action="AddPhoneNumber" method="post">
+    @Html.AntiForgeryToken()
+    <div class="mb-3">
+        <label asp-for="PhoneNumber" class="form-label"></label>
+        <input asp-for="PhoneNumber" class="form-control" />
+        <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary">Dodaj numer</button>
+    <a asp-action="Index" class="btn btn-secondary ms-2">Powrót</a>
+</form>
