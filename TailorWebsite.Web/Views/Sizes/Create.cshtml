@@ -2,7 +2,11 @@
 @{
     ViewData["Title"] = "Dodaj wymiary";
 }
+
 <h2 class="mb-4">Dodaj wymiary ciała</h2>
+<div class="mb-3 d-flex gap-2">
+    <a class="btn btn-outline-primary" asp-controller="Sizes" asp-action="List">Powrót do wymiorow ciala</a>
+</div>
 <form asp-action="Create" method="post" class="row g-3" novalidate>
     <div class="col-12">
         <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>

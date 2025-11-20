@@ -21,5 +21,7 @@ public class Order
 
     
 
+    public DateTime? UserPickupDate { get; set; } // Data odbioru wybrana przez użytkownika
+
     public Order() { }
 }

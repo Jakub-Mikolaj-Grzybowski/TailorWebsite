@@ -12,4 +12,7 @@ public interface IOrderService
     Task<OrderCreateViewModel?> GetByIdAsync(int id);
     Task<IEnumerable<OrderCreateViewModel>> GetByUserAsync(int userId);
     Task<bool> CancelOrderAsync(int id);
+
+    // Ustawienie daty odbioru przez użytkownika
+    Task<bool> SetUserPickupDateAsync(int orderId, DateTime userPickupDate);
 }

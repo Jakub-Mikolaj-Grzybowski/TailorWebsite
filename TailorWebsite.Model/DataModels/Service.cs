@@ -6,7 +6,8 @@ public class Service
     public string Name { get; set; } = null!;
     public decimal Price { get; set; }
     public string AdditionalMaterials { get; set; } = null!;
-    // Navigation property for related orders
+
+
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
     public Service() { }
