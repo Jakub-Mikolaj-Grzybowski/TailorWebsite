@@ -1,0 +1,57 @@
+usuniecie tabel
+
+DO $$
+DECLARE
+    r RECORD;
+BEGIN
+    -- Pętla przez wszystkie tabele w schemacie 'public'
+    FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
+        -- Dynamiczne wykonanie polecenia DROP TABLE
+        -- Użycie 'CASCADE' jest kluczowe, aby usunąć tabele
+        -- posiadające zależności (np. klucze obce)
+        EXECUTE 'DROP TABLE IF EXISTS public.' || quote_ident(r.tablename) || ' CASCADE';
+    END LOOP;
+END;
+$$;
+
+'
+
+MIGRACJA
+
+dotnet ef migrations <text> --project TailorWebsite.DAL --startup-project TailorWebsite.Web
+dotnet ef database update --project TailorWebsite.DAL --startup-project TailorWebsite.Web
+
+UPDATE 
+
+UPDATE "AspNetUsers"
+SET "EmailConfirmed" = true
+WHERE "Email" = 'miotacz1101@gmail.com';
+
+DELETE
+
+DELETE FROM "AspNetUsers"
+WHERE "Id" = 13;
+
+INSTER
+
+INSERT INTO "Missions" ("Id", "Name", "Description", "MissionType", "RequiredAmount", "RewardAmount")
+VALUES
+    (1, 'Początkujący Gracz', 'Zagraj w 10 dowolnych gier.', 0, 10, 100),
+    (2, 'Szczęśliwa Ręka', 'Wygraj łącznie 500 jednostek.', 1, 500, 250),
+    (3, 'Kręciciel', 'Wykonaj 50 spinów w grze slotowej.', 2, 50, 150),
+    (4, 'Inwestor', 'Dokonaj 2 depozytów.', 3, 2, 200),
+    (5, 'Na Fali', 'Wygraj 3 razy z rzędu w dowolnej grze.', 4, 3, 300)
+ON CONFLICT ("Id") DO NOTHING;
+
+
+RESET CALEJ BAZY
+
+DO $$
+DECLARE
+    r RECORD;
+BEGIN
+    FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = 'public') LOOP
+        EXECUTE 'DROP TABLE IF EXISTS public.' || quote_ident(r.tablename) || ' CASCADE';
+    END LOOP;
+END;
+$$;
