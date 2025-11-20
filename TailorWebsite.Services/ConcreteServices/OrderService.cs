@@ -61,4 +61,14 @@ public class OrderService : BaseService, IOrderService
         Logger.LogInformation("Cancelled Order {OrderId}", id);
         return true;
     }
+    public async Task<bool> SetUserPickupDateAsync(int orderId, DateTime userPickupDate)
+    {
+        var order = await DbContext.Orders.FindAsync(orderId);
+        if (order == null)
+            return false;
+        order.UserPickupDate = userPickupDate;
+        await DbContext.SaveChangesAsync();
+        Logger.LogInformation("User set pickup date {PickupDate} for Order {OrderId}", userPickupDate, orderId);
+        return true;
+    }
 }

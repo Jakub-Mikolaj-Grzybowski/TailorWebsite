@@ -29,5 +29,9 @@ namespace TailorWebsite.ViewModels.VM
         public OrderStatus Status { get; set; }
         public Service? Service { get; set; }
         public User? User { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "Data odbioru (wybrana przez użytkownika)")]
+        public DateTime? UserPickupDate { get; set; }
     }
 }

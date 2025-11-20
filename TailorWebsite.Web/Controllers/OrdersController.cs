@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -7,7 +8,6 @@ using TailorWebsite.DAL.EF;
 using TailorWebsite.Model.DataModels;
 using TailorWebsite.Services.Interface;
 using TailorWebsite.ViewModels.VM;
-using AutoMapper;
 
 namespace TailorWebsite.Web.Controllers;
 
@@ -25,13 +25,49 @@ public class OrdersController : Controller
     }
 
     [HttpGet]
+    public async Task<IActionResult> Details(int id)
+    {
+        var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(userIdStr) || !int.TryParse(userIdStr, out var userId))
+            return Unauthorized();
+
+        var order = await _orderService.GetByIdAsync(id);
+        if (order == null || order.User == null || order.User.Id != userId)
+            return NotFound();
+        return View(order);
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public async Task<IActionResult> Details(int id, DateTime? userPickupDate)
+    {
+        var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(userIdStr) || !int.TryParse(userIdStr, out var userId))
+            return Unauthorized();
+
+        var order = await _orderService.GetByIdAsync(id);
+        if (order == null || order.User == null || order.User.Id != userId)
+            return NotFound();
+
+        // Pozwól ustawić datę odbioru tylko jeśli zamówienie jest zakończone
+        if (order.Status == OrderStatus.Completed && userPickupDate.HasValue)
+        {
+            await _orderService.SetUserPickupDateAsync(id, userPickupDate.Value);
+            TempData["Success"] = "Data odbioru została ustawiona.";
+            return RedirectToAction(nameof(List));
+        }
+        TempData["Error"] = "Nie można ustawić daty odbioru dla tego zamówienia.";
+        return View(order);
+    }
+
+    [HttpGet]
     public async Task<IActionResult> List()
     {
         var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(userIdStr) || !int.TryParse(userIdStr, out var userId))
             return Unauthorized();
 
-        var orders = await _orderService.GetByUserAsync(userId); 
+        var orders = await _orderService.GetByUserAsync(userId);
         return View(orders);
     }
 
@@ -65,7 +101,8 @@ public class OrdersController : Controller
             return View(vm);
         }
 
-        var serviceEntity = await _db.Services.AsNoTracking()
+        var serviceEntity = await _db
+            .Services.AsNoTracking()
             .FirstOrDefaultAsync(s => s.Id == vm.ServiceId);
         if (serviceEntity != null)
         {
@@ -95,6 +132,7 @@ public class OrdersController : Controller
         }
 
         await _orderService.CancelOrderAsync(id);
+
         TempData["Success"] = "Zamówienie anulowane.";
         return RedirectToAction(nameof(List));
     }
