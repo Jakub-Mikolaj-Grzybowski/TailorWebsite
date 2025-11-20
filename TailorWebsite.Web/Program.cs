@@ -29,6 +29,7 @@ builder.Services.AddAutoMapper(typeof(MainProfile));
 builder.Services.AddScoped<ISizeService, SizeService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IAccountSettingsService, AccountSettingsService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

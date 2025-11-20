@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using TailorWebsite.Model.DataModels;
+using TailorWebsite.Services.Interface;
 using TailorWebsite.ViewModels.VM;
 
 namespace TailorWebsite.Web.Controllers;
@@ -12,12 +13,15 @@ namespace TailorWebsite.Web.Controllers;
 public class AccountSettingsController : Controller
 {
     private readonly UserManager<User> _userManager;
-    private readonly SignInManager<User> _signInManager;
+    private readonly IAccountSettingsService _accountSettingsService;
 
-    public AccountSettingsController(UserManager<User> userManager, SignInManager<User> signInManager)
+    public AccountSettingsController(
+        UserManager<User> userManager,
+        IAccountSettingsService accountSettingsService
+    )
     {
         _userManager = userManager;
-        _signInManager = signInManager;
+        _accountSettingsService = accountSettingsService;
     }
 
     [HttpGet]
@@ -43,10 +47,13 @@ public class AccountSettingsController : Controller
         if (user == null)
             return RedirectToAction("Index", "Home");
 
-        var result = await _userManager.ChangePasswordAsync(user, vm.OldPassword, vm.NewPassword);
+        var result = await _accountSettingsService.ChangePasswordAsync(
+            user,
+            vm.OldPassword,
+            vm.NewPassword
+        );
         if (result.Succeeded)
         {
-            await _signInManager.RefreshSignInAsync(user);
             TempData["Success"] = "Hasło zostało zmienione.";
             return RedirectToAction("Index");
         }
@@ -72,7 +79,7 @@ public class AccountSettingsController : Controller
         if (user == null)
             return RedirectToAction("Index", "Home");
 
-        var result = await _userManager.SetPhoneNumberAsync(user, vm.PhoneNumber);
+        var result = await _accountSettingsService.SetPhoneNumberAsync(user, vm.PhoneNumber);
         if (result.Succeeded)
         {
             TempData["Success"] = "Numer telefonu został dodany.";
@@ -91,10 +98,9 @@ public class AccountSettingsController : Controller
         if (user == null)
             return RedirectToAction("Index", "Home");
 
-        var result = await _userManager.DeleteAsync(user);
+        var result = await _accountSettingsService.DeleteAccountAsync(user);
         if (result.Succeeded)
         {
-            await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
         TempData["Error"] = "Nie udało się usunąć konta.";

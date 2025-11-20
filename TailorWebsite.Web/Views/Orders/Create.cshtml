@@ -18,30 +18,38 @@
     </div>
 }
 
-<form asp-action="Create" method="post" class="row g-3">
-    <div class="col-12">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    </div>
-    <div class="col-12">
-        <div class="mb-2">
-            <label asp-for="ServiceId" class="form-label">Usługa</label>
-            <select asp-for="ServiceId" asp-items="services" class="form-select"></select>
-            <span asp-validation-for="ServiceId" class="text-danger"></span>
+
+<form asp-action="Create" method="post" class="row g-4 justify-content-center">
+    <div class="col-12 col-md-8 col-lg-6">
+        <div class="card shadow-sm p-4 mb-4">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+            <div class="mb-3">
+                <label asp-for="ServiceId" class="form-label fw-semibold">Usługa</label>
+                <select asp-for="ServiceId" asp-items="services" class="form-select rounded-pill"></select>
+                <span asp-validation-for="ServiceId" class="text-danger"></span>
+            </div>
+            <div id="materialsBox" class="mb-3" style="display:none;">
+                <div class="alert alert-info">
+                    <strong>Potrzebne materiały:</strong>
+                    <span id="materialsText"></span>
+                </div>
+            </div>
+            <div class="row g-2">
+                <div class="col-md-6">
+                    <label asp-for="Quantity" class="form-label fw-semibold">Ilość</label>
+                    <input asp-for="Quantity" class="form-control rounded-pill" min="1" />
+                    <span asp-validation-for="Quantity" class="text-danger"></span>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-semibold">Cena</label>
+                    <input class="form-control rounded-pill" id="TotalPriceDisplay" readonly />
+                </div>
+            </div>
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary w-100 rounded-pill py-2 fw-bold">Złóż zamówienie</button>
+            </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <label asp-for="Quantity" class="form-label">Ilość</label>
-        <input asp-for="Quantity" class="form-control" min="1" />
-        <span asp-validation-for="Quantity" class="text-danger"></span>
-    </div>
-    <div class="col-md-6">
-        <label class="form-label">Cena</label>
-        <input class="form-control" id="TotalPriceDisplay" readonly />
-    </div>
-    <div class="col-12">
-        <button type="submit" class="btn btn-primary">Złóż zamówienie</button>
-    </div>
-
 </form>
 
 
@@ -51,9 +59,12 @@
 <script>
     (function () {
         const services = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.ServicesData ?? new object[0]));
+        const allServices = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.ServicesFull ?? new object[0]));
         const serviceSelect = document.getElementById('ServiceId');
         const qtyInput = document.getElementById('Quantity');
-    const totalInput = document.getElementById('TotalPriceDisplay');
+        const totalInput = document.getElementById('TotalPriceDisplay');
+        const materialsBox = document.getElementById('materialsBox');
+        const materialsText = document.getElementById('materialsText');
 
         function recalc() {
             if (!serviceSelect || !qtyInput || !totalInput) return;
@@ -63,11 +74,19 @@
             const svc = services.find(s => s.id === id);
             if (!svc) {
                 totalInput.value = '';
-                return;
+            } else {
+                const total = Number(svc.price) * qty;
+                totalInput.value = total.toFixed(2);
             }
-            const total = Number(svc.price) * qty;
-            // Ustawiamy prostą wartość liczbową, bez symbolu waluty, aby binder mógł ją poprawnie sparsować
-            totalInput.value = total.toFixed(2);
+            // Materiały
+            const svcFull = allServices.find(s => s.id === id);
+            if (svcFull && svcFull.additionalMaterials) {
+                materialsText.textContent = svcFull.additionalMaterials;
+                materialsBox.style.display = 'block';
+            } else {
+                materialsText.textContent = '';
+                materialsBox.style.display = 'none';
+            }
         }
 
         if (serviceSelect) serviceSelect.addEventListener('change', recalc);

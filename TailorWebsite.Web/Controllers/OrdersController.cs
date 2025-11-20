@@ -79,6 +79,7 @@ public class OrdersController : Controller
             .Select(s => new SelectListItem { Value = s.Id.ToString(), Text = $"{s.Name}" })
             .ToList();
         ViewBag.ServicesData = services.Select(s => new { id = s.Id, price = s.Price });
+        ViewBag.ServicesFull = services.Select(s => new { id = s.Id, name = s.Name, additionalMaterials = s.AdditionalMaterials });
         var vm = new OrderCreateViewModel { Quantity = 1, OrderDate = DateTime.Today };
         return View(vm);
     }
