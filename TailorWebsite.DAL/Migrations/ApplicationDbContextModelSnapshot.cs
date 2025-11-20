@@ -141,10 +141,10 @@ namespace TailorWebsite.DAL.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("OrderDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
-                    b.Property<DateTime>("OrderDueDate")
-                        .HasColumnType("timestamp with time zone");
+                    b.Property<DateTime?>("OrderDueDate")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
@@ -155,6 +155,9 @@ namespace TailorWebsite.DAL.Migrations
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("numeric");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
@@ -240,7 +243,7 @@ namespace TailorWebsite.DAL.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("ReviewDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("UserId")
                         .HasColumnType("integer");
@@ -264,7 +267,7 @@ namespace TailorWebsite.DAL.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("HipCircumference")
                         .HasColumnType("integer");
@@ -335,7 +338,7 @@ namespace TailorWebsite.DAL.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTime>("RegistrationDate")
-                        .HasColumnType("timestamp with time zone");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("text");

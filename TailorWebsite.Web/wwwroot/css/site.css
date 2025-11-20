@@ -17,3 +17,30 @@ body {
     flex-direction: column;
     min-height: 100vh;
 }
+
+/* Home page customizations */
+.hero-section {
+  background: url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
+}
+.hero-section .hero-overlay {
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.feature-tile:hover,
+.service-card:hover,
+.testimonial-tile:hover {
+  transform: translateY(-2px);
+  transition: transform .2s ease, box-shadow .2s ease;
+  box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+}
+
+.newsletter-section {
+  background-image: linear-gradient(90deg, #0d6efd, #3b82f6);
+}
+
+/* Navbar logo */
+.navbar-logo {
+  height: 32px;
+  width: auto;
+  display: inline-block;
+}

@@ -1,0 +1,80 @@
+@model TailorWebsite.ViewModels.VM.OrderCreateViewModel
+@using Microsoft.AspNetCore.Mvc.Rendering
+@{
+    ViewData["Title"] = "Nowe zamówienie";
+    var services = ViewBag.Services as List<SelectListItem> ?? new List<SelectListItem>();
+}
+
+<h2 class="mb-4">Nowe zamówienie</h2>
+<div class="mb-3">
+    <a class="btn btn-outline-secondary" asp-controller="Orders" asp-action="List">&laquo; Wróć do listy</a>
+    <a class="btn btn-outline-secondary ms-2" asp-controller="Profile" asp-action="Index">Profil</a>
+</div>
+
+@if (!services.Any())
+{
+    <div class="alert alert-warning">
+        Brak dostępnych usług do zamówienia. Najpierw dodaj usługi w bazie danych.
+    </div>
+}
+
+<form asp-action="Create" method="post" class="row g-3">
+    <div class="col-12">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    </div>
+    <div class="col-12">
+        <div class="mb-2">
+            <label asp-for="ServiceId" class="form-label">Usługa</label>
+            <select asp-for="ServiceId" asp-items="services" class="form-select"></select>
+            <span asp-validation-for="ServiceId" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <label asp-for="Quantity" class="form-label">Ilość</label>
+        <input asp-for="Quantity" class="form-control" min="1" />
+        <span asp-validation-for="Quantity" class="text-danger"></span>
+    </div>
+    <div class="col-md-6">
+        <label class="form-label">Cena</label>
+        <input class="form-control" id="TotalPriceDisplay" readonly />
+    </div>
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Złóż zamówienie</button>
+    </div>
+
+</form>
+
+
+
+<partial name="_ValidationScriptsPartial" />
+
+<script>
+    (function () {
+        const services = @Html.Raw(System.Text.Json.JsonSerializer.Serialize(ViewBag.ServicesData ?? new object[0]));
+        const serviceSelect = document.getElementById('ServiceId');
+        const qtyInput = document.getElementById('Quantity');
+    const totalInput = document.getElementById('TotalPriceDisplay');
+
+        function recalc() {
+            if (!serviceSelect || !qtyInput || !totalInput) return;
+            const id = parseInt(serviceSelect.value || '0');
+            const qtyRaw = parseInt(qtyInput.value || '1');
+            const qty = isNaN(qtyRaw) || qtyRaw < 1 ? 1 : qtyRaw;
+            const svc = services.find(s => s.id === id);
+            if (!svc) {
+                totalInput.value = '';
+                return;
+            }
+            const total = Number(svc.price) * qty;
+            // Ustawiamy prostą wartość liczbową, bez symbolu waluty, aby binder mógł ją poprawnie sparsować
+            totalInput.value = total.toFixed(2);
+        }
+
+        if (serviceSelect) serviceSelect.addEventListener('change', recalc);
+        if (qtyInput) {
+            qtyInput.addEventListener('input', recalc);
+            qtyInput.addEventListener('change', recalc);
+        }
+        document.addEventListener('DOMContentLoaded', recalc);
+    })();
+</script>

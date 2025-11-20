@@ -1,8 +1,11 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using TailorWebsite.DAL.EF;
 using TailorWebsite.Model.DataModels;
-
+using TailorWebsite.Services.ConcreteServices;
+using TailorWebsite.Services.Configuration.AutoMapperProfiles;
+using TailorWebsite.Services.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +24,12 @@ builder
     .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddTransient(typeof(ILogger), typeof(Logger<Program>));
 builder.Services.AddControllersWithViews();
+
+
+// Services
+builder.Services.AddAutoMapper(typeof(MainProfile));
+builder.Services.AddScoped<ISizeService, SizeService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

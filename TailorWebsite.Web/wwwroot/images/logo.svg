@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Krawiectwo – logo</title>
+  <desc id="desc">Okrągły znaczek w brązach z maszyną do szycia, trzema gwiazdkami i wstęgą z napisem KRAWIECTWO.</desc>
+  <defs>
+    <style>
+      .brown { fill: #6b3f22; }
+      .brown-light { fill: #8b5e3c; }
+      .stroke { fill: none; stroke: #6b3f22; stroke-width: 6; stroke-linecap: round; }
+      .bg { fill: #f5efe8; }
+      .white { fill: #ffffff; }
+      .text { font-family: 'Segoe UI', Arial, sans-serif; font-weight: 800; letter-spacing: .06em; }
+    </style>
+  </defs>
+
+  <!-- Badge background -->
+  <circle cx="128" cy="128" r="110" class="bg"/>
+  <circle cx="128" cy="128" r="110" class="stroke"/>
+
+  <!-- Decorative arcs (top/bottom) -->
+  <path class="stroke" d="M48 95a80 80 0 0 1 160 0"/>
+  <path class="stroke" d="M55 100a73 73 0 0 1 146 0"/>
+  <path class="stroke" d="M48 161a80 80 0 0 0 160 0"/>
+
+  <!-- Stars -->
+  <g class="brown" transform="translate(128,72)">
+    <polygon transform="translate(-36,0)" points="0,-8 2.4,-2.6 8, -2.4 3.2,1.0 4.6,6.5 0,3.5 -4.6,6.5 -3.2,1.0 -8,-2.4 -2.4,-2.6"/>
+    <polygon points="0,-10 3,-3.2 10,-3 4,1.2 5.6,8 0,4.4 -5.6,8 -4,1.2 -10,-3 -3,-3.2"/>
+    <polygon transform="translate(36,0)" points="0,-8 2.4,-2.6 8, -2.4 3.2,1.0 4.6,6.5 0,3.5 -4.6,6.5 -3.2,1.0 -8,-2.4 -2.4,-2.6"/>
+  </g>
+
+  <!-- Sewing machine silhouette (stylized) -->
+  <g class="brown" transform="translate(24,84)">
+    <!-- table/base -->
+    <rect x="12" y="84" width="196" height="16" rx="8"/>
+    <!-- body -->
+    <path d="M44 18h98c10 0 18 8 18 18v4h14c6 0 10 4 10 10v10h-22c-6 0-10 4-10 10v8h-64v-8c0-6-4-10-10-10H44V18z"/>
+    <!-- wheel -->
+    <circle cx="64" cy="40" r="10" class="white"/>
+    <!-- needle area -->
+    <rect x="158" y="48" width="8" height="22"/>
+    <!-- leg -->
+    <rect x="102" y="76" width="10" height="16"/>
+  </g>
+
+  <!-- Ribbon with text -->
+  <g transform="translate(0,8)">
+    <!-- tails -->
+    <path class="brown" d="M46 154 l-26 12 10 -18 -10 -18 26 12z"/>
+    <path class="brown" d="M210 154 l26 12 -10 -18 10 -18 -26 12z"/>
+    <!-- main ribbon -->
+    <rect x="56" y="140" width="144" height="36" rx="6" class="brown"/>
+    <rect x="62" y="146" width="132" height="24" rx="4" class="brown-light"/>
+    <!-- text -->
+    <text x="128" y="163" text-anchor="middle" class="white text" font-size="18">KRAWIECTWO</text>
+  </g>
+</svg>

@@ -278,3 +278,9 @@ tools/
 
 # Entry point for Rider to enable running projects in the WSL 2
 .run/
+
+
+#
+.github/
+przydatne.txt
+.fake
