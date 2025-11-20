@@ -7,19 +7,21 @@ using TailorWebsite.DAL.EF;
 using TailorWebsite.Model.DataModels;
 using TailorWebsite.Services.Interface;
 using TailorWebsite.ViewModels.VM;
+using AutoMapper;
 
 namespace TailorWebsite.Web.Controllers;
 
-[Authorize]
 public class OrdersController : Controller
 {
     private readonly IOrderService _orderService;
     private readonly ApplicationDbContext _db;
+    private readonly IMapper _mapper;
 
-    public OrdersController(IOrderService orderService, ApplicationDbContext db)
+    public OrdersController(IOrderService orderService, ApplicationDbContext db, IMapper mapper)
     {
         _orderService = orderService;
         _db = db;
+        _mapper = mapper;
     }
 
     [HttpGet]
@@ -29,7 +31,7 @@ public class OrdersController : Controller
         if (string.IsNullOrEmpty(userIdStr) || !int.TryParse(userIdStr, out var userId))
             return Unauthorized();
 
-        var orders = await _orderService.GetByUserAsync(userId);
+        var orders = await _orderService.GetByUserAsync(userId); 
         return View(orders);
     }
 
@@ -63,24 +65,13 @@ public class OrdersController : Controller
             return View(vm);
         }
 
-        var order = new Order
-        {
-            ServiceId = vm.ServiceId,
-            Quantity = vm.Quantity,
-            UserId = userId,
-            Status = "Pending",
-            OrderDate = DateTime.Now,
-            TotalPrice = 0m
-        };
-
-        // Oblicz cenę całkowitą na podstawie aktualnej ceny usługi
-        var serviceEntity = await _db.Services.AsNoTracking().FirstOrDefaultAsync(s => s.Id == vm.ServiceId);
+        var serviceEntity = await _db.Services.AsNoTracking()
+            .FirstOrDefaultAsync(s => s.Id == vm.ServiceId);
         if (serviceEntity != null)
         {
-            order.TotalPrice = serviceEntity.Price * order.Quantity;
+            vm.TotalPrice = serviceEntity.Price * vm.Quantity;
         }
-
-        await _orderService.PlaceOrderAsync(order);
+        await _orderService.PlaceOrderAsync(vm, userId);
         return RedirectToAction(nameof(List));
     }
 
@@ -92,12 +83,12 @@ public class OrdersController : Controller
         if (string.IsNullOrEmpty(userIdStr) || !int.TryParse(userIdStr, out var userId))
             return Unauthorized();
 
-        var order = await _orderService.GetByIdAsync(id);
-        if (order == null || order.UserId != userId)
+        var domainOrder = await _db.Orders.FirstOrDefaultAsync(o => o.Id == id);
+        if (domainOrder == null)
             return NotFound();
 
-        // (Optional) Only allow cancelling pending orders
-        if (!string.Equals(order.Status, "Pending", StringComparison.OrdinalIgnoreCase))
+        // Only allow cancelling pending orders
+        if (domainOrder.Status != OrderStatus.Pending)
         {
             TempData["Error"] = "Tego zamówienia nie można anulować.";
             return RedirectToAction(nameof(List));

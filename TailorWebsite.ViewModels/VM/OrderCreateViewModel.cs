@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using TailorWebsite.Model.DataModels;
 
 namespace TailorWebsite.ViewModels.VM
 {
@@ -9,13 +10,13 @@ namespace TailorWebsite.ViewModels.VM
         [Display(Name = "Service")]
         public int ServiceId { get; set; }
 
-    [DataType(DataType.Date)]
-    [Display(Name = "Due date")]
-    public DateTime? OrderDueDate { get; set; }
+        [DataType(DataType.Date)]
+        [Display(Name = "Due date")]
+        public DateTime? OrderDueDate { get; set; }
 
-    [DataType(DataType.Date)]
-    [Display(Name = "Order date")]
-    public DateTime OrderDate { get; set; } = DateTime.Today;
+        [DataType(DataType.Date)]
+        [Display(Name = "Order date")]
+        public DateTime OrderDate { get; set; } = DateTime.Today;
 
         [Range(1, 1000)]
         public int Quantity { get; set; } = 1;
@@ -23,5 +24,10 @@ namespace TailorWebsite.ViewModels.VM
         [DataType(DataType.Currency)]
         [Display(Name = "Cena")]
         public decimal? TotalPrice { get; set; }
+
+        public int Id { get; set; }
+        public OrderStatus Status { get; set; }
+        public Service? Service { get; set; }
+        public User? User { get; set; }
     }
 }

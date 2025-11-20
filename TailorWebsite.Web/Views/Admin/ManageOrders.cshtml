@@ -1,0 +1,39 @@
+@model IEnumerable<TailorWebsite.ViewModels.VM.OrderCreateViewModel>
+
+@{
+    ViewData["Title"] = "Zarządzaj Zamówieniami";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID Zamówienia</th>
+            <th>Użytkownik</th>
+            <th>Usługa</th>
+            <th>Ilość</th>
+            <th>Cena Całkowita</th>
+            <th>Status</th>
+            <th>Termin Odbioru</th>
+            <th>Akcje</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.User?.UserName</td>
+                <td>@order.Service?.Name</td>
+                <td>@order.Quantity</td>
+                <td>@(order.TotalPrice.HasValue ? order.TotalPrice.Value.ToString("C") : "-")</td>
+                <td>@order.Status.ToString()</td>
+                <td>@(order.OrderDueDate.HasValue ? order.OrderDueDate.Value.ToShortDateString() : "Oczekujący")</td>
+                <td>
+                    <a asp-action="EditOrder" asp-controller="Admin" asp-route-id="@order.Id" class="btn btn-primary btn-sm">Edytuj</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

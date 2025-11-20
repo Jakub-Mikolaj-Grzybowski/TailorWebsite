@@ -4,6 +4,8 @@ namespace TailorWebsite.ViewModels.VM;
 
 public class SizeCreateViewModel
 {
+    public int Id { get; set; }
+    public DateTime CreatedAt { get; set; }
     [Required(ErrorMessage = "Podaj obwód klatki piersiowej.")]
     [Range(30, 200, ErrorMessage = "Obwód klatki musi być w zakresie 30–200 cm.")]
     [Display(Name = "Obwód klatki piersiowej (cm)")]
@@ -23,4 +25,6 @@ public class SizeCreateViewModel
     [Range(30, 120, ErrorMessage = "Długość rękawa musi być w zakresie 30–120 cm.")]
     [Display(Name = "Długość rękawa (cm)")]
     public int SleeveLength { get; set; }
+
+   
 }

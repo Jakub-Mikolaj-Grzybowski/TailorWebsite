@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TailorWebsite.Services")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d70d93b5d1650881f49b825cd575e894bbd716a1")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+34867e79cf59a61aa61046e8e31a0559fbe7a2ac")]
 [assembly: System.Reflection.AssemblyProductAttribute("TailorWebsite.Services")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TailorWebsite.Services")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
