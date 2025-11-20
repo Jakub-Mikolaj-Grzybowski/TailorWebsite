@@ -3,48 +3,58 @@
     ViewData["Title"] = "Dodaj wymiary";
 }
 
-<h2 class="mb-4">Dodaj wymiary ciała</h2>
-<div class="mb-3 d-flex gap-2">
-    <a class="btn btn-outline-primary" asp-controller="Sizes" asp-action="List">Powrót do wymiorow ciala</a>
+<div class="container py-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Dodaj wymiary ciała</h4>
+                </div>
+                <div class="card-body">
+                    <div class="mb-3 d-flex gap-2">
+                        <a class="btn btn-outline-primary" asp-controller="Sizes" asp-action="List">Powrót do wymiarów ciała</a>
+                    </div>
+                    <form asp-action="Create" method="post" novalidate>
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+                        <div class="row g-3">
+                            <div class="col-md-6 col-lg-3">
+                                <label asp-for="ChestCircumference" class="form-label"></label>
+                                <input asp-for="ChestCircumference" class="form-control" type="number" step="1" placeholder="np. 96" />
+                                <span asp-validation-for="ChestCircumference" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label asp-for="WaistCircumference" class="form-label"></label>
+                                <input asp-for="WaistCircumference" class="form-control" type="number" step="1" placeholder="np. 78" />
+                                <span asp-validation-for="WaistCircumference" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label asp-for="HipCircumference" class="form-label"></label>
+                                <input asp-for="HipCircumference" class="form-control" type="number" step="1" placeholder="np. 102" />
+                                <span asp-validation-for="HipCircumference" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 col-lg-3">
+                                <label asp-for="SleeveLength" class="form-label"></label>
+                                <input asp-for="SleeveLength" class="form-control" type="number" step="1" placeholder="np. 62" />
+                                <span asp-validation-for="SleeveLength" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="mt-4 d-flex justify-content-end gap-2">
+                            <button type="submit" class="btn btn-primary">Zapisz</button>
+                            <a asp-action="List" class="btn btn-secondary">Lista</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-<form asp-action="Create" method="post" class="row g-3" novalidate>
-    <div class="col-12">
-        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
-    </div>
-    <div class="col-md-3">
-    <label asp-for="ChestCircumference" class="form-label"></label>
-    <input asp-for="ChestCircumference" class="form-control" type="number" step="1" placeholder="np. 96" />
-        <span asp-validation-for="ChestCircumference" class="text-danger"></span>
-    </div>
-    <div class="col-md-3">
-    <label asp-for="WaistCircumference" class="form-label"></label>
-    <input asp-for="WaistCircumference" class="form-control" type="number" step="1" placeholder="np. 78" />
-        <span asp-validation-for="WaistCircumference" class="text-danger"></span>
-    </div>
-    <div class="col-md-3">
-    <label asp-for="HipCircumference" class="form-label"></label>
-    <input asp-for="HipCircumference" class="form-control" type="number" step="1" placeholder="np. 102" />
-        <span asp-validation-for="HipCircumference" class="text-danger"></span>
-    </div>
-    <div class="col-md-3">
-    <label asp-for="SleeveLength" class="form-label"></label>
-    <input asp-for="SleeveLength" class="form-control" type="number" step="1" placeholder="np. 62" />
-        <span asp-validation-for="SleeveLength" class="text-danger"></span>
-    </div>
-    <div class="col-12">
-        <button type="submit" class="btn btn-primary">Zapisz</button>
-        <a asp-action="List" class="btn btn-secondary ms-2">Lista</a>
-    </div>
-</form>
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
         (function(){
             const $form = $("form");
-            // Re-parse in case of partial updates
             $form.removeData("validator").removeData("unobtrusiveValidation");
             $.validator.unobtrusive.parse($form);
-            // Validate on keyup for faster feedback
             if ($form.data('validator')) {
                 $form.validate().settings.onkeyup = function (element) { $(element).valid(); };
             }

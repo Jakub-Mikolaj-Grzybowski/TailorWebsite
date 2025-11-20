@@ -15,7 +15,10 @@ public class ProfileController : Controller
     private readonly IOrderService _orderService;
     private readonly ISizeService _sizeService;
 
-    public ProfileController(UserManager<User> userManager, IOrderService orderService, ISizeService sizeService)
+    public ProfileController(
+        UserManager<User> userManager,
+        IOrderService orderService,
+        ISizeService sizeService)
     {
         _userManager = userManager;
         _orderService = orderService;
@@ -37,6 +40,7 @@ public class ProfileController : Controller
             UserId = userId,
             Name = user?.Name ?? user?.UserName ?? "",
             Email = user?.Email ?? "",
+            PhoneNumber = user?.PhoneNumber ?? "",
             OrdersCount = orders.Count(),
             SizesCount = sizes.Count()
         };
