@@ -1,8 +1,8 @@
 bin/
-obj/
+obj
 .env
 .fake
-node_modules/
 przydatne_komendy.txt
 .github/
 .vs
+.vscode
