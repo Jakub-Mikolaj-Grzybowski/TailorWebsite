@@ -38,7 +38,7 @@ jobs:
 
     # Czekamy 30s, żeby połączenie się ustabilizowało
     - name: Wait for ZeroTier connection
-      run: sleep 30
+      run: sleep 1
     
     # Test połączenia (żebyś widział w logach czy działa)
     - name: Ping Raspberry Pi
@@ -68,6 +68,6 @@ jobs:
         port: 22
         timeout: 2m
         script: |
-          chmod +x /home/pi/tailor-app/TailorWebsite.Web
+          chmod +x /home/admin/tailor-app/TailorWebsite.Web
           sudo systemctl restart tailor.service
           
