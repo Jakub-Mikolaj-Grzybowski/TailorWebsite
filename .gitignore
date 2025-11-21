@@ -3,8 +3,7 @@ obj
 .env
 .fake
 przydatne_komendy.txt
-.github/
+github/
 .vs
 .vscode
-
-# czesc dalsza
+copilot-instructions.md

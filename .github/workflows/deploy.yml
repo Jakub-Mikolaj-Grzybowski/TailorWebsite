@@ -1,0 +1,56 @@
+name: Deploy to Raspberry Pi Zero 2
+
+on:
+  push:
+    branches: [ "main" ]
+  workflow_dispatch: # Pozwala uruchomić ręcznie przyciskiem
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    # 1. Instalacja .NET na serwerze GitHuba
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    # 2. Budowanie aplikacji (bez zmian w kodzie!)
+    # Używamy flagi --self-contained, żeby nie instalować .NET na malince
+    - name: Publish Application
+      run: |
+        dotnet publish ./TailorWebsite.Web/TailorWebsite.Web.csproj \
+        -c Release \
+        -r linux-arm64 \
+        --self-contained true \
+        -p:PublishSingleFile=true \
+        -o ./publish
+
+    # 3. Kopiowanie plików na Malinkę (SCP)
+    - name: Copy files via SSH
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.RPI_HOST }}
+        username: ${{ secrets.RPI_USER }}
+        key: ${{ secrets.RPI_SSH_KEY }}
+        port: ${{ secrets.RPI_PORT }}
+        source: "./publish/*"
+        target: "/home/pi/tailor-app" # Tu wyląduje aplikacja
+        strip_components: 1
+
+    # 4. Restart usługi na Malince
+    - name: Restart Service
+      uses: appleboy/ssh-action@master
+      with:  
+        host: ${{ secrets.RPI_HOST }}
+        username: ${{ secrets.RPI_USER }}
+        key: ${{ secrets.RPI_SSH_KEY }}
+        port: ${{ secrets.RPI_PORT }}
+        script: |
+          # Nadanie praw do uruchamiania (dla pewności)
+          chmod +x /home/pi/tailor-app/TailorWebsite.Web
+          # Restart usługi (którą zaraz stworzymy)
+          sudo systemctl restart tailor.service
