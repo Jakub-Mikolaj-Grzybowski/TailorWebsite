@@ -28,32 +28,32 @@ jobs:
         -p:PublishSingleFile=true \
         -o ./publish
 
-    # --- TO JEST NOWOŚĆ (BEZ TEGO NIE ZADZIAŁA!) ---
-    # GitHub musi dołączyć do Twojej sieci VPN, żeby widzieć Malinkę
+    # --- TO JEST TEN BRAKUJĄCY ELEMENT! ---
+    # GitHub musi dołączyć do Twojej sieci VPN
     - name: Join ZeroTier Network
       uses: zerotier/github-action@v1
       with:
         network_id: ${{ secrets.ZEROTIER_NETWORK_ID }}
         auth_token: ${{ secrets.ZEROTIER_CENTRAL_TOKEN }}
 
-    # Czekamy 30s, żeby sieć się ustabilizowała
+    # Czekamy 30s, żeby połączenie się ustabilizowało
     - name: Wait for ZeroTier connection
       run: sleep 30
     
-    # Szybki test, czy GitHub widzi Malinkę (Ping)
+    # Test połączenia (żebyś widział w logach czy działa)
     - name: Ping Raspberry Pi
       run: ping -c 5 ${{ secrets.RPI_HOST }}
-    # ------------------------------------------------
+    # --------------------------------------
 
-    # 3. Kopiowanie plików (z dodanym timeoutem)
+    # 3. Kopiowanie plików (z wydłużonym czasem oczekiwania)
     - name: Copy files via SSH
       uses: appleboy/scp-action@master
       with:
         host: ${{ secrets.RPI_HOST }}
         username: ${{ secrets.RPI_USER }}
         key: ${{ secrets.RPI_SSH_KEY }}
-        port: 22                  # ZeroTier zazwyczaj działa na standardowym porcie 22
-        timeout: 2m               # Dajemy 2 minuty czasu (bo Pi Zero jest wolne)
+        port: 22
+        timeout: 2m               
         source: "./publish/*"
         target: "/home/pi/tailor-app"
         strip_components: 1
@@ -70,3 +70,4 @@ jobs:
         script: |
           chmod +x /home/pi/tailor-app/TailorWebsite.Web
           sudo systemctl restart tailor.service
+          
