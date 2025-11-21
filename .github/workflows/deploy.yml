@@ -1,9 +1,9 @@
-name: Deploy to Raspberry Pi Zero 2
+name: Deploy to Raspberry Pi Zero 2 (ZeroTier)
 
 on:
   push:
     branches: [ "main" ]
-  workflow_dispatch: # Pozwala uruchomić ręcznie przyciskiem
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -12,14 +12,13 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    # 1. Instalacja .NET na serwerze GitHuba
+    # 1. Instalacja .NET
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
       with:
         dotnet-version: 8.0.x
 
-    # 2. Budowanie aplikacji (bez zmian w kodzie!)
-    # Używamy flagi --self-contained, żeby nie instalować .NET na malince
+    # 2. Budowanie aplikacji
     - name: Publish Application
       run: |
         dotnet publish ./TailorWebsite.Web/TailorWebsite.Web.csproj \
@@ -29,28 +28,45 @@ jobs:
         -p:PublishSingleFile=true \
         -o ./publish
 
-    # 3. Kopiowanie plików na Malinkę (SCP)
+    # --- TO JEST NOWOŚĆ (BEZ TEGO NIE ZADZIAŁA!) ---
+    # GitHub musi dołączyć do Twojej sieci VPN, żeby widzieć Malinkę
+    - name: Join ZeroTier Network
+      uses: zerotier/github-action@v1
+      with:
+        network_id: ${{ secrets.ZEROTIER_NETWORK_ID }}
+        auth_token: ${{ secrets.ZEROTIER_CENTRAL_TOKEN }}
+
+    # Czekamy 30s, żeby sieć się ustabilizowała
+    - name: Wait for ZeroTier connection
+      run: sleep 30
+    
+    # Szybki test, czy GitHub widzi Malinkę (Ping)
+    - name: Ping Raspberry Pi
+      run: ping -c 5 ${{ secrets.RPI_HOST }}
+    # ------------------------------------------------
+
+    # 3. Kopiowanie plików (z dodanym timeoutem)
     - name: Copy files via SSH
       uses: appleboy/scp-action@master
       with:
         host: ${{ secrets.RPI_HOST }}
         username: ${{ secrets.RPI_USER }}
         key: ${{ secrets.RPI_SSH_KEY }}
-        port: ${{ secrets.RPI_PORT }}
+        port: 22                  # ZeroTier zazwyczaj działa na standardowym porcie 22
+        timeout: 2m               # Dajemy 2 minuty czasu (bo Pi Zero jest wolne)
         source: "./publish/*"
-        target: "/home/pi/tailor-app" # Tu wyląduje aplikacja
+        target: "/home/pi/tailor-app"
         strip_components: 1
 
-    # 4. Restart usługi na Malince
+    # 4. Restart usługi
     - name: Restart Service
       uses: appleboy/ssh-action@master
-      with:  
+      with:
         host: ${{ secrets.RPI_HOST }}
         username: ${{ secrets.RPI_USER }}
         key: ${{ secrets.RPI_SSH_KEY }}
-        port: ${{ secrets.RPI_PORT }}
+        port: 22
+        timeout: 2m
         script: |
-          # Nadanie praw do uruchamiania (dla pewności)
           chmod +x /home/pi/tailor-app/TailorWebsite.Web
-          # Restart usługi (którą zaraz stworzymy)
           sudo systemctl restart tailor.service
