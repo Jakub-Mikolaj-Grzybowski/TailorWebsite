@@ -30,5 +30,8 @@ else
 {
     <div class="alert alert-info">Możliwość wyboru daty odbioru będzie dostępna po zakończeniu zamówienia przez krawcowa.</div>
 }
+<a asp-controller="OrderReview" asp-action="Create" asp-route-orderId="@Model.Id" class="btn btn-success">
+    Oceń zamówienie
+</a>
 
 <a asp-action="List" class="btn btn-secondary mt-3">Powrót do listy zamówień</a>

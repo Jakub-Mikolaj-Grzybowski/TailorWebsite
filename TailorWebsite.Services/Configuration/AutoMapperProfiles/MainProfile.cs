@@ -16,5 +16,7 @@ public class MainProfile : Profile
             .ForMember(d => d.TotalPrice, o => o.MapFrom(src => src.TotalPrice ?? 0m));
         CreateMap<Order, OrderCreateViewModel>()
             .ForMember(d => d.TotalPrice, o => o.MapFrom(src => src.TotalPrice));
+        CreateMap<OrderReviewViewModel, ServiceReview>();
+        CreateMap<ServiceReview, OrderReviewViewModel>();
     }
 }

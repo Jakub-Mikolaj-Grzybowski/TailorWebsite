@@ -30,6 +30,7 @@ builder.Services.AddScoped<ISizeService, SizeService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<IAccountSettingsService, AccountSettingsService>();
+builder.Services.AddScoped<IOrderReviewService, OrderReviewService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -40,7 +41,6 @@ if (app.Environment.IsDevelopment())
 else
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcorehsts.
     app.UseHsts();
 }
 app.UseHttpsRedirection();
@@ -56,7 +56,7 @@ using (var scope = app.Services.CreateScope())
 {
     var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
     dbContext.Database.Migrate();
-    
+
     var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<Role>>();
     var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
 
