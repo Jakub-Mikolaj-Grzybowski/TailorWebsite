@@ -18,8 +18,8 @@ public class Order
     //Navigation property for Service
     public int ServiceId { get; set; }
     public virtual Service Service { get; set; } = null!;
-
-    
+    // Navigation property for ServiceReview
+    public virtual ServiceReview ServiceReview { get; set; } = null!;
 
     public DateTime? UserPickupDate { get; set; } // Data odbioru wybrana przez użytkownika
 

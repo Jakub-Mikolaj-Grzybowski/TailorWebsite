@@ -53,5 +53,11 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, int>
             .WithMany(s => s.Sizes)
             .HasForeignKey(u => u.UserId)
             .OnDelete(DeleteBehavior.Cascade);
+        modelBuilder
+            .Entity<Order>()
+            .HasOne(o => o.ServiceReview)
+            .WithOne(sr => sr.Order)
+            .HasForeignKey<ServiceReview>(sr => sr.OrderId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }
