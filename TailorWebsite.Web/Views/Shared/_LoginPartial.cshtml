@@ -3,9 +3,44 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
+
+@using TailorWebsite.Services.Interface
+@inject INotificationService NotificationService
+
 <ul class="navbar-nav">
     @if (SignInManager.IsSignedIn(User))
     {
+        var user = await UserManager.GetUserAsync(User);
+        var notifications = user != null ? (await NotificationService.GetUserNotificationsAsync(user.Id)).Take(5).ToList() : new List<TailorWebsite.ViewModels.VM.NotificationViewModel>();
+        <li class="nav-item dropdown">
+            <a class="nav-link position-relative" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-bell"></i>
+                @if (notifications.Any(n => !n.IsRead))
+                {
+                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">@notifications.Count(n => !n.IsRead)</span>
+                }
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown" style="min-width: 300px;">
+                @if (!notifications.Any())
+                {
+                    <li><span class="dropdown-item text-muted">Brak powiadomień</span></li>
+                }
+                else
+                {
+                    @foreach (var notification in notifications)
+                    {
+                        <li>
+                            <a class="dropdown-item @(notification.IsRead ? "text-muted" : "fw-bold")" href="@Url.Action("Index", "Notification")">
+                                @notification.Message<br />
+                                <small class="text-secondary">@notification.CreatedAt.ToString()</small>
+                            </a>
+                        </li>
+                    }
+                    <li><hr class="dropdown-divider" /></li>
+                    <li><a class="dropdown-item text-center" href="@Url.Action("Index", "Notification")">Wszystkie powiadomienia</a></li>
+                }
+            </ul>
+        </li>
         <li class="nav-item">
             <a class="nav-link text-dark" asp-controller="Profile" asp-action="Index">Profil</a>
         </li>

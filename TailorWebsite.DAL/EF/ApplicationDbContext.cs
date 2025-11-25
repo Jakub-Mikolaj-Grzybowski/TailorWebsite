@@ -12,6 +12,8 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, int>
     public DbSet<Size> Sizes { get; set; }
     public DbSet<ServiceReview> ServiceReviews { get; set; }
 
+        public DbSet<Notification> Notifications { get; set; }
+
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options) { }
 

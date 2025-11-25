@@ -11,7 +11,6 @@ using TailorWebsite.ViewModels.VM;
 
 namespace TailorWebsite.Services.ConcreteServices;
 
-
 public class OrderService : BaseService, IOrderService
 {
     public OrderService(
@@ -61,6 +60,7 @@ public class OrderService : BaseService, IOrderService
         Logger.LogInformation("Cancelled Order {OrderId}", id);
         return true;
     }
+
     public async Task<bool> SetUserPickupDateAsync(int orderId, DateTime userPickupDate)
     {
         var order = await DbContext.Orders.FindAsync(orderId);
@@ -68,7 +68,11 @@ public class OrderService : BaseService, IOrderService
             return false;
         order.UserPickupDate = userPickupDate;
         await DbContext.SaveChangesAsync();
-        Logger.LogInformation("User set pickup date {PickupDate} for Order {OrderId}", userPickupDate, orderId);
+        Logger.LogInformation(
+            "User set pickup date {PickupDate} for Order {OrderId}",
+            userPickupDate,
+            orderId
+        );
         return true;
     }
 }

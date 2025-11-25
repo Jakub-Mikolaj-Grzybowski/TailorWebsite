@@ -10,6 +10,7 @@ namespace TailorWebsite.Services.ConcreteServices
 {
     public class AdminService : IAdminService
     {
+        private readonly INotificationService _notificationService;
         private readonly UserManager<User> _userManager;
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
@@ -17,12 +18,14 @@ namespace TailorWebsite.Services.ConcreteServices
         public AdminService(
             UserManager<User> userManager,
             ApplicationDbContext context,
-            IMapper mapper
+            IMapper mapper,
+            INotificationService notificationService
         )
         {
             _userManager = userManager;
             _context = context;
             _mapper = mapper;
+            _notificationService = notificationService;
         }
 
         public async Task<List<AdminUserViewModel>> GetAllUsersAsync()
@@ -67,12 +70,22 @@ namespace TailorWebsite.Services.ConcreteServices
 
         public async Task<bool> UpdateOrderAsync(OrderCreateViewModel model)
         {
-            var order = await _context.Orders.FindAsync(model.Id);
+            var order = await _context
+                .Orders.Include(s => s.Service)
+                .FirstOrDefaultAsync(o => o.Id == model.Id);
             if (order == null)
                 return false;
             order.Status = model.Status;
             order.OrderDueDate = model.OrderDueDate;
             await _context.SaveChangesAsync();
+
+            if (order.Status == OrderStatus.Completed)
+            {
+                await _notificationService.AddNotificationAsync(
+                    order.UserId,
+                    $"Twoje zamówienie nr {order.Service.Name} zostało ukończone."
+                );
+            }
             return true;
         }
     }

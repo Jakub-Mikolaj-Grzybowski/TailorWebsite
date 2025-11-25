@@ -1,0 +1,28 @@
+@model IEnumerable<TailorWebsite.ViewModels.VM.NotificationViewModel>
+@{
+    ViewData["Title"] = "Powiadomienia";
+}
+<h2>Powiadomienia</h2>
+@if (!Model.Any())
+{
+    <div class="alert alert-info">Brak powiadomień.</div>
+}
+else
+{
+    <ul class="list-group">
+        @foreach (var notification in Model)
+        {
+            <li class="list-group-item d-flex justify-content-between align-items-center @(notification.IsRead ? "text-muted" : "fw-bold")">
+                <span>@notification.Message</span>
+                <span class="badge bg-secondary">@notification.CreatedAt.ToString()</span>
+                @if (!notification.IsRead)
+                {
+                    <form asp-action="MarkAsRead" method="post" class="ms-2">
+                        <input type="hidden" name="id" value="@notification.Id" />
+                        <button type="submit" class="btn btn-sm btn-outline-primary">Oznacz jako przeczytane</button>
+                    </form>
+                }
+            </li>
+        }
+    </ul>
+}

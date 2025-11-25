@@ -18,7 +18,7 @@ $$;
 
 MIGRACJA
 
-dotnet ef migrations <text> --project TailorWebsite.DAL --startup-project TailorWebsite.Web
+dotnet ef migrations add <text> --project TailorWebsite.DAL --startup-project TailorWebsite.Web
 dotnet ef database update --project TailorWebsite.DAL --startup-project TailorWebsite.Web
 
 UPDATE 
