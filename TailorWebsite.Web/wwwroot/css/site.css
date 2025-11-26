@@ -8,14 +8,28 @@ html {
   }
 }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+
+.btn-gold {
+  background-color: #c5a059;
+  color: white;
+
+  border: none;
+  padding: 0.5 rem 1 rem;
+  font-size: 1 rem;
+  border-radius: 0.25 rem;
+}
+.btn-gold:hover {
+  background-color: #b08d4b !important;
+  color: rgb(0, 0, 0) ;
+  border-color: #c5a059 !important;
 }
 
 body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    background-color: #f8faff;
+    color: #212529;
 }
 
 /* Home page customizations */
@@ -32,10 +46,6 @@ body {
   transform: translateY(-2px);
   transition: transform .2s ease, box-shadow .2s ease;
   box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
-}
-
-.newsletter-section {
-  background-image: linear-gradient(90deg, #0d6efd, #3b82f6);
 }
 
 /* Navbar logo */
