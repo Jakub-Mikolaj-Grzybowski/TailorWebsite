@@ -1,0 +1,36 @@
+﻿
+.navbar {
+  background-color: #0d1b2a;
+}
+
+
+.navbar-brand,
+.nav-link {
+  color: #c5a059 !important;
+}
+
+
+.nav-link:hover {
+  color: #f8f5f2 !important;
+}
+
+footer {
+  background-color: #08111a;
+  color: #aaa;
+  padding: 10px 0;
+}
+
+footer a {
+  color: #aaa;
+  text-decoration: underline;
+}
+
+footer a:hover {
+  color: #c5a059;
+}
+
+main {
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+}
