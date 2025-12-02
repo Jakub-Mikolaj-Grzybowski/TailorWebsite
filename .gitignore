@@ -2,7 +2,7 @@ bin/
 obj
 .env
 .fake
-przydatne_komendy.txt
+przydatne.md
 dane do service.txt
 github/
 .vs
