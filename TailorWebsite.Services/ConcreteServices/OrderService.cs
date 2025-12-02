@@ -75,4 +75,23 @@ public class OrderService : BaseService, IOrderService
         );
         return true;
     }
+
+    public async Task<List<ServiceViewModel>> GetTopServicesAsync(int count)
+    {
+        var topServices = await DbContext
+            .Orders.Include(o => o.Service)
+            .GroupBy(o => new { o.ServiceId, o.Service.Name })
+            .Select(g => new ServiceViewModel
+            {
+                ServiceId = g.Key.ServiceId,
+                Name = g.Key.Name,
+                TotalOrders = g.Count(),
+            })
+            .OrderByDescending(s => s.TotalOrders)
+            .ThenBy(s => s.Name)
+            .Take(count)
+            .ToListAsync();
+
+        return topServices;
+    }
 }
