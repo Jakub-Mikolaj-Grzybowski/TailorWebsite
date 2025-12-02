@@ -1,3 +1,4 @@
+using System;
 using AutoMapper;
 using TailorWebsite.Model.DataModels;
 using TailorWebsite.ViewModels.VM;
@@ -8,17 +9,23 @@ public class MainProfile : Profile
 {
     public MainProfile()
     {
-        CreateMap<SizeCreateViewModel, Size>().ForMember(d => d.CreatedAt, o => o.Ignore());
+        CreateMap<SizeCreateViewModel, Size>();
         CreateMap<Size, SizeCreateViewModel>();
         CreateMap<OrderCreateViewModel, Order>()
-            .ForMember(d => d.OrderDate, o => o.MapFrom(src => src.OrderDate))
-            .ForMember(d => d.Status, o => o.MapFrom(_ => OrderStatus.Pending))
-            .ForMember(d => d.TotalPrice, o => o.MapFrom(src => src.TotalPrice ?? 0m));
-        CreateMap<Order, OrderCreateViewModel>()
-            .ForMember(d => d.TotalPrice, o => o.MapFrom(src => src.TotalPrice));
-        CreateMap<ReviewViewModel, ServiceReview>();
-        CreateMap<ServiceReview, ReviewViewModel>();
+            .ForMember(d => d.Status, o => o.MapFrom(_ => OrderStatus.Pending));
 
+        CreateMap<Order, OrderCreateViewModel>();
+
+        CreateMap<ReviewViewModel, ServiceReview>();
+
+        CreateMap<ServiceReview, ReviewViewModel>()
+            .ForMember(
+                d => d.UserFullName,
+                o =>
+                    o.MapFrom(src =>
+                        src.User != null ? $"{src.User.Name} {src.User.Surname}" : null
+                    )
+            );
         CreateMap<Notification, NotificationViewModel>();
         CreateMap<NotificationViewModel, Notification>();
     }
