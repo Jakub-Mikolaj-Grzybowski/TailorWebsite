@@ -72,7 +72,7 @@ public class OrdersController : Controller
     }
 
     [HttpGet]
-    public async Task<IActionResult> Create()
+    public async Task<IActionResult> Create(int? serviceId)
     {
         var services = await _db.Services.AsNoTracking().ToListAsync();
         ViewBag.Services = services
@@ -81,6 +81,10 @@ public class OrdersController : Controller
         ViewBag.ServicesData = services.Select(s => new { id = s.Id, price = s.Price });
         ViewBag.ServicesFull = services.Select(s => new { id = s.Id, name = s.Name, additionalMaterials = s.AdditionalMaterials });
         var vm = new OrderCreateViewModel { Quantity = 1, OrderDate = DateTime.Today };
+        if (serviceId.HasValue && services.Any(s => s.Id == serviceId.Value))
+        {
+            vm.ServiceId = serviceId.Value;
+        }
         return View(vm);
     }
 
