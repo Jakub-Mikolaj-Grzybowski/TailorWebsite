@@ -28,18 +28,13 @@ namespace TailorWebsite.Services.ConcreteServices
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<ReviewViewModel>> GetReviewsForOrderAsync(int orderId)
+        public async Task<List<ReviewViewModel>> GetLatestReviewsAsync(int count)
         {
-            var reviews = await _context
-                .ServiceReviews.Where(r => r.OrderId == orderId)
-                .ToListAsync();
-            return _mapper.Map<List<ReviewViewModel>>(reviews);
-        }
-
-        public async Task<List<ReviewViewModel>> GetReviewsForUserAsync(int userId)
-        {
-            var reviews = await _context
-                .ServiceReviews.Where(r => r.UserId == userId)
+            var reviews = await _context.ServiceReviews
+                .Include(r => r.User)
+                .OrderByDescending(r => r.ReviewDate)
+                .Take(count)
+                .AsNoTracking()
                 .ToListAsync();
             return _mapper.Map<List<ReviewViewModel>>(reviews);
         }

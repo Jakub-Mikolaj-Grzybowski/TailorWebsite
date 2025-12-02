@@ -15,6 +15,8 @@ namespace TailorWebsite.ViewModels.VM
         [MaxLength(1000)]
         public string? Comment { get; set; }
 
-        public DateTime CreatedAt { get; set; }
+        public DateTime ReviewDate { get; set; }
+
+        public string? UserFullName { get; set; }
     }
 }
