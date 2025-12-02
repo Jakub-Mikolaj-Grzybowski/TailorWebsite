@@ -16,9 +16,14 @@ public class MainProfile : Profile
 
         CreateMap<Order, OrderCreateViewModel>();
 
-        CreateMap<ReviewViewModel, ServiceReview>();
+        CreateMap<ReviewViewModel, ServiceReview>()
+            .ForMember(
+                d => d.ReviewDate,
+                o => o.MapFrom(src => src.ReviewDate == default ? DateTime.Now : src.ReviewDate)
+            );
 
         CreateMap<ServiceReview, ReviewViewModel>()
+            .ForMember(d => d.ReviewDate, o => o.MapFrom(src => src.ReviewDate))
             .ForMember(
                 d => d.UserFullName,
                 o =>
