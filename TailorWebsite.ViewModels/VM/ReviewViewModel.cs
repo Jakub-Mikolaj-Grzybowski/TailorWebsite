@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TailorWebsite.ViewModels.VM
 {
-    public class OrderReviewViewModel
+    public class ReviewViewModel
     {
         public int Id { get; set; }
         public int UserId { get; set; }
