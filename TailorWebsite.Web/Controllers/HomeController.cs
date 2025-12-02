@@ -11,18 +11,27 @@ public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
     private readonly IReviewService _reviewService;
+    private readonly IOrderService _orderService;
     private const int HomePageReviewCount = 3;
+    private const int HomePageServiceCount = 3;
 
-    public HomeController(ILogger<HomeController> logger, IReviewService reviewService)
+    public HomeController(
+        ILogger<HomeController> logger,
+        IReviewService reviewService,
+        IOrderService orderService
+    )
     {
         _logger = logger;
         _reviewService = reviewService;
+        _orderService = orderService;
     }
 
     public async Task<IActionResult> Index()
     {
         var reviews = await _reviewService.GetLatestReviewsAsync(HomePageReviewCount);
-        return View(reviews);
+        var services = await _orderService.GetTopServicesAsync(HomePageServiceCount);
+        var model = new HomePageViewModel { Reviews = reviews, PopularServices = services };
+        return View(model);
     }
 
     public IActionResult Privacy()

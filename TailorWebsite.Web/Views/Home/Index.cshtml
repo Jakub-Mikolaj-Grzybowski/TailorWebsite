@@ -1,4 +1,4 @@
-﻿@model List<TailorWebsite.ViewModels.VM.ReviewViewModel>
+﻿@model TailorWebsite.ViewModels.VM.HomePageViewModel
 
 @{
     ViewData["Title"] = "Pracownia Krawiecka";
@@ -13,7 +13,15 @@
                 <h1 class="display-5 fw-bold mb-3">Indywidualne szycie na miarę</h1>
                 <p class="lead mb-4">Zamów unikalne projekty dopasowane do Twojego stylu: suknie, garnitury, poprawki i więcej.</p>
                 <a href="#uslugi" class="btn btn-gold  btn-lg me-2">Nasze usługi</a>
-                <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-outline-light btn-lg">Złóż zamówienie</a>
+                @if (User?.Identity?.IsAuthenticated ?? false)
+                {
+                    <a asp-controller="Orders" asp-action="Create" class="btn btn-outline-light btn-lg">Złóż zamówienie</a>
+                }
+                else
+                {
+                    var returnUrl = Url.Action("Create", "Orders");
+                    <a asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl" class="btn btn-outline-light btn-lg">Złóż zamówienie</a>
+                }
             </div>
         </div>
     </div>
@@ -26,9 +34,9 @@
             <h2 class="fw-semibold">Opinie klientów</h2>
         </div>
         <div class="row g-4">
-            @if ((Model?.Count ?? 0) > 0)
+            @if ((Model?.Reviews?.Count ?? 0) > 0)
             {
-                foreach (var review in Model!)
+                foreach (var review in Model!.Reviews)
                 {
                     <div class="col-md-4">
                         <div class="card h-100 shadow-sm border-0 testimonial-tile">
@@ -68,37 +76,42 @@
             <h2 class="fw-semibold">Popularne usługi</h2>
         </div>
         <div class="row g-4">
-     
-            <div class="col-md-4">
-                <div class="service-card card h-100 border-0 shadow-sm">
-                    <img src="https://placehold.co/600x360" class="card-img-top" alt="Suknie" />
-                    <div class="card-body">
-                        <h5 class="card-title">Szycie sukien</h5>
-                        <p class="card-text small">Indywidualne projekty wizytowe i wieczorowe.</p>
-                        
+            @if ((Model?.PopularServices?.Count ?? 0) > 0)
+            {
+                foreach (var service in Model!.PopularServices)
+                {
+                    <div class="col-md-4">
+                        <div class="service-card card h-100 border-0 shadow-sm">
+                            <div class="card-body d-flex flex-column">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <h5 class="card-title mb-0">@service.Name</h5>
+                                  
+                                </div>
+                              
+                                <div class="mt-auto pt-2">
+                                    @if (User?.Identity?.IsAuthenticated ?? false)
+                                    {
+                                        <a asp-controller="Orders" asp-action="Create" asp-route-serviceId="@service.ServiceId" class="btn btn-sm btn-gold w-100">Zamów usługę</a>
+                                    }
+                                    else
+                                    {
+                                        var returnUrl = Url.Action("Create", "Orders", new { serviceId = service.ServiceId });
+                                        <a asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl" class="btn btn-sm btn-gold w-100">Zamów usługę</a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12">
+                    <div class="alert alert-light text-center mb-0">
+                        Brak danych o popularnych usługach.
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4">
-                <div class="service-card card h-100 border-0 shadow-sm">
-                    <img src="https://placehold.co/600x360" class="card-img-top" alt="Garnitury" />
-                    <div class="card-body">
-                        <h5 class="card-title">Garnitury na miarę</h5>
-                        <p class="card-text small">Perfekcyjne dopasowanie i materiały premium.</p>
-                       
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="service-card card h-100 border-0 shadow-sm">
-                    <img src="https://placehold.co/600x360" class="card-img-top" alt="Poprawki" />
-                    <div class="card-body">
-                        <h5 class="card-title">Poprawki krawieckie</h5>
-                        <p class="card-text small">Skracanie, zwężanie, dopasowania różnych części garderoby.</p>
-                       
-                    </div>
-                </div>
-            </div>
+            }
         </div>
     </div>
 </section>
