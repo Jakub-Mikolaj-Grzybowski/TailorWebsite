@@ -1,0 +1,26 @@
+.dark-blue {
+    background-color: #0d1b2a !important;
+    color: #f8f5f2 !important;
+}
+
+.text-warning {
+    color: #c5a059 !important;
+}
+
+.border-warning {
+    border-color: #c5a059 !important;
+}
+
+.bg-gold-subtle {
+    background-color: #fff9eb;
+    /* Jasny beż pod ikonę */
+}
+
+.notification-card {
+    transition: transform 0.2s ease;
+}
+
+/* Delikatny efekt najechania tylko dla nieprzeczytanych */
+.notification-card.shadow-sm:hover {
+    transform: translateX(5px);
+}

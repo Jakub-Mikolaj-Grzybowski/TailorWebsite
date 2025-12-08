@@ -1,0 +1,29 @@
+.dark-blue {
+    background-color: #0d1b2a !important;
+    color: #f8f5f2 !important;
+}
+
+.btn-gold {
+    background-color: #c5a059;
+    color: white;
+    border: none;
+}
+
+.btn-gold:hover {
+    background-color: #b08d4b;
+    color: white;
+}
+
+.service-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-radius: 1rem !important;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, .1) !important;
+}
+
+.text-warning {
+    color: #c5a059 !important;
+}

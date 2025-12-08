@@ -1,44 +1,85 @@
 @{
     ViewData["Title"] = "Ustawienia konta";
 }
-<h2 class="mb-4">Ustawienia konta</h2>
-@if (TempData["Success"] != null)
-{
-    <div class="alert alert-success">@TempData["Success"]</div>
-}
-@if (TempData["Error"] != null)
-{
-    <div class="alert alert-danger">@TempData["Error"]</div>
-}
-<div class="row g-4">
-    <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-                <h5 class="card-title">Zmiana hasła</h5>
-                <p class="card-text">Zmień swoje hasło do konta.</p>
-                <a asp-action="ChangePassword" class="btn btn-primary mt-auto">Zmień hasło</a>
-            </div>
+
+
+<section class="position-relative overflow-hidden rounded-4 text-white dark-blue mb-5 shadow p-4 p-lg-5">
+    <div class="row align-items-center position-relative" style="z-index: 1;">
+        <div class="col-lg-8">
+            <h5 class="text-warning text-uppercase letter-spacing-2 mb-2">Panel Użytkownika</h5>
+            <h1 class="display-5 fw-bold mb-3">Ustawienia Konta</h1>
+            <p class="lead text-white-50 mb-0">Zarządzaj bezpieczeństwem, danymi kontaktowymi i preferencjami swojego konta.</p>
+        </div>
+        <div class="col-lg-4 text-center mt-4 mt-lg-0 d-none d-lg-block">
+            <i class="bi bi-sliders text-warning" style="font-size: 8rem; opacity: 0.8;"></i>
         </div>
     </div>
-    <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-                <h5 class="card-title">Dodaj numer telefonu</h5>
-                <p class="card-text">Dodaj lub zaktualizuj swój numer telefonu.</p>
-                <a asp-action="AddPhoneNumber" class="btn btn-primary mt-auto">Dodaj numer telefonu</a>
+</section>
+
+
+<div class="container px-0">
+    <div class="row g-4">
+        
+ 
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 border-0 shadow-sm service-card text-center">
+                <div class="card-body p-4 d-flex flex-column align-items-center">
+                    <div class="bg-light rounded-circle p-3 mb-3 text-warning icon-box">
+                        <i class="bi bi-shield-lock-fill fs-2"></i>
+                    </div>
+                    <h4 class="fw-bold mb-2">Hasło i bezpieczeństwo</h4>
+                    <p class="text-muted small mb-4">Zaktualizuj swoje hasło, aby zapewnić bezpieczeństwo konta.</p>
+                    
+                    <div class="mt-auto w-100">
+                        <a asp-action="ChangePassword" class="btn btn-outline-dark w-100 stretched-link">Zmień hasło</a>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-12 col-md-6 col-lg-4">
-        <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-                <h5 class="card-title">Usuń konto</h5>
-                <p class="card-text">Trwale usuń swoje konto.</p>
-                <form asp-action="DeleteAccount" method="post" onsubmit="return confirm('Czy na pewno chcesz usunąć konto?');">
-                    @Html.AntiForgeryToken()
-                    <button type="submit" class="btn btn-danger mt-auto">Usuń konto</button>
-                </form>
+
+        
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 border-0 shadow-sm service-card text-center">
+                <div class="card-body p-4 d-flex flex-column align-items-center">
+                    <div class="bg-light rounded-circle p-3 mb-3 text-warning icon-box">
+                        <i class="bi bi-telephone-fill fs-2"></i>
+                    </div>
+                    <h4 class="fw-bold mb-2">Dane kontaktowe</h4>
+                    <p class="text-muted small mb-4">Dodaj lub zaktualizuj numer telefonu do kontaktu w sprawie zamówień.</p>
+                    
+                    <div class="mt-auto w-100">
+                        <a asp-action="AddPhoneNumber" class="btn btn-outline-dark w-100 stretched-link">Zarządzaj numerem</a>
+                    </div>
+                </div>
             </div>
         </div>
+
+   
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 border-0 shadow-sm service-card danger-card text-center">
+                <div class="card-body p-4 d-flex flex-column align-items-center">
+                    <div class="bg-danger-subtle rounded-circle p-3 mb-3 text-danger icon-box">
+                        <i class="bi bi-exclamation-triangle-fill fs-2"></i>
+                    </div>
+                    <h4 class="fw-bold mb-2 text-danger">Usuń konto</h4>
+                    <p class="text-muted small mb-4">Trwale usuń swoje konto i wszystkie powiązane dane. Tej operacji nie można cofnąć.</p>
+                    <div class="mt-auto w-100">
+                        <a asp-controller="Profile" asp-action="DeleteAccount" class="btn btn-outline-danger w-100 stretched-link">Usuń konto</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div class="card border-0 shadow-sm service-card text-center bg-light mt-2">
+                <div class="card-body p-3 d-flex align-items-center justify-content-center gap-2">
+                    <i class="bi bi-arrow-left-circle fs-5 text-muted"></i>
+                    <a asp-controller="Profile" asp-action="Index" class="stretched-link text-decoration-none text-muted fw-semibold">
+                        Wróć do profilu głównego
+                    </a>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>

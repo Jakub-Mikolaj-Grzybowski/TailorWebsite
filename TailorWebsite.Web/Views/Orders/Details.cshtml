@@ -1,18 +1,121 @@
 @model TailorWebsite.ViewModels.VM.OrderCreateViewModel
+
 @{
     ViewData["Title"] = "Szczegóły zamówienia";
+    
+    // Logika kolorów statusu (tylko wizualna)
+    string statusClass = Model.Status == TailorWebsite.Model.DataModels.OrderStatus.Completed ? "bg-success" : 
+                         (Model.Status == TailorWebsite.Model.DataModels.OrderStatus.Cancelled ? "bg-danger" : "bg-warning text-dark");
+                         
+    string statusName = Model.Status == TailorWebsite.Model.DataModels.OrderStatus.Completed ? "Zakończone" : 
+                        (Model.Status == TailorWebsite.Model.DataModels.OrderStatus.Cancelled ? "Anulowane" : "Oczekujące");
 }
-<h2>Szczegóły zamówienia</h2>
 
-<div>
-    <dl class="row">
-        <dt class="col-sm-3">Usługa</dt>
-        <dd class="col-sm-9">@Model.Service?.Name</dd>
-        <dt class="col-sm-3">Status</dt>
-        <dd class="col-sm-9">@Model.Status</dd>
-        <dt class="col-sm-3">Termin wykonania</dt>
-        <dd class="col-sm-9">@Model.OrderDueDate?.ToString("yyyy-MM-dd")</dd>
-    </dl>
+<div class="container py-4">
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        
+        @* NAGŁÓWEK: Tytuł i Usługa *@
+        <div class="card-header dark-blue text-white p-4">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+                <div>
+                    <h6 class="text-warning text-uppercase letter-spacing-2 mb-1">Szczegóły zamówienia</h6>
+                    <h2 class="fw-bold mb-0">@Model.Service?.Name</h2>
+                </div>
+                <div>
+                    <span class="badge @statusClass fs-6 px-3 py-2 rounded-pill shadow-sm">
+                        @statusName
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body p-4">
+            
+            @* SEKCJA 1: Szczegóły (Cena, Ilość, Termin) *@
+            <div class="row g-4 mb-5">
+                <div class="col-6 col-md-3">
+                    <div class="p-3 bg-light rounded-3 h-100">
+                        <small class="text-muted text-uppercase fw-bold" style="font-size: 0.75rem;">Cena</small>
+                        <p class="fs-4 fw-bold text-dark mb-0">
+                            @Model.TotalPrice?.ToString("0.00") <span class="fs-6 text-muted">PLN</span>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-md-3">
+                    <div class="p-3 bg-light rounded-3 h-100">
+                        <small class="text-muted text-uppercase fw-bold" style="font-size: 0.75rem;">Ilość</small>
+                        <p class="fs-4 fw-bold text-dark mb-0">@Model.Quantity <span class="fs-6 text-muted">szt.</span></p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6">
+                    <div class="p-3 bg-light rounded-3 h-100 d-flex align-items-center">
+                        <div>
+                            <small class="text-muted text-uppercase fw-bold" style="font-size: 0.75rem;">Termin wykonania</small>
+                            <p class="fs-5 fw-semibold text-dark mb-0">
+                                <i class="bi bi-calendar-event me-2 text-warning"></i>
+                                @(Model.OrderDueDate?.ToString("dd.MM.yyyy") ?? "W trakcie ustalania")
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="border-secondary opacity-10 my-4">
+
+            @* SEKCJA 2: Funkcjonalność wyboru daty (Twoja logika) *@
+            <div class="mb-5">
+                @if (Model.Status == TailorWebsite.Model.DataModels.OrderStatus.Completed)
+                {
+                    <div class="p-4 rounded-4 bg-gold-subtle border border-warning">
+                        <h4 class="fw-bold mb-3 text-dark">Wybierz termin odbioru</h4>
+                        <p class="text-muted mb-3">Twoje zamówienie jest gotowe. Wybierz dogodną datę odbioru.</p>
+                        
+                        <form asp-action="Details" method="post" class="row g-3 align-items-end">
+                            <input type="hidden" name="id" value="@Model.Id" />
+                            
+                            <div class="col-md-5">
+                                <label for="userPickupDate" class="form-label fw-semibold">Data odbioru:</label>
+                                <input type="date" name="userPickupDate" id="userPickupDate" 
+                                       class="form-control form-control-lg border-warning" 
+                                       value="@(Model.UserPickupDate?.ToString("yyyy-MM-dd"))" required />
+                            </div>
+                            
+                            <div class="col-md-4">
+                                <button type="submit" class="btn btn-gold btn-lg w-100 shadow-sm">
+                                    Zapisz datę odbioru
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                }
+                else
+                {
+                    <div class="alert alert-light border shadow-sm d-flex align-items-center p-4 rounded-3">
+                        <i class="bi bi-info-circle-fill text-muted fs-3 me-3"></i>
+                        <div>
+                            <h5 class="fw-bold mb-1">Odbiór zamówienia</h5>
+                            <p class="mb-0 text-muted">Możliwość wyboru daty odbioru pojawi się automatycznie tutaj, gdy krawcowa zmieni status na <strong>Completed</strong>.</p>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @* SEKCJA 3: Przyciski akcji (Twoje linki) *@
+            <div class="d-flex flex-wrap gap-3">
+                <a asp-action="List" class="btn btn-outline-dark px-4 py-2 rounded-pill">
+                    &laquo; Powrót do listy
+                </a>
+
+                @* Zachowany Twój kontroler OrderReview *@
+                <a asp-controller="OrderReview" asp-action="Create" asp-route-orderId="@Model.Id" class="btn btn-success px-4 py-2 rounded-pill ms-auto shadow-sm">
+                    <i class="bi bi-star-fill me-2"></i>Oceń zamówienie
+                </a>
+            </div>
+            
+        </div>
+    </div>
 </div>
 
 @if (Model.Status == TailorWebsite.Model.DataModels.OrderStatus.Completed)
