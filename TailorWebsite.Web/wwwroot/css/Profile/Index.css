@@ -1,0 +1,18 @@
+.dark-blue {
+    background-color: #0d1b2a !important;
+    color: #f8f5f2 !important;
+}
+
+.text-warning {
+    color: #c5a059 !important;
+    /* Kolor zgodny z btn-gold */
+}
+
+.service-card {
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175) !important;
+}

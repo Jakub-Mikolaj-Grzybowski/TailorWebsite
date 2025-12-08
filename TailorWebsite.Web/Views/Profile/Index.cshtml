@@ -3,46 +3,87 @@
     ViewData["Title"] = "Mój profil";
 }
 
-<div class="row align-items-center mb-4">
-    <div class="col-md-8">
-        <h1 class="h2 fw-bold mb-2">Witaj @Model.Name</h1>
-        <p class="text-muted mb-0"> Email: @Model.Email</p>
-        <p class="text-muted mb-0"> Numer telefonu: @Model.PhoneNumber</p>
-    </div>
-    <div class="col-md-4 text-md-end mt-3 mt-md-0">
-        <a asp-action="Index" asp-controller="AccountSettings" class="btn btn-primary">Ustawienia konta</a>
-    </div>
-</div>
 
-<div class="row g-4 mb-4">
-    <div class="col-sm-6 col-lg-3">
-        <div class="card shadow-sm border-0 h-100 stat-tile">
-            <div class="card-body">
-                <div class="small text-muted mb-1">Zamówienia</div>
-                <div class="fs-3 fw-semibold">@Model.OrdersCount</div>
+<section class="position-relative overflow-hidden rounded-4 text-white dark-blue mb-5 shadow p-4 p-lg-5">
+    <div class="row align-items-center position-relative" style="z-index: 1;">
+        <div class="col-lg-8">
+            <h5 class="text-warning text-uppercase letter-spacing-2 mb-2">Profil Klienta</h5>
+            <h1 class="display-5 fw-bold mb-3">Witaj, @Model.Name</h1>
+            
+            <div class="d-flex flex-column flex-md-row gap-4 text-white-50 mb-4">
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-envelope-fill text-warning me-2"></i>
+                    <span>@Model.Email</span>
+                </div>
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-telephone-fill text-warning me-2"></i>
+                    <span>@Model.PhoneNumber</span>
+                </div>
+            </div>
+
+            <div class="d-flex gap-2">
+                <a asp-action="Index" asp-controller="AccountSettings" class="btn btn-gold btn-lg">
+                    <i class="bi bi-gear-fill me-2"></i>Ustawienia konta
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-4 text-center mt-4 mt-lg-0 d-none d-lg-block">
+     
+            <i class="bi bi-person-circle text-warning" style="font-size: 8rem; opacity: 0.8;"></i>
+        </div>
+    </div>
+</section>
+
+
+<div class="container px-0">
+    <div class="row g-4">
+   
+        <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm service-card overflow-hidden">
+                <div class="card-body p-4 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h3 class="fw-bold mb-1">Twoje Zamówienia</h3>
+                            <p class="text-muted small">Historia i status realizacji</p>
+                        </div>
+                        <div class="bg-light rounded-circle p-3 text-warning">
+                            <i class="bi bi-bag-check-fill fs-4"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-auto">
+                        <div class="display-6 fw-bold text-dark mb-3">@Model.OrdersCount</div>
+                        <a asp-controller="Orders" asp-action="List" class="btn btn-outline-dark w-100">
+                            Przegląd zamówień
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+        <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm service-card overflow-hidden">
+                <div class="card-body p-4 d-flex flex-column">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h3 class="fw-bold mb-1">Twoje Wymiary</h3>
+                            <p class="text-muted small">Zapisane wymiary ciała</p>
+                        </div>
+                        <div class="bg-light rounded-circle p-3 text-warning">
+                            <i class="bi bi-rulers fs-4"></i>
+                        </div>
+                    </div>
+
+                    <div class="mt-auto">
+                        <div class="display-6 fw-bold text-dark mb-3">@Model.SizesCount</div>
+                        <a asp-controller="Sizes" asp-action="List" class="btn btn-outline-dark w-100">
+                            Przegląd wymiarów
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-sm-6 col-lg-3">
-        <div class="card shadow-sm border-0 h-100 stat-tile">
-            <div class="card-body">
-                <div class="small text-muted mb-1">Wymiary</div>
-                <div class="fs-3 fw-semibold">@Model.SizesCount</div>
-            </div>
-        </div>
-    </div>
 </div>
 
-<div class="card border-0 shadow-sm mb-4">
-    <div class="card-body">
-        <div class="d-flex flex-wrap gap-2">
-            <a class="btn btn-outline-primary" asp-controller="Orders" asp-action="List">Przegląd zamówień</a>
-            <a class="btn btn-outline-primary" asp-controller="Sizes" asp-action="List">Przegląd wymiarów</a>
-        </div>
-    </div>
-</div>
-
-<style>
-    .stat-tile:hover { box-shadow: 0 .75rem 1.5rem rgba(0,0,0,.1); transform: translateY(-2px); transition:.25s; }
-    .stat-tile { transition:.25s; }
-</style>

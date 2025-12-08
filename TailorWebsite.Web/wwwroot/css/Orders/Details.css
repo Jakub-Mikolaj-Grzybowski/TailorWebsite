@@ -1,0 +1,35 @@
+.dark-blue {
+    background-color: #0d1b2a !important;
+    color: #f8f5f2 !important;
+}
+
+.text-warning {
+    color: #c5a059 !important;
+}
+
+.btn-gold {
+    background-color: #c5a059;
+    color: white;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-gold:hover {
+    background-color: #b08d4b;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.bg-gold-subtle {
+    background-color: #fdfbf7;
+    /* Bardzo jasny beż */
+}
+
+.border-warning {
+    border-color: #c5a059 !important;
+}
+
+.form-control:focus {
+    border-color: #c5a059;
+    box-shadow: 0 0 0 0.25rem rgba(197, 160, 89, 0.25);
+}

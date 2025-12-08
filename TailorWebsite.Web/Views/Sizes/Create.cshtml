@@ -5,52 +5,91 @@
 
 <div class="container py-4">
     <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10">
-            <div class="card shadow-sm border-0">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">Dodaj wymiary ciała</h4>
+        <div class="col-lg-8">
+            
+            <div class="card shadow border-0 rounded-4 overflow-hidden">
+                
+                @* Nagłówek Formularza *@
+                <div class="card-header dark-blue text-white p-4 text-center">
+                    <h4 class="mb-1 fw-bold">Nowe Pomiary</h4>
+                    <p class="mb-0 text-white-50 small">Wprowadź aktualne wymiary w centymetrach</p>
                 </div>
-                <div class="card-body">
-                    <div class="mb-3 d-flex gap-2">
-                        <a class="btn btn-outline-primary" asp-controller="Sizes" asp-action="List">Powrót do wymiarów ciała</a>
-                    </div>
+
+                <div class="card-body p-4 p-md-5">
+                    
                     <form asp-action="Create" method="post" novalidate>
-                        <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
-                        <div class="row g-3">
-                            <div class="col-md-6 col-lg-3">
-                                <label asp-for="ChestCircumference" class="form-label"></label>
-                                <input asp-for="ChestCircumference" class="form-control" type="number" step="1" placeholder="np. 96" />
-                                <span asp-validation-for="ChestCircumference" class="text-danger"></span>
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3 mb-4" role="alert"></div>
+                        
+                        <div class="row g-4">
+                            @* Klatka piersiowa *@
+                            <div class="col-md-6">
+                                <label asp-for="ChestCircumference" class="form-label fw-semibold text-muted small text-uppercase">Klatka piersiowa</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-warning"></span>
+                                    <input asp-for="ChestCircumference" class="form-control border-start-0 ps-0" type="number" step="1" placeholder="np. 96" />
+                                    <span class="input-group-text bg-light text-muted">cm</span>
+                                </div>
+                                <span asp-validation-for="ChestCircumference" class="text-danger small mt-1 d-block"></span>
                             </div>
-                            <div class="col-md-6 col-lg-3">
-                                <label asp-for="WaistCircumference" class="form-label"></label>
-                                <input asp-for="WaistCircumference" class="form-control" type="number" step="1" placeholder="np. 78" />
-                                <span asp-validation-for="WaistCircumference" class="text-danger"></span>
+
+                            @* Talia *@
+                            <div class="col-md-6">
+                                <label asp-for="WaistCircumference" class="form-label fw-semibold text-muted small text-uppercase">Talia</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-warning"></span>
+                                    <input asp-for="WaistCircumference" class="form-control border-start-0 ps-0" type="number" step="1" placeholder="np. 78" />
+                                    <span class="input-group-text bg-light text-muted">cm</span>
+                                </div>
+                                <span asp-validation-for="WaistCircumference" class="text-danger small mt-1 d-block"></span>
                             </div>
-                            <div class="col-md-6 col-lg-3">
-                                <label asp-for="HipCircumference" class="form-label"></label>
-                                <input asp-for="HipCircumference" class="form-control" type="number" step="1" placeholder="np. 102" />
-                                <span asp-validation-for="HipCircumference" class="text-danger"></span>
+
+                            @* Biodra *@
+                            <div class="col-md-6">
+                                <label asp-for="HipCircumference" class="form-label fw-semibold text-muted small text-uppercase">Biodra</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-warning"></span>
+                                    <input asp-for="HipCircumference" class="form-control border-start-0 ps-0" type="number" step="1" placeholder="np. 102" />
+                                    <span class="input-group-text bg-light text-muted">cm</span>
+                                </div>
+                                <span asp-validation-for="HipCircumference" class="text-danger small mt-1 d-block"></span>
                             </div>
-                            <div class="col-md-6 col-lg-3">
-                                <label asp-for="SleeveLength" class="form-label"></label>
-                                <input asp-for="SleeveLength" class="form-control" type="number" step="1" placeholder="np. 62" />
-                                <span asp-validation-for="SleeveLength" class="text-danger"></span>
+
+                            @* Rękaw *@
+                            <div class="col-md-6">
+                                <label asp-for="SleeveLength" class="form-label fw-semibold text-muted small text-uppercase">Długość rękawa</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-white border-end-0 text-warning"></span>
+                                    <input asp-for="SleeveLength" class="form-control border-start-0 ps-0" type="number" step="1" placeholder="np. 62" />
+                                    <span class="input-group-text bg-light text-muted">cm</span>
+                                </div>
+                                <span asp-validation-for="SleeveLength" class="text-danger small mt-1 d-block"></span>
                             </div>
                         </div>
-                        <div class="mt-4 d-flex justify-content-end gap-2">
-                            <button type="submit" class="btn btn-primary">Zapisz</button>
-                            <a asp-action="List" class="btn btn-secondary">Lista</a>
+
+                        <div class="mt-5 d-flex gap-3">
+                            <a asp-action="List" class="btn btn-outline-secondary px-4">Anuluj</a>
+                            <button type="submit" class="btn btn-gold flex-fill shadow-sm fw-bold">
+                                <i class="bi bi-save me-2"></i>Zapisz wymiary
+                            </button>
                         </div>
                     </form>
                 </div>
             </div>
+            
+            <div class="text-center mt-4">
+                <a asp-action="List" class="text-muted text-decoration-none small">
+                    <i class="bi bi-arrow-left me-1"></i> Powrót do listy wymiarów
+                </a>
+            </div>
+
         </div>
     </div>
 </div>
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
     <script>
+        // Zachowany skrypt walidacji z Twojego pliku
         (function(){
             const $form = $("form");
             $form.removeData("validator").removeData("unobtrusiveValidation");
@@ -61,3 +100,4 @@
         })();
     </script>
 }
+
