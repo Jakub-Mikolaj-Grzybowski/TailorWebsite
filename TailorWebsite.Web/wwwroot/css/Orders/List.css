@@ -1,0 +1,19 @@
+.dark-blue {
+    background-color: #0d1b2a !important;
+    color: #f8f5f2 !important;
+}
+
+/* Karty z delikatnym efektem podniesienia */
+.service-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .1) !important;
+}
+
+/* Stylizacja ceny */
+.card-title {
+    color: #0d1b2a;
+}

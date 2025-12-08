@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -46,5 +47,28 @@ public class ProfileController : Controller
         };
 
         return View(vm);
+    }
+
+    public async Task<IActionResult> DeleteAccount()
+    {
+        var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(userIdStr) || !int.TryParse(userIdStr, out var userId))
+            return Unauthorized();
+
+        var user = await _userManager.FindByIdAsync(userIdStr);
+        if (user == null)
+            return NotFound();
+
+        var result = await _userManager.DeleteAsync(user);
+        if (!result.Succeeded)
+        {
+           
+            return BadRequest("Nie udało się usunąć konta.");
+        }
+
+     
+        await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
+
+        return RedirectToAction("Index", "Home");
     }
 }

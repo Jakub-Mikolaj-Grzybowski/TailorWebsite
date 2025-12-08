@@ -33,7 +33,7 @@ namespace TailorWebsite.Web.Controllers
             {
                 model.UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
                 await _orderReviewService.AddReviewAsync(model);
-                return RedirectToAction("Index", "Orders");
+                return RedirectToAction("List", "Orders");
             }
             return View(model);
         }

@@ -1,48 +1,136 @@
+@using TailorWebsite.Model.DataModels
 @model IEnumerable<TailorWebsite.ViewModels.VM.OrderCreateViewModel>
 @{
     ViewData["Title"] = "Moje zamówienia";
+
+    // Funkcja pomocnicza do kolorów statusów
+    string GetStatusClass(OrderStatus status) => status switch
+    {
+        OrderStatus.Pending => "bg-warning text-dark",    // Oczekujące - Żółty
+        OrderStatus.InProgress => "bg-info text-dark",    // W realizacji - Niebieski jasny
+        OrderStatus.Completed => "bg-success",            // Zakończone - Zielony
+        _ => "bg-secondary"
+    };
+
+    // Funkcja pomocnicza do tłumaczenia statusów (jeśli nie masz tego w modelu)
+    string GetStatusName(OrderStatus status) => status switch
+    {
+        OrderStatus.Pending => "Oczekujące",
+        OrderStatus.InProgress => "W realizacji",
+        OrderStatus.Completed => "Zakończone",
+        _ => status.ToString()
+    };
 }
-<h2 class="mb-4">Moje zamówienia</h2>
+
+@* Sekcja Nagłówkowa *@
+<section class="position-relative overflow-hidden rounded-4 text-white dark-blue mb-4 shadow p-4">
+    <div class="row align-items-center position-relative" style="z-index: 1;">
+        <div class="col-lg-8">
+            <h5 class="text-warning text-uppercase letter-spacing-2 mb-2">Historie i Statusy</h5>
+            <h1 class="display-6 fw-bold mb-2">Moje zamówienia</h1>
+            <p class="text-white-50 mb-0">Śledź postępy zamówień i przeglądaj historię zleceń.</p>
+        </div>
+        <div class="col-lg-4 text-end d-none d-lg-block">
+            <i class="bi bi-bag-check text-warning" style="font-size: 5rem; opacity: 0.5;"></i>
+        </div>
+    </div>
+</section>
+
+@* Powiadomienia *@
 @if (TempData["Success"] != null)
 {
-    <div class="alert alert-success">@TempData["Success"]</div>
+    <div class="alert alert-success rounded-3 shadow-sm border-0 mb-4 d-flex align-items-center">
+        <i class="bi bi-check-circle-fill me-2 fs-5"></i> @TempData["Success"]
+    </div>
 }
 @if (TempData["Error"] != null)
 {
-    <div class="alert alert-danger">@TempData["Error"]</div>
+    <div class="alert alert-danger rounded-3 shadow-sm border-0 mb-4 d-flex align-items-center">
+        <i class="bi bi-exclamation-circle-fill me-2 fs-5"></i> @TempData["Error"]
+    </div>
 }
-<div class="mb-3">
-    <a class="btn btn-outline-secondary" asp-controller="Profile" asp-action="Index">&laquo; Powrót do profilu</a>
-    <a class="btn btn-primary ms-2" asp-controller="Orders" asp-action="Create">Nowe zamówienie</a>
+
+@* Pasek narzędzi *@
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <a asp-controller="Profile" asp-action="Index" class="btn btn-link text-decoration-none text-muted ps-0">
+        <i class="bi bi-arrow-left me-1"></i> Powrót do profilu
+    </a>
+    <a asp-controller="Orders" asp-action="Create" class="btn btn-gold shadow-sm">
+        <i class="bi bi-plus-lg me-1"></i> Nowe zamówienie
+    </a>
 </div>
 
-<div class="row g-4 justify-content-start">
+@* Lista Zamówień *@
+<div class="row g-4">
 @if (Model != null && Model.Any())
 {
     foreach (var o in Model)
     {
-        <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
-            <div class="card shadow-sm h-100 w-100" style="margin-bottom: 16px;">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">@o.Service?.Name</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">Status: @o.Status.ToString()</h6>
-                    <ul class="list-unstyled mb-3">
-                        <li><strong>Data zamówienia:</strong> @o.OrderDate.ToString("yyyy-MM-dd")</li>
-                        <li><strong>@(o.UserPickupDate.HasValue ? "Termin odbioru" : "Termin wykonania"):</strong> @(o.UserPickupDate.HasValue ? o.UserPickupDate.Value.ToString("yyyy-MM-dd") : (o.OrderDueDate.HasValue ? o.OrderDueDate.Value.ToString("yyyy-MM-dd") : "Pending"))</li>
-                        <li><strong>Ilość:</strong> @o.Quantity</li>
-                        <li><strong>Cena:</strong> @o.TotalPrice</li>
-                    </ul>
-                    <div class="d-flex gap-2 mt-auto">
-                        <a asp-action="Details" asp-route-id="@o.Id" class="btn btn-info flex-fill">Szczegóły</a>
-                        @if (o.Status == TailorWebsite.Model.DataModels.OrderStatus.Pending)
+        <div class="col-md-6 col-lg-4">
+            <div class="card h-100 border-0 shadow-sm service-card position-relative overflow-hidden">
+                @* Pasek koloru statusu *@
+                <div class="position-absolute top-0 start-0 w-1 h-100 @GetStatusClass(o.Status).Replace("text-dark","").Replace("bg-", "bg-opacity-75 bg-")" style="width: 5px;"></div>
+
+                <div class="card-body p-4 d-flex flex-column">
+                    
+                    @* Nagłówek Karty *@
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <span class="badge @GetStatusClass(o.Status) rounded-pill mb-2">
+                                @GetStatusName(o.Status)
+                            </span>
+                            <h5 class="card-title fw-bold mb-0">@o.Service?.Name</h5>
+                        </div>
+                        <div class="text-end">
+                            <span class="fs-5 fw-bold text-dark">@o.TotalPrice PLN</span>
+                        </div>
+                    </div>
+
+                    @* Szczegóły *@
+                    <div class="mb-4">
+                        <div class="d-flex align-items-center text-muted mb-2 small">
+                            <i class="bi bi-calendar-event me-2 text-warning"></i>
+                            <span>Złożono: <strong>@o.OrderDate.ToString("dd.MM.yyyy")</strong></span>
+                        </div>
+                        
+                        <div class="d-flex align-items-center text-muted mb-2 small">
+                             @if (o.UserPickupDate.HasValue)
+                             {
+                                 <i class="bi bi-clock-history me-2 text-warning"></i>
+                                 <span>Termin odbioru: <strong>@o.UserPickupDate.Value.ToString("dd.MM.yyyy")</strong></span>
+                             }
+                             else
+                             {
+                                 <i class="bi bi-hourglass-split me-2 text-warning"></i>
+                                 <span>Termin wyk.: <strong>@(o.OrderDueDate.HasValue ? o.OrderDueDate.Value.ToString("dd.MM.yyyy") : "Ustalamy...")</strong></span>
+                             }
+                        </div>
+
+                        <div class="d-flex align-items-center text-muted small">
+                            <i class="bi bi-layers me-2 text-warning"></i>
+                            <span>Ilość: <strong>@o.Quantity szt.</strong></span>
+                        </div>
+                    </div>
+
+                    @* Akcje *@
+                    <div class="mt-auto d-flex gap-2">
+                        <a asp-action="Details" asp-route-id="@o.Id" class="btn btn-outline-dark btn-sm flex-fill">
+                            Szczegóły
+                        </a>
+
+                        @if (o.Status == OrderStatus.Pending)
                         {
                             <form asp-action="Cancel" method="post" class="flex-fill">
                                 @Html.AntiForgeryToken()
                                 <input type="hidden" name="id" value="@o.Id" />
-                                <button type="submit" class="btn btn-outline-danger w-100" onclick="return confirm('Anulować to zamówienie?');">Anuluj</button>
+                                <button type="submit" class="btn btn-outline-danger btn-sm w-100" 
+                                        onclick="return confirm('Czy na pewno chcesz anulować to zamówienie?');">
+                                    Anuluj
+                                </button>
                             </form>
                         }
                     </div>
+
                 </div>
             </div>
         </div>
@@ -50,9 +138,21 @@
 }
 else
 {
+    @* Empty State *@
     <div class="col-12">
-        <div class="alert alert-info text-center">Brak zamówień.</div>
+        <div class="card border-0 shadow-sm text-center py-5">
+            <div class="card-body">
+                <div class="bg-light rounded-circle p-4 d-inline-block mb-3">
+                    <i class="bi bi-basket text-muted" style="font-size: 3rem;"></i>
+                </div>
+                <h3 class="fw-bold">Brak zamówień</h3>
+                <p class="text-muted mb-4">Nie masz jeszcze żadnych aktywnych ani archiwalnych zamówień.</p>
+                <a asp-controller="Orders" asp-action="Create" class="btn btn-gold px-4 py-2">
+                    Złóż pierwsze zamówienie
+                </a>
+            </div>
+        </div>
     </div>
 }
 </div>
- 
+
