@@ -8,32 +8,32 @@ using TailorWebsite.ViewModels.VM;
 namespace TailorWebsite.Web.Controllers
 {
     [Authorize]
-    public class OrderReviewController : Controller
+    public class ReviewController : Controller
     {
-        private readonly IOrderReviewService _orderReviewService;
+        private readonly IReviewService _reviewService;
 
-        public OrderReviewController(IOrderReviewService orderReviewService)
+        public ReviewController(IReviewService reviewService)
         {
-            _orderReviewService = orderReviewService;
+            _reviewService = reviewService;
         }
 
         [HttpGet]
         public IActionResult Create(int orderId)
         {
             var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-            var model = new OrderReviewViewModel { OrderId = orderId, UserId = userId };
+            var model = new ReviewViewModel { OrderId = orderId, UserId = userId };
             return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(OrderReviewViewModel model)
+        public async Task<IActionResult> Create(ReviewViewModel model)
         {
             if (ModelState.IsValid)
             {
                 model.UserId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                await _orderReviewService.AddReviewAsync(model);
-                return RedirectToAction("List", "Orders");
+                await _reviewService.AddReviewAsync(model);
+                return RedirectToAction("Index", "Orders");
             }
             return View(model);
         }

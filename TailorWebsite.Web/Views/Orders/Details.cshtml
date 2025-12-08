@@ -118,3 +118,23 @@
     </div>
 </div>
 
+@if (Model.Status == TailorWebsite.Model.DataModels.OrderStatus.Completed)
+{
+    <form asp-action="Details" method="post">
+        <input type="hidden" name="id" value="@Model.Id" />
+        <div class="form-group">
+            <label for="userPickupDate">Wybierz datę odbioru:</label>
+            <input type="date" name="userPickupDate" id="userPickupDate" class="form-control" value="@(Model.UserPickupDate?.ToString("yyyy-MM-dd"))" required />
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">Zapisz datę odbioru</button>
+    </form>
+}
+else
+{
+    <div class="alert alert-info">Możliwość wyboru daty odbioru będzie dostępna po zakończeniu zamówienia przez krawcowa.</div>
+}
+<a asp-controller="Review" asp-action="Create" asp-route-orderId="@Model.Id" class="btn btn-success">
+    Oceń zamówienie
+</a>
+
+<a asp-action="List" class="btn btn-secondary mt-3">Powrót do listy zamówień</a>
