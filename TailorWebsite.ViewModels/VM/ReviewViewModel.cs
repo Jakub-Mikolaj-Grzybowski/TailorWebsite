@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TailorWebsite.ViewModels.VM
 {
-    public class OrderReviewViewModel
+    public class ReviewViewModel
     {
         public int Id { get; set; }
         public int UserId { get; set; }
@@ -15,6 +15,8 @@ namespace TailorWebsite.ViewModels.VM
         [MaxLength(1000)]
         public string? Comment { get; set; }
 
-        public DateTime CreatedAt { get; set; }
+        public DateTime ReviewDate { get; set; }
+
+        public string? UserFullName { get; set; }
     }
 }

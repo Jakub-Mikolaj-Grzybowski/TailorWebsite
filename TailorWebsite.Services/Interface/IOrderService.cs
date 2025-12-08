@@ -1,10 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using TailorWebsite.Model.DataModels;
+using TailorWebsite.ViewModels.VM;
 
 namespace TailorWebsite.Services.Interface;
-using TailorWebsite.ViewModels.VM;
- 
 
 public interface IOrderService
 {
@@ -15,4 +14,6 @@ public interface IOrderService
 
     // Ustawienie daty odbioru przez użytkownika
     Task<bool> SetUserPickupDateAsync(int orderId, DateTime userPickupDate);
+
+    Task<List<ServiceViewModel>> GetTopServicesAsync(int count);
 }
