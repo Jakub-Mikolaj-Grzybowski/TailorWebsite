@@ -24,7 +24,7 @@ namespace TailorWebsite.ViewModels.VM
         [DataType(DataType.Currency)]
         [Display(Name = "Cena")]
         public decimal? TotalPrice { get; set; }
-
+        public ServiceReview? ServiceReview { get; set; }
         public int Id { get; set; }
         public OrderStatus Status { get; set; }
         public Service? Service { get; set; }
