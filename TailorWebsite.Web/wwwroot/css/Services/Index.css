@@ -1,0 +1,24 @@
+.list-group-item {
+    transition: all 0.2s ease;
+    border-radius: 0.5rem !important;
+    margin-bottom: 0.25rem;
+}
+
+.list-group-item:hover, .list-group-item.active {
+    background-color: #f8f9fa;
+    color: #c5a059; /* Gold */
+}
+
+.list-group-item:hover span.badge {
+     background-color: #c5a059 !important;
+     color: white !important;
+}
+
+.bg-gold {
+    background-color: #c5a059 !important;
+}
+
+/* Dostosowanie do ciemnego motywu nagłówka, jeśli konieczne */
+.dark-blue {
+    background-color: #0d1b2a;
+}

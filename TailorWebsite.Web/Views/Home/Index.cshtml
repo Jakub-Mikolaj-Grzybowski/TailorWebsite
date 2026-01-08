@@ -12,7 +12,7 @@
             <div class="col-lg-6">
                 <h1 class="display-5 fw-bold mb-3">Indywidualne szycie na miarę</h1>
                 <p class="lead mb-4">Zamów unikalne projekty dopasowane do Twojego stylu: suknie, garnitury, poprawki i więcej.</p>
-                <a href="#uslugi" class="btn btn-gold  btn-lg me-2">Nasze usługi</a>
+                <a asp-controller="Services" asp-action="Index" class="btn btn-gold  btn-lg me-2">Nasze usługi</a>
                 @if (User?.Identity?.IsAuthenticated ?? false)
                 {
                     <a asp-controller="Orders" asp-action="Create" class="btn btn-outline-light btn-lg">Złóż zamówienie</a>
