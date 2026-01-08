@@ -5,54 +5,96 @@
     var services = ViewBag.Services as List<SelectListItem> ?? new List<SelectListItem>();
 }
 
-<h2 class="mb-4">Nowe zamówienie</h2>
-<div class="mb-3">
-    <a class="btn btn-outline-secondary" asp-controller="Orders" asp-action="List">&laquo; Wróć do listy</a>
-    <a class="btn btn-outline-secondary ms-2" asp-controller="Profile" asp-action="Index">Profil</a>
-</div>
+<section class="position-relative overflow-hidden rounded-4 text-white dark-blue mb-4 shadow p-4">
+    <div class="row align-items-center">
+        <div class="col-lg-8">
+            <h5 class="text-warning text-uppercase letter-spacing-2 mb-2">Usługi</h5>
+            <h1 class="display-5 fw-bold mb-3">Złóż Zamówienie</h1>
+            <p class="text-white-50 mb-0">Wybierz usługę i dostosuj szczegóły zamówienia.</p>
+        </div>
+        <div class="col-lg-4 text-end d-none d-lg-block">
+             <i class="bi bi-cart-plus-fill text-warning" style="font-size: 5rem; opacity: 0.8;"></i>
+        </div>
+    </div>
+</section>
 
 @if (!services.Any())
 {
-    <div class="alert alert-warning">
-        Brak dostępnych usług do zamówienia. Najpierw dodaj usługi w bazie danych.
+    <div class="alert alert-warning border-0 shadow-sm rounded-4 mb-4">
+        <i class="bi bi-exclamation-triangle-fill me-2"></i>
+        Brak dostępnych usług do zamówienia. Skontaktuj się z administratorem.
     </div>
 }
+else
+{
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                <div class="card-body p-4 p-lg-5">
+                    <form asp-action="Create" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        
+                        <div class="mb-4">
+                            <label asp-for="ServiceId" class="form-label fw-bold text-secondary text-uppercase small letter-spacing-1">Wybierz Usługę</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light border-0 rounded-start-pill ps-3"><i class="bi bi-scissors text-muted"></i></span>
+                                <select asp-for="ServiceId" asp-items="services" class="form-select form-select-lg border-0 bg-light rounded-end-pill shadow-none"></select>
+                            </div>
+                            <span asp-validation-for="ServiceId" class="text-danger small mt-1 d-block"></span>
+                        </div>
+                        
+                        <div id="materialsBox" class="mb-4" style="display:none;">
+                            <div class="alert alert-info border-0 shadow-sm rounded-4">
+                                <div class="d-flex">
+                                    <div class="me-3">
+                                         <i class="bi bi-info-circle-fill fs-4"></i>
+                                    </div>
+                                    <div>
+                                        <h6 class="fw-bold mb-1">Potrzebne materiały:</h6>
+                                        <span id="materialsText" class="small"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
+                        <div class="row g-4 mb-4">
+                            <div class="col-md-6">
+                                <label asp-for="Quantity" class="form-label fw-bold text-secondary text-uppercase small letter-spacing-1">Ilość</label>
+                                <div class="input-group">
+                                     <span class="input-group-text bg-light border-0 rounded-start-pill ps-3"><i class="bi bi-box-seam text-muted"></i></span>
+                                    <input asp-for="Quantity" class="form-control form-control-lg border-0 bg-light rounded-end-pill shadow-none" min="1" />
+                                </div>
+                                <span asp-validation-for="Quantity" class="text-danger small mt-1 d-block"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold text-secondary text-uppercase small letter-spacing-1">Przewidywana Cena</label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-light border-0 rounded-start-pill ps-3"><i class="bi bi-tag-fill text-muted"></i></span>
+                                    <input class="form-control form-control-lg border-0 bg-light rounded-end-pill shadow-none fw-bold text-dark" id="TotalPriceDisplay" readonly />
+                                </div>
+                                <div class="form-text text-end small">Cena ostateczna może ulec zmianie po oględzinach.</div>
+                            </div>
+                        </div>
 
-<form asp-action="Create" method="post" class="row g-4 justify-content-center">
-    <div class="col-12 col-md-8 col-lg-6">
-        <div class="card shadow-sm p-4 mb-4">
-            <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
-            <div class="mb-3">
-                <label asp-for="ServiceId" class="form-label fw-semibold">Usługa</label>
-                <select asp-for="ServiceId" asp-items="services" class="form-select rounded-pill"></select>
-                <span asp-validation-for="ServiceId" class="text-danger"></span>
-            </div>
-            <div id="materialsBox" class="mb-3" style="display:none;">
-                <div class="alert alert-info">
-                    <strong>Potrzebne materiały:</strong>
-                    <span id="materialsText"></span>
+                        <div class="d-grid gap-2 mt-5">
+                            <button type="submit" class="btn btn-gold btn-lg rounded-pill fw-bold shadow-sm">
+                                <i class="bi bi-check-lg me-2"></i>Złóż zamówienie
+                            </button>
+                            <div class="d-flex justify-content-between mt-3">
+                                 <a class="text-decoration-none text-muted small" asp-controller="Profile" asp-action="Index">
+                                     <i class="bi bi-arrow-left me-1"></i>Anuluj i wróć do profilu
+                                 </a>
+                                 <a class="text-decoration-none text-muted small" asp-controller="Orders" asp-action="List">
+                                     Lista zamówień<i class="bi bi-arrow-right ms-1"></i>
+                                 </a>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-            </div>
-            <div class="row g-2">
-                <div class="col-md-6">
-                    <label asp-for="Quantity" class="form-label fw-semibold">Ilość</label>
-                    <input asp-for="Quantity" class="form-control rounded-pill" min="1" />
-                    <span asp-validation-for="Quantity" class="text-danger"></span>
-                </div>
-                <div class="col-md-6">
-                    <label class="form-label fw-semibold">Cena</label>
-                    <input class="form-control rounded-pill" id="TotalPriceDisplay" readonly />
-                </div>
-            </div>
-            <div class="mt-4">
-                <button type="submit" class="btn btn-primary w-100 rounded-pill py-2 fw-bold">Złóż zamówienie</button>
             </div>
         </div>
     </div>
-</form>
-
-
+}
 
 <partial name="_ValidationScriptsPartial" />
 
@@ -72,12 +114,15 @@
             const qtyRaw = parseInt(qtyInput.value || '1');
             const qty = isNaN(qtyRaw) || qtyRaw < 1 ? 1 : qtyRaw;
             const svc = services.find(s => s.id === id);
+            
             if (!svc) {
                 totalInput.value = '';
             } else {
                 const total = Number(svc.price) * qty;
-                totalInput.value = total.toFixed(2);
+                // Formatujemy cenę jako walutę PL
+                totalInput.value = total.toLocaleString('pl-PL', { style: 'currency', currency: 'PLN' });
             }
+            
             // Materiały
             const svcFull = allServices.find(s => s.id === id);
             if (svcFull && svcFull.additionalMaterials) {

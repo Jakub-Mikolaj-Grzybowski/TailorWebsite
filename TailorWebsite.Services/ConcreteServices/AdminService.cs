@@ -55,38 +55,5 @@ namespace TailorWebsite.Services.ConcreteServices
             var result = await _userManager.DeleteAsync(user);
             return result.Succeeded;
         }
-
-        public async Task<List<OrderCreateViewModel>> GetAllOrdersAsync()
-        {
-            var orders = await _context.Orders.Include(o => o.User).ToListAsync();
-            return orders.Select(o => _mapper.Map<OrderCreateViewModel>(o)).ToList();
-        }
-
-        public async Task<OrderCreateViewModel?> GetOrderByIdAsync(int id)
-        {
-            var order = await _context.Orders.FindAsync(id);
-            return order == null ? null : _mapper.Map<OrderCreateViewModel>(order);
-        }
-
-        public async Task<bool> UpdateOrderAsync(OrderCreateViewModel model)
-        {
-            var order = await _context
-                .Orders.Include(s => s.Service)
-                .FirstOrDefaultAsync(o => o.Id == model.Id);
-            if (order == null)
-                return false;
-            order.Status = model.Status;
-            order.OrderDueDate = model.OrderDueDate;
-            await _context.SaveChangesAsync();
-
-            if (order.Status == OrderStatus.Completed)
-            {
-                await _notificationService.AddNotificationAsync(
-                    order.UserId,
-                    $"Twoje zamówienie nr {order.Service.Name} zostało ukończone."
-                );
-            }
-            return true;
-        }
     }
 }

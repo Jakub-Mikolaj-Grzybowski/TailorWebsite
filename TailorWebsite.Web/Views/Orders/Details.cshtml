@@ -4,129 +4,163 @@
     ViewData["Title"] = "Szczegóły zamówienia";
 
     // Logika kolorów statusu (tylko wizualna)
-    string statusClass = Model.Status == TailorWebsite.Model.DataModels.OrderStatus.Completed ? "bg-success" :
-    (Model.Status == TailorWebsite.Model.DataModels.OrderStatus.Cancelled ? "bg-danger" : "bg-warning text-dark");
+    string statusClass = Model.Status switch
+    {
+        TailorWebsite.Model.DataModels.OrderStatus.Completed => "bg-success",
+        TailorWebsite.Model.DataModels.OrderStatus.Cancelled => "bg-danger",
+        TailorWebsite.Model.DataModels.OrderStatus.InProgress => "bg-info text-dark",
+        TailorWebsite.Model.DataModels.OrderStatus.Pending => "bg-warning text-dark",
+        _ => "bg-secondary"
+    };
 
-    string statusName = Model.Status == TailorWebsite.Model.DataModels.OrderStatus.Completed ? "Zakończone" :
-    (Model.Status == TailorWebsite.Model.DataModels.OrderStatus.Cancelled ? "Anulowane" : "Oczekujące");
+    string statusName = Model.Status switch
+    {
+        TailorWebsite.Model.DataModels.OrderStatus.Completed => "Zakończone",
+        TailorWebsite.Model.DataModels.OrderStatus.Cancelled => "Anulowane",
+        TailorWebsite.Model.DataModels.OrderStatus.InProgress => "W realizacji",
+        TailorWebsite.Model.DataModels.OrderStatus.Pending => "Oczekujące",
+        _ => Model.Status.ToString()
+    };
 }
 
-<div class="container py-4">
-    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
-
-        @* NAGŁÓWEK: Tytuł i Usługa *@
-        <div class="card-header dark-blue text-white p-4">
-            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-                <div>
-                    <h6 class="text-warning text-uppercase letter-spacing-2 mb-1">Szczegóły zamówienia</h6>
-                    <h2 class="fw-bold mb-0">@Model.Service?.Name</h2>
-                </div>
-                <div>
-                    <span class="badge @statusClass fs-6 px-3 py-2 rounded-pill shadow-sm">
-                        @statusName
-                    </span>
-                </div>
+<section class="position-relative overflow-hidden rounded-4 text-white dark-blue mb-4 shadow p-4">
+    <div class="row align-items-center">
+        <div class="col-lg-8">
+            <h5 class="text-warning text-uppercase letter-spacing-2 mb-2">Szczegóły Zamówienia</h5>
+            <h1 class="display-5 fw-bold mb-3">@Model.Service?.Name</h1>
+             <div class="d-flex align-items-center gap-3">
+                <span class="badge @statusClass border-0 rounded-pill px-3 py-2 fw-normal fs-6 shadow-sm">
+                    <i class="bi bi-info-circle me-1"></i> @statusName
+                </span>
+                <span class="text-white-50 small">ID: #@Model.Id</span>
             </div>
         </div>
+        <div class="col-lg-4 text-end d-none d-lg-block">
+             <i class="bi bi-file-earmark-text text-warning" style="font-size: 5rem; opacity: 0.8;"></i>
+        </div>
+    </div>
+</section>
 
-        <div class="card-body p-4">
-
-            @* SEKCJA 1: Szczegóły (Cena, Ilość, Termin) *@
-            <div class="row g-4 mb-5">
-                <div class="col-6 col-md-3">
-                    <div class="p-3 bg-light rounded-3 h-100">
-                        <small class="text-muted text-uppercase fw-bold" style="font-size: 0.75rem;">Cena</small>
-                        <p class="fs-4 fw-bold text-dark mb-0">
-                            @Model.TotalPrice?.ToString("0.00") <span class="fs-6 text-muted">PLN</span>
-                        </p>
+<div class="row justify-content-center">
+    <div class="col-lg-12">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-body p-4 p-lg-5">
+                
+                @* Info Cards for Price, Qty, Date *@
+                <div class="row g-4 mb-5">
+                     <div class="col-md-4">
+                        <div class="p-4 bg-light rounded-4 h-100 border border-light-subtle">
+                             <div class="d-flex align-items-center mb-2">
+                                 <div class="bg-white p-2 rounded-circle shadow-sm me-3 text-success">
+                                     <i class="bi bi-cash-stack fs-4"></i>
+                                 </div>
+                                 <h6 class="text-muted text-uppercase mb-0 small fw-bold letter-spacing-1">Cena Całkowita</h6>
+                             </div>
+                             <p class="display-6 fw-bold text-dark mb-0">
+                                @Model.TotalPrice?.ToString("0.00") <span class="fs-5 text-secondary">PLN</span>
+                             </p>
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-6 col-md-3">
-                    <div class="p-3 bg-light rounded-3 h-100">
-                        <small class="text-muted text-uppercase fw-bold" style="font-size: 0.75rem;">Ilość</small>
-                        <p class="fs-4 fw-bold text-dark mb-0">@Model.Quantity <span class="fs-6 text-muted">szt.</span>
-                        </p>
+                     <div class="col-md-4">
+                        <div class="p-4 bg-light rounded-4 h-100 border border-light-subtle">
+                             <div class="d-flex align-items-center mb-2">
+                                 <div class="bg-white p-2 rounded-circle shadow-sm me-3 text-primary">
+                                     <i class="bi bi-layers fs-4"></i>
+                                 </div>
+                                 <h6 class="text-muted text-uppercase mb-0 small fw-bold letter-spacing-1">Ilość</h6>
+                             </div>
+                             <p class="display-6 fw-bold text-dark mb-0">
+                                @Model.Quantity <span class="fs-5 text-secondary">szt.</span>
+                             </p>
+                        </div>
                     </div>
-                </div>
-
-                <div class="col-12 col-md-6">
-                    <div class="p-3 bg-light rounded-3 h-100 d-flex align-items-center">
-                        <div>
-                            <small class="text-muted text-uppercase fw-bold" style="font-size: 0.75rem;">Termin
-                                wykonania</small>
-                            <p class="fs-5 fw-semibold text-dark mb-0">
-                                <i class="bi bi-calendar-event me-2 text-warning"></i>
+                     <div class="col-md-4">
+                        <div class="p-4 bg-light rounded-4 h-100 border border-light-subtle">
+                             <div class="d-flex align-items-center mb-2">
+                                 <div class="bg-white p-2 rounded-circle shadow-sm me-3 text-warning">
+                                     <i class="bi bi-calendar-check fs-4"></i>
+                                 </div>
+                                 <h6 class="text-muted text-uppercase mb-0 small fw-bold letter-spacing-1">Termin Wykonania</h6>
+                             </div>
+                             <p class="fs-4 fw-bold text-dark mb-0 mt-2">
                                 @(Model.OrderDueDate?.ToString("dd.MM.yyyy") ?? "W trakcie ustalania")
-                            </p>
+                             </p>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <hr class="border-secondary opacity-10 my-4">
+                <hr class="border-secondary opacity-10 my-5">
 
-            @* SEKCJA 2: Funkcjonalność wyboru daty (Twoja logika) *@
-            <div class="mb-5">
-                @if (Model.Status == TailorWebsite.Model.DataModels.OrderStatus.Completed)
-                {
-                    <div class="p-4 rounded-4 bg-gold-subtle border border-warning">
-                        <h4 class="fw-bold mb-3 text-dark">Wybierz termin odbioru</h4>
-                        <p class="text-muted mb-3">Twoje zamówienie jest gotowe. Wybierz dogodną datę odbioru.</p>
+                @* Pickup Date Logic *@
+                <div class="mb-5">
+                    @if (Model.Status == TailorWebsite.Model.DataModels.OrderStatus.Completed)
+                    {
+                        <div class="p-4 p-md-5 rounded-4 bg-gold-subtle border border-warning position-relative overflow-hidden">
+                             <!-- Decorative background icon -->
+                            <i class="bi bi-bag-check position-absolute text-warning opacity-25" style="font-size: 10rem; right: -2rem; bottom: -3rem; transform: rotate(-15deg);"></i>
+                            
+                            <div class="position-relative" style="z-index: 2;">
+                                <h3 class="fw-bold mb-3 text-dark">Wybierz termin odbioru</h3>
+                                <p class="text-muted mb-4 fs-5">Twoje zamówienie jest gotowe! Prosimy o wybranie dogodnego terminu odbioru, abyśmy mogli je przygotować.</p>
 
-                        <form asp-action="Details" method="post" class="row g-3 align-items-end">
-                            <input type="hidden" name="id" value="@Model.Id" />
+                                <form asp-action="Details" method="post" class="row g-3 align-items-end">
+                                    <input type="hidden" name="id" value="@Model.Id" />
 
-                            <div class="col-md-5">
-                                <label for="userPickupDate" class="form-label fw-semibold">Data odbioru:</label>
-                                <input type="date" name="userPickupDate" id="userPickupDate"
-                                    class="form-control form-control-lg border-warning"
-                                    value="@(Model.UserPickupDate?.ToString("yyyy-MM-dd"))" required />
+                                    <div class="col-md-5">
+                                        <label for="userPickupDate" class="form-label fw-bold text-secondary text-uppercase small letter-spacing-1">Data odbioru</label>
+                                        <div class="input-group input-group-lg">
+                                            <span class="input-group-text bg-white border-warning text-warning"><i class="bi bi-calendar-event"></i></span>
+                                            <input type="date" name="userPickupDate" id="userPickupDate"
+                                                class="form-control border-warning bg-white text-dark fw-bold"
+                                                value="@(Model.UserPickupDate?.ToString("yyyy-MM-dd"))" required />
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <button type="submit" class="btn btn-gold btn-lg w-100 shadow rounded-pill fw-bold">
+                                            <i class="bi bi-save me-2"></i>Zapisz termin
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
-
-                            <div class="col-md-4">
-                                <button type="submit" class="btn btn-gold btn-lg w-100 shadow-sm">
-                                    Zapisz datę odbioru
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                }
-                else
-                {
-                    <div class="alert alert-light border shadow-sm d-flex align-items-center p-4 rounded-3">
-                        <i class="bi bi-info-circle-fill text-muted fs-3 me-3"></i>
-                        <div>
-                            <h5 class="fw-bold mb-1">Odbiór zamówienia</h5>
-                            <p class="mb-0 text-muted">Możliwość wyboru daty odbioru pojawi się automatycznie tutaj, gdy
-                                krawcowa zmieni status na <strong>Completed</strong>.</p>
                         </div>
-                    </div>
-                }
-            </div>
+                    }
+                    else
+                    {
+                        <div class="alert alert-light border shadow-sm d-flex align-items-start p-4 rounded-4">
+                            <div class="bg-light-subtle p-3 rounded-circle me-3 text-muted">
+                                <i class="bi bi-clock-history fs-3"></i>
+                            </div>
+                            <div>
+                                <h5 class="fw-bold mb-2">Odbiór zamówienia</h5>
+                                <p class="mb-0 text-muted">Sekcja wyboru terminu odbioru stanie się aktywna automatycznie, gdy obsługa zmieni status zamówienia na <span class="badge bg-success-subtle text-success border border-success-subtle">Zakończone</span>.</p>
+                            </div>
+                        </div>
+                    }
+                </div>
 
-
-            <div class="d-flex flex-wrap gap-3">
-                <a asp-action="List" class="btn btn-outline-dark px-4 py-2 rounded-pill">
-                    &laquo; Powrót do listy
-                </a>
-                @if (Model.Status == TailorWebsite.Model.DataModels.OrderStatus.Completed && Model.ServiceReview == null)
-                {
-                    <a asp-controller="Review" asp-action="Create" asp-route-orderId="@Model.Id"
-                        class="btn btn-success px-4 py-2 rounded-pill ms-auto shadow-sm">
-                        <i class="bi bi-star-fill me-2"></i>Oceń zamówienie
+                @* Actions Footer *@
+                <div class="d-flex justify-content-between align-items-center border-top pt-4">
+                    <a asp-action="List" class="text-decoration-none text-muted fw-bold">
+                        <i class="bi bi-arrow-left me-2"></i>Powrót do listy
                     </a>
-                }
-                else if (Model.ServiceReview != null)
-                {
-                    <span class="btn btn-success disabled px-4 py-2 rounded-pill ms-auto">
-                        <i class="bi bi-check-circle-fill me-2"></i>Opinia dodana
-                    </span>
-                }
+                    
+                    @if (Model.Status == TailorWebsite.Model.DataModels.OrderStatus.Completed && Model.ServiceReview == null)
+                    {
+                        <a asp-controller="Review" asp-action="Create" asp-route-orderId="@Model.Id"
+                            class="btn btn-success btn-lg rounded-pill shadow-sm px-4">
+                            <i class="bi bi-star-fill me-2"></i>Oceń usługę
+                        </a>
+                    }
+                    else if (Model.ServiceReview != null)
+                    {
+                         <div class="text-success fw-bold d-flex align-items-center">
+                            <i class="bi bi-check-circle-fill me-2 fs-5"></i>
+                            <span>Opinia została dodana</span>
+                        </div>
+                    }
+                </div>
             </div>
-
-
-
         </div>
     </div>
 </div>

@@ -1,0 +1,52 @@
+@model TailorWebsite.ViewModels.VM.OrderCreateViewModel
+
+@{
+    ViewData["Title"] = "Edycja Zamówienia";
+}
+
+<section class="position-relative overflow-hidden rounded-4 text-white dark-blue mb-4 shadow p-4">
+    <div class="row align-items-center">
+        <div class="col-lg-8">
+            <h5 class="text-warning text-uppercase letter-spacing-2 mb-2">Edycja</h5>
+            <h1 class="display-5 fw-bold mb-3">@Model.Service?.Name</h1>
+            <p class="text-white-50 mb-0">Zaktualizuj status i termin realizacji zamówienia.</p>
+        </div>
+        <div class="col-lg-4 text-end d-none d-lg-block">
+             <i class="bi bi-pencil-square text-warning" style="font-size: 5rem; opacity: 0.8;"></i>
+        </div>
+    </div>
+</section>
+
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-body p-4 p-lg-5">
+                <form asp-action="EditOrder">
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                    <input type="hidden" asp-for="Id" />
+                    
+                    <div class="mb-4">
+                        <label asp-for="Status" class="form-label fw-bold text-secondary text-uppercase small letter-spacing-1">Status Zamówienia</label>
+                        <select asp-for="Status" class="form-select form-select-lg rounded-pill shadow-sm" asp-items="Html.GetEnumSelectList<TailorWebsite.Model.DataModels.OrderStatus>()"></select>
+                        <span asp-validation-for="Status" class="text-danger small mt-1 d-block"></span>
+                    </div>
+                    
+                    <div class="mb-5">
+                        <label asp-for="OrderDueDate" class="form-label fw-bold text-secondary text-uppercase small letter-spacing-1">Termin Odbioru</label>
+                        <input asp-for="OrderDueDate" class="form-control form-control-lg rounded-pill shadow-sm" type="date" />
+                        <span asp-validation-for="OrderDueDate" class="text-danger small mt-1 d-block"></span>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-gold btn-lg rounded-pill fw-bold shadow-sm">
+                            <i class="bi bi-check-lg me-2"></i>Zapisz Zmiany
+                        </button>
+                        <a asp-action="ManageOrders" class="btn btn-light btn-lg rounded-pill fw-semibold text-muted">
+                            Anuluj
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

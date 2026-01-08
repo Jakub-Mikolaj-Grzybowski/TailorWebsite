@@ -9,7 +9,8 @@ public class MainProfile : Profile
 {
     public MainProfile()
     {
-        CreateMap<SizeCreateViewModel, Size>();
+        CreateMap<SizeCreateViewModel, Size>()
+             .ForMember(d => d.CreatedAt, o => o.MapFrom(src => src.CreatedAt == default ? DateTime.Now : src.CreatedAt));
         CreateMap<Size, SizeCreateViewModel>();
         CreateMap<OrderCreateViewModel, Order>()
             .ForMember(d => d.Status, o => o.MapFrom(_ => OrderStatus.Pending));

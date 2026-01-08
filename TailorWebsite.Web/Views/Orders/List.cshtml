@@ -9,6 +9,7 @@
         OrderStatus.Pending => "bg-warning text-dark",    // Oczekujące - Żółty
         OrderStatus.InProgress => "bg-info text-dark",    // W realizacji - Niebieski jasny
         OrderStatus.Completed => "bg-success",            // Zakończone - Zielony
+        OrderStatus.Cancelled => "bg-danger",             // Anulowane - Czerwony
         _ => "bg-secondary"
     };
 
@@ -18,6 +19,7 @@
         OrderStatus.Pending => "Oczekujące",
         OrderStatus.InProgress => "W realizacji",
         OrderStatus.Completed => "Zakończone",
+        OrderStatus.Cancelled => "Anulowane",
         _ => status.ToString()
     };
 }
