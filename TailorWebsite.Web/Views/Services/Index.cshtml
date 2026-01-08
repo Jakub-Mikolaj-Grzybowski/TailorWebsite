@@ -1,0 +1,183 @@
+@using TailorWebsite.Model.DataModels
+@model Dictionary<string, List<Service>>
+
+@{
+    ViewData["Title"] = "Nasze Usługi";
+    int categoryIndex = 0;
+}
+
+@* Sekcja Nagłówkowa (Styl z Orders/List) *@
+<section class="position-relative overflow-hidden rounded-4 text-white dark-blue mb-5 shadow p-4">
+    <div class="row align-items-center position-relative" style="z-index: 1;">
+        <div class="col-lg-8">
+            <h5 class="text-warning text-uppercase letter-spacing-2 mb-2">Oferta</h5>
+            <h1 class="display-6 fw-bold mb-2">Nasze Usługi</h1>
+            <p class="text-white-50 mb-0">Sprawdź co możemy dla Ciebie zrealizować i zamów online.</p>
+        </div>
+        <div class="col-lg-4 text-end d-none d-lg-block">
+            <i class="bi bi-scissors text-warning" style="font-size: 5rem; opacity: 0.5;"></i>
+        </div>
+    </div>
+</section>
+
+<div class="container-fluid px-0">
+    <div class="row g-4">
+        @* Pasek boczny z kategoriami *@
+        <div class="col-lg-3 d-none d-lg-block">
+            <div class="sticky-top" style="top: 100px; z-index: 100;">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header bg-white border-bottom-0 pt-4 px-4">
+                         <h5 class="fw-bold mb-0 text-dark">Kategorie</h5>
+                    </div>
+                    <div class="card-body p-2">
+                        <div class="list-group list-group-flush rounded-3">
+                            @foreach (var group in Model)
+                            {
+                                var slug = "cat-" + categoryIndex++;
+                                <a href="#@slug" class="list-group-item list-group-item-action border-0 py-3 d-flex justify-content-between align-items-center">
+                                    <span>@group.Key</span>
+                                    <span class="badge bg-light text-dark rounded-pill">@group.Value.Count</span>
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* Główna lista usług *@
+        <div class="col-lg-9">
+            @if (!Model.Any())
+            {
+                <div class="alert alert-info text-center rounded-4 shadow-sm py-5">
+                    <i class="bi bi-info-circle display-4 mb-3 d-block text-muted"></i>
+                    <span class="fs-5">Brak dostępnych usług w tej chwili.</span>
+                </div>
+            }
+            else
+            {
+                categoryIndex = 0;
+                foreach (var group in Model)
+                {
+                    var slug = "cat-" + categoryIndex++;
+                    <div id="@slug" class="mb-5 category-section">
+                        <div class="d-flex align-items-center mb-4 border-bottom pb-2">
+                            <h2 class="h4 fw-bold text-dark mb-0 me-3">@group.Key</h2>
+                            <span class="text-muted small">(@group.Value.Count usług)</span>
+                        </div>
+                        
+                        <div class="row g-4">
+                            @foreach (var service in group.Value)
+                            {
+                                <div class="col-md-6">
+                                    <div class="card h-100 border-0 shadow-sm service-card position-relative overflow-hidden">
+                                        @* Dekoracyjny pasek po lewej *@
+                                        @* <div class="position-absolute top-0 start-0 w-1 h-100 bg-gold" style="width: 4px;"></div> *@
+
+                                        <div class="card-body p-4 d-flex flex-column">
+                                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                                <h5 class="card-title fw-bold mb-0 text-dark">
+                                                    @service.Name 
+                                                    @if(group.Key == "Popularne usługi"){
+                                                        <i class="bi bi-star-fill text-warning ms-1" style="font-size: 0.8em;" title="Popularne"></i>
+                                                    }
+                                                </h5>
+                                                <span class="fs-5 fw-bold text-dark text-nowrap ms-2">@service.Price.ToString("C")</span>
+                                            </div>
+                                            
+                                            <div class="mb-4">
+                                                @if (!string.IsNullOrEmpty(service.AdditionalMaterials))
+                                                {
+                                                     <div class="d-flex align-items-start text-muted smnall">
+                                                        <i class="bi bi-info-circle me-2 mt-1 text-warning"></i>
+                                                        <span class="small">@service.AdditionalMaterials</span>
+                                                    </div>
+                                                }
+                                                else {
+                                                    <div class="text-muted small fst-italic">Brak dodatkowych materiałów</div>
+                                                }
+                                            </div>
+
+                                            <div class="mt-auto">
+                                                <a asp-controller="Orders" asp-action="Create" asp-route-serviceId="@service.Id" 
+                                                   class="btn btn-outline-dark w-100 stretched-link">
+                                                    Wybierz usługę
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if(targetElement){
+                     const offset = 100; // offset na navbar
+                     const bodyRect = document.body.getBoundingClientRect().top;
+                     const elementRect = targetElement.getBoundingClientRect().top;
+                     const elementPosition = elementRect - bodyRect;
+                     const offsetPosition = elementPosition - offset;
+
+                     window.scrollTo({
+                          top: offsetPosition,
+                          behavior: "smooth"
+                     });
+                }
+            });
+        });
+
+        // ScrollSpy highlighting
+        window.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '-20% 0px -60% 0px', // Adjust trigger zone
+                threshold: 0
+            };
+
+            const observerCallback = (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        
+                        // Remove active class from all links
+                        document.querySelectorAll('.list-group-item').forEach(link => {
+                            link.classList.remove('active');
+                            link.querySelector('.badge').classList.remove('bg-warning');
+                            link.querySelector('.badge').classList.add('bg-light');
+                            link.querySelector('.badge').classList.add('text-dark');
+                        });
+
+                        // Add active class to current link
+                        const activeLink = document.querySelector(`a[href="#${id}"]`);
+                        if (activeLink) {
+                            activeLink.classList.add('active');
+                            const badge = activeLink.querySelector('.badge');
+                            badge.classList.remove('bg-light');
+                            badge.classList.remove('text-dark');
+                            // Using standard bootstrap text-dark for contrast on warning bg, though css override might handle it
+                            // Actually, let base css handle the active state style
+                        }
+                    }
+                });
+            };
+
+            const observer = new IntersectionObserver(observerCallback, observerOptions);
+            document.querySelectorAll('.category-section').forEach(section => {
+                observer.observe(section);
+            });
+        });
+    </script>
+}

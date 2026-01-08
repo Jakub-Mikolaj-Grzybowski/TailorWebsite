@@ -32,6 +32,7 @@ builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<ITailorService, TailorService>();
 builder.Services.AddScoped<IAccountSettingsService, AccountSettingsService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<IServiceService, ServiceService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
 var app = builder.Build();
 

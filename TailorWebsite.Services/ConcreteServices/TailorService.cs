@@ -52,7 +52,7 @@ namespace TailorWebsite.Services.ConcreteServices
             {
                 await _notificationService.AddNotificationAsync(
                     order.UserId,
-                    $"Twoje zamówienie nr {order.Id} zostało ukończone."
+                    $"Twoje zamówienie {order.Service?.Name} zostało ukończone."
                 );
             }
             return true;
