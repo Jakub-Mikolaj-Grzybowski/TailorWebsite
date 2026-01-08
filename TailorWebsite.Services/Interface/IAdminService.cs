@@ -9,8 +9,6 @@ namespace TailorWebsite.Services.Interface
     {
         Task<List<AdminUserViewModel>> GetAllUsersAsync();
         Task<bool> DeleteUserAsync(string userId);
-        Task<List<OrderCreateViewModel>> GetAllOrdersAsync();
-        Task<OrderCreateViewModel?> GetOrderByIdAsync(int id);
-        Task<bool> UpdateOrderAsync(OrderCreateViewModel model);
+
     }
 }

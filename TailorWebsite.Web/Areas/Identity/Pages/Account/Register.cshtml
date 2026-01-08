@@ -7,45 +7,44 @@
 
 
 <div class="d-flex justify-content-center align-items-center" style="min-height: 90vh;">
-    <div class="bg-white shadow rounded-4 p-4" style="max-width: 400px; width: 100%;">
-        <h1 class="text-center fw-bold mb-4" style="font-size:2.5rem;">Załóż konto</h1>
+    <div class="card shadow p-4 p-lg-5 dark-blue rounded-4 border-0" style="max-width: 450px; width: 100%;">
+        <div class="text-center mb-4">
+             <span class="mb-2" style="font-size: 2.5rem;"><i class="bi bi-person-plus-fill text-warning"></i></span>
+            <h2 class="fw-bold mt-2">Załóż konto</h2>
+            <p class="text-white-50">Dołącz do grona naszych zadowolonych klientów</p>
+        </div>
         <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
             <div class="mb-3">
-                <label asp-for="Input.Name" class="form-label fw-semibold">Imię</label>
-                <input asp-for="Input.Name" class="form-control rounded-pill bg-light" placeholder="Imię" />
+                <label asp-for="Input.Name" class="form-label fw-semibold text-white">Imię</label>
+                <input asp-for="Input.Name" class="form-control rounded-pill" placeholder="Imię" />
                 <span asp-validation-for="Input.Name" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="Input.Surname" class="form-label fw-semibold">Nazwisko</label>
-                <input asp-for="Input.Surname" class="form-control rounded-pill bg-light" placeholder="Nazwisko" />
+                <label asp-for="Input.Surname" class="form-label fw-semibold text-white">Nazwisko</label>
+                <input asp-for="Input.Surname" class="form-control rounded-pill" placeholder="Nazwisko" />
                 <span asp-validation-for="Input.Surname" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="Input.Email" class="form-label fw-semibold">Email</label>
-                <input asp-for="Input.Email" class="form-control rounded-pill bg-light" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <label asp-for="Input.Email" class="form-label fw-semibold text-white">Email</label>
+                <input asp-for="Input.Email" class="form-control rounded-pill" autocomplete="username" aria-required="true" placeholder="name@example.com" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="Input.Password" class="form-label fw-semibold">Hasło</label>
-                <input asp-for="Input.Password" class="form-control rounded-pill bg-light" autocomplete="new-password" aria-required="true" placeholder="Hasło" />
+                <label asp-for="Input.Password" class="form-label fw-semibold text-white">Hasło</label>
+                <input asp-for="Input.Password" class="form-control rounded-pill" autocomplete="new-password" aria-required="true" placeholder="Hasło" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
             <div class="mb-3">
-                <label asp-for="Input.ConfirmPassword" class="form-label fw-semibold">Powtórz hasło</label>
-                <input asp-for="Input.ConfirmPassword" class="form-control rounded-pill bg-light" autocomplete="new-password" aria-required="true" placeholder="Powtórz hasło" />
+                <label asp-for="Input.ConfirmPassword" class="form-label fw-semibold text-white">Powtórz hasło</label>
+                <input asp-for="Input.ConfirmPassword" class="form-control rounded-pill" autocomplete="new-password" aria-required="true" placeholder="Powtórz hasło" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary rounded-pill mb-3" style="font-size:1.2rem;">Załóż konto</button>
+            <button id="registerSubmit" type="submit" class="w-100 btn btn-gold rounded-pill mb-3 fw-bold shadow-sm" style="font-size:1.2rem;">Załóż konto</button>
         </form>
         <div class="text-center mb-2">
-            <a class="text-decoration-none" href="/Identity/Account/Login">Masz już konto? Zaloguj się</a>
+            <a class="text-decoration-none text-warning small" href="/Identity/Account/Login">Masz już konto? Zaloguj się</a>
         </div>
-        <div class="text-center mb-2">
-            <a class="text-decoration-none" href="/Identity/Account/ForgotPassword">Nie pamiętasz hasła?</a>
-        </div>
-        <div class="text-center mb-2">
-            <a class="text-decoration-none" href="/Identity/Account/ResendEmailConfirmation">Wyślij ponownie potwierdzenie e-mail</a>
-        </div>
+
     </div>
 </div>
 

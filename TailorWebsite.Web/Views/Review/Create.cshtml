@@ -4,24 +4,64 @@
     ViewData["Title"] = "Oceń zamówienie";
 }
 
-<h2>Oceń zamówienie</h2>
-
-<form asp-action="Create" method="post">
-    <input type="hidden" asp-for="OrderId" />
-
-    <div class="form-group">
-        <label asp-for="Rating"></label>
-        <select asp-for="Rating" class="form-control">
-            <option value="1">1 - Bardzo źle</option>
-            <option value="2">2 - Źle</option>
-            <option value="3">3 - Średnio</option>
-            <option value="4">4 - Dobrze</option>
-            <option value="5">5 - Bardzo dobrze</option>
-        </select>
+<section class="position-relative overflow-hidden rounded-4 text-white dark-blue mb-4 shadow p-4">
+    <div class="row align-items-center">
+        <div class="col-lg-8">
+            <h5 class="text-warning text-uppercase letter-spacing-2 mb-2">Twoja Opinia</h5>
+            <h1 class="display-5 fw-bold mb-3">Oceń Zamówienie</h1>
+            <p class="text-white-50 mb-0">Podziel się wrażeniami z realizacji usługi. Twoja opinia jest dla nas ważna!</p>
+        </div>
+        <div class="col-lg-4 text-end d-none d-lg-block">
+             <i class="bi bi-star-half text-warning" style="font-size: 5rem; opacity: 0.8;"></i>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Comment"></label>
-        <textarea asp-for="Comment" class="form-control"></textarea>
+</section>
+
+<div class="row justify-content-center">
+    <div class="col-lg-8">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+            <div class="card-body p-4 p-lg-5">
+                <form asp-action="Create" method="post">
+                    <input type="hidden" asp-for="OrderId" />
+                    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                    <div class="mb-4">
+                        <label asp-for="Rating" class="form-label fw-bold text-secondary text-uppercase small letter-spacing-1">Ocena (1-5)</label>
+                        <div class="input-group">
+                            <span class="input-group-text bg-light border-0 rounded-start-pill ps-3"><i class="bi bi-star-fill text-warning"></i></span>
+                            <select asp-for="Rating" class="form-select form-select-lg border-0 bg-light rounded-end-pill shadow-none">
+                                <option value="5">5 - Bardzo dobrze (Rewelacja!)</option>
+                                <option value="4">4 - Dobrze (Jestem zadowolony/a)</option>
+                                <option value="3">3 - Średnio (Mogło być lepiej)</option>
+                                <option value="2">2 - Źle (Jestem zawiedziony/a)</option>
+                                <option value="1">1 - Bardzo źle (Nie polecam)</option>
+                            </select>
+                        </div>
+                        <span asp-validation-for="Rating" class="text-danger small mt-1 d-block"></span>
+                    </div>
+
+                    <div class="mb-4">
+                        <label asp-for="Comment" class="form-label fw-bold text-secondary text-uppercase small letter-spacing-1">Twój Komentarz</label>
+                        <textarea asp-for="Comment" class="form-control border-0 bg-light rounded-4 shadow-none p-3" rows="5" placeholder="Napisz co Ci się podobało, a co możemy poprawić..."></textarea>
+                        <span asp-validation-for="Comment" class="text-danger small mt-1 d-block"></span>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-5">
+                        <button type="submit" class="btn btn-gold btn-lg rounded-pill fw-bold shadow-sm">
+                            <i class="bi bi-send-fill me-2"></i>Wyślij opinię
+                        </button>
+                        <div class="text-center mt-3">
+                             <a class="text-decoration-none text-muted small" asp-controller="Orders" asp-action="Details" asp-route-id="@Model.OrderId">
+                                 <i class="bi bi-arrow-left me-1"></i>Anuluj i wróć do zamówienia
+                             </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <button type="submit" class="btn btn-primary">Wyślij ocenę</button>
-</form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

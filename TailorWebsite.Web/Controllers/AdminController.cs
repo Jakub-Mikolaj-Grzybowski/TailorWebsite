@@ -19,42 +19,18 @@ namespace TailorWebsite.Web.Controllers
             _adminService = adminService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
             var userViewModels = await _adminService.GetAllUsersAsync();
+
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                userViewModels = userViewModels
+                    .Where(u => u.Email.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+                    .ToList();
+            }
+
             return View(userViewModels);
-        }
-
-        public async Task<IActionResult> ManageOrders()
-        {
-            var orders = await _adminService.GetAllOrdersAsync();
-            return View(orders);
-        }
-
-        public async Task<IActionResult> EditOrder(int id)
-        {
-            var order = await _adminService.GetOrderByIdAsync(id);
-            if (order == null)
-            {
-                return NotFound();
-            }
-            return View(order);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> EditOrder(OrderCreateViewModel model)
-        {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            var success = await _adminService.UpdateOrderAsync(model);
-            if (!success)
-            {
-                return NotFound();
-            }
-            return RedirectToAction("ManageOrders");
         }
 
         [HttpPost]
