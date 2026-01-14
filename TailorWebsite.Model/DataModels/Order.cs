@@ -11,17 +11,14 @@ public class Order
     public int Quantity { get; set; }
     public decimal TotalPrice { get; set; } 
 
-    // Foreign key to Customer
     public int UserId { get; set; }
     public virtual User User { get; set; } = null!;
 
-    //Navigation property for Service
     public int ServiceId { get; set; }
     public virtual Service Service { get; set; } = null!;
-    // Navigation property for ServiceReview
     public virtual ServiceReview ServiceReview { get; set; } = null!;
 
-    public DateTime? UserPickupDate { get; set; } // Data odbioru wybrana przez użytkownika
+    public DateTime? UserPickupDate { get; set; } 
 
     public Order() { }
 }

@@ -24,7 +24,7 @@ public static class DbSeeder
 
         if (adminUser != null)
         {
-            await userManager.DeleteAsync(adminUser);
+            return;
         }
 
         var newAdminUser = new User

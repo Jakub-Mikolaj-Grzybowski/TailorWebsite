@@ -33,7 +33,6 @@ body {
     padding-top: 50px;
 }
 
-/* Home page customizations */
 .hero-section {
   background: url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
 }
@@ -49,7 +48,6 @@ body {
   box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
 }
 
-/* Navbar logo */
 .navbar-logo {
   height: 32px;
   width: auto;

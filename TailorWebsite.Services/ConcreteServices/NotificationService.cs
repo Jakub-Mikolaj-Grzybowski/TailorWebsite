@@ -23,8 +23,8 @@ namespace TailorWebsite.Services.ConcreteServices
 
         public async Task<IEnumerable<NotificationViewModel>> GetUserNotificationsAsync(int userId)
         {
-            var notifications = await _dbContext.Notifications
-                .Where(n => n.UserId == userId)
+            var notifications = await _dbContext
+                .Notifications.Where(n => n.UserId == userId)
                 .OrderByDescending(n => n.CreatedAt)
                 .ToListAsync();
             return notifications.Select(n => _mapper.Map<NotificationViewModel>(n));
@@ -46,7 +46,7 @@ namespace TailorWebsite.Services.ConcreteServices
             {
                 UserId = userId,
                 Message = message,
-                IsRead = false
+                IsRead = false,
             };
             _dbContext.Notifications.Add(notification);
             await _dbContext.SaveChangesAsync();

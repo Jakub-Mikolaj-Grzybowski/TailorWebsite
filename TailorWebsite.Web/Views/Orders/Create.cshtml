@@ -119,11 +119,9 @@ else
                 totalInput.value = '';
             } else {
                 const total = Number(svc.price) * qty;
-                // Formatujemy cenę jako walutę PL
                 totalInput.value = total.toLocaleString('pl-PL', { style: 'currency', currency: 'PLN' });
             }
-            
-            // Materiały
+
             const svcFull = allServices.find(s => s.id === id);
             if (svcFull && svcFull.additionalMaterials) {
                 materialsText.textContent = svcFull.additionalMaterials;

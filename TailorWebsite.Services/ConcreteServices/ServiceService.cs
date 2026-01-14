@@ -61,7 +61,7 @@ namespace TailorWebsite.Services.ConcreteServices
                 }
             }
 
-            // Remove square brackets if present
+      
             category = category.Replace("[", "").Replace("]", "").Trim();
 
             return category;

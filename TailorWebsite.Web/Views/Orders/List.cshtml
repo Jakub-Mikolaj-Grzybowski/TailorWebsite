@@ -3,17 +3,15 @@
 @{
     ViewData["Title"] = "Moje zamówienia";
 
-    // Funkcja pomocnicza do kolorów statusów
     string GetStatusClass(OrderStatus status) => status switch
     {
-        OrderStatus.Pending => "bg-warning text-dark",    // Oczekujące - Żółty
-        OrderStatus.InProgress => "bg-info text-dark",    // W realizacji - Niebieski jasny
-        OrderStatus.Completed => "bg-success",            // Zakończone - Zielony
-        OrderStatus.Cancelled => "bg-danger",             // Anulowane - Czerwony
+        OrderStatus.Pending => "bg-warning text-dark",
+        OrderStatus.InProgress => "bg-info text-dark",
+        OrderStatus.Completed => "bg-success",
+        OrderStatus.Cancelled => "bg-danger",
         _ => "bg-secondary"
     };
 
-    // Funkcja pomocnicza do tłumaczenia statusów (jeśli nie masz tego w modelu)
     string GetStatusName(OrderStatus status) => status switch
     {
         OrderStatus.Pending => "Oczekujące",
@@ -24,7 +22,6 @@
     };
 }
 
-@* Sekcja Nagłówkowa *@
 <section class="position-relative overflow-hidden rounded-4 text-white dark-blue mb-4 shadow p-4">
     <div class="row align-items-center position-relative" style="z-index: 1;">
         <div class="col-lg-8">
@@ -38,7 +35,6 @@
     </div>
 </section>
 
-@* Powiadomienia *@
 @if (TempData["Success"] != null)
 {
     <div class="alert alert-success rounded-3 shadow-sm border-0 mb-4 d-flex align-items-center">
@@ -52,7 +48,6 @@
     </div>
 }
 
-@* Pasek narzędzi *@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <a asp-controller="Profile" asp-action="Index" class="btn btn-link text-decoration-none text-muted ps-0">
         <i class="bi bi-arrow-left me-1"></i> Powrót do profilu
@@ -62,7 +57,6 @@
     </a>
 </div>
 
-@* Lista Zamówień *@
 <div class="row g-4">
 @if (Model != null && Model.Any())
 {
@@ -70,12 +64,10 @@
     {
         <div class="col-md-6 col-lg-4">
             <div class="card h-100 border-0 shadow-sm service-card position-relative overflow-hidden">
-                @* Pasek koloru statusu *@
                 <div class="position-absolute top-0 start-0 w-1 h-100 @GetStatusClass(o.Status).Replace("text-dark","").Replace("bg-", "bg-opacity-75 bg-")" style="width: 5px;"></div>
 
                 <div class="card-body p-4 d-flex flex-column">
                     
-                    @* Nagłówek Karty *@
                     <div class="d-flex justify-content-between align-items-start mb-3">
                         <div>
                             <span class="badge @GetStatusClass(o.Status) rounded-pill mb-2">
@@ -88,7 +80,6 @@
                         </div>
                     </div>
 
-                    @* Szczegóły *@
                     <div class="mb-4">
                         <div class="d-flex align-items-center text-muted mb-2 small">
                             <i class="bi bi-calendar-event me-2 text-warning"></i>
@@ -114,7 +105,6 @@
                         </div>
                     </div>
 
-                    @* Akcje *@
                     <div class="mt-auto d-flex gap-2">
                         <a asp-action="Details" asp-route-id="@o.Id" class="btn btn-outline-dark btn-sm flex-fill">
                             Szczegóły
@@ -140,7 +130,6 @@
 }
 else
 {
-    @* Empty State *@
     <div class="col-12">
         <div class="card border-0 shadow-sm text-center py-5">
             <div class="card-body">

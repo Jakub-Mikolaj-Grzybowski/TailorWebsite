@@ -6,7 +6,6 @@
     int categoryIndex = 0;
 }
 
-@* Sekcja Nagłówkowa (Styl z Orders/List) *@
 <section class="position-relative overflow-hidden rounded-4 text-white dark-blue mb-5 shadow p-4">
     <div class="row align-items-center position-relative" style="z-index: 1;">
         <div class="col-lg-8">
@@ -22,7 +21,6 @@
 
 <div class="container-fluid px-0">
     <div class="row g-4">
-        @* Pasek boczny z kategoriami *@
         <div class="col-lg-3 d-none d-lg-block">
             <div class="sticky-top" style="top: 100px; z-index: 100;">
                 <div class="card border-0 shadow-sm">
@@ -45,7 +43,6 @@
             </div>
         </div>
 
-        @* Główna lista usług *@
         <div class="col-lg-9">
             @if (!Model.Any())
             {
@@ -71,8 +68,7 @@
                             {
                                 <div class="col-md-6">
                                     <div class="card h-100 border-0 shadow-sm service-card position-relative overflow-hidden">
-                                        @* Dekoracyjny pasek po lewej *@
-                                        @* <div class="position-absolute top-0 start-0 w-1 h-100 bg-gold" style="width: 4px;"></div> *@
+
 
                                         <div class="card-body p-4 d-flex flex-column">
                                             <div class="d-flex justify-content-between align-items-start mb-3">
@@ -118,14 +114,13 @@
 
 @section Scripts {
     <script>
-        // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
                 if(targetElement){
-                     const offset = 100; // offset na navbar
+                     const offset = 100;
                      const bodyRect = document.body.getBoundingClientRect().top;
                      const elementRect = targetElement.getBoundingClientRect().top;
                      const elementPosition = elementRect - bodyRect;
@@ -139,11 +134,10 @@
             });
         });
 
-        // ScrollSpy highlighting
         window.addEventListener('DOMContentLoaded', () => {
             const observerOptions = {
                 root: null,
-                rootMargin: '-20% 0px -60% 0px', // Adjust trigger zone
+                rootMargin: '-20% 0px -60% 0px',
                 threshold: 0
             };
 
@@ -152,7 +146,6 @@
                     if (entry.isIntersecting) {
                         const id = entry.target.getAttribute('id');
                         
-                        // Remove active class from all links
                         document.querySelectorAll('.list-group-item').forEach(link => {
                             link.classList.remove('active');
                             link.querySelector('.badge').classList.remove('bg-warning');
@@ -160,15 +153,12 @@
                             link.querySelector('.badge').classList.add('text-dark');
                         });
 
-                        // Add active class to current link
                         const activeLink = document.querySelector(`a[href="#${id}"]`);
                         if (activeLink) {
                             activeLink.classList.add('active');
                             const badge = activeLink.querySelector('.badge');
                             badge.classList.remove('bg-light');
                             badge.classList.remove('text-dark');
-                            // Using standard bootstrap text-dark for contrast on warning bg, though css override might handle it
-                            // Actually, let base css handle the active state style
                         }
                     }
                 });

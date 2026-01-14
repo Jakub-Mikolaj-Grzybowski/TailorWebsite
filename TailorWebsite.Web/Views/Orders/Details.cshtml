@@ -2,8 +2,6 @@
 
 @{
     ViewData["Title"] = "Szczegóły zamówienia";
-
-    // Logika kolorów statusu (tylko wizualna)
     string statusClass = Model.Status switch
     {
         TailorWebsite.Model.DataModels.OrderStatus.Completed => "bg-success",
@@ -46,7 +44,6 @@
         <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
             <div class="card-body p-4 p-lg-5">
                 
-                @* Info Cards for Price, Qty, Date *@
                 <div class="row g-4 mb-5">
                      <div class="col-md-4">
                         <div class="p-4 bg-light rounded-4 h-100 border border-light-subtle">
@@ -91,12 +88,10 @@
 
                 <hr class="border-secondary opacity-10 my-5">
 
-                @* Pickup Date Logic *@
                 <div class="mb-5">
                     @if (Model.Status == TailorWebsite.Model.DataModels.OrderStatus.Completed)
                     {
                         <div class="p-4 p-md-5 rounded-4 bg-gold-subtle border border-warning position-relative overflow-hidden">
-                             <!-- Decorative background icon -->
                             <i class="bi bi-bag-check position-absolute text-warning opacity-25" style="font-size: 10rem; right: -2rem; bottom: -3rem; transform: rotate(-15deg);"></i>
                             
                             <div class="position-relative" style="z-index: 2;">
@@ -139,7 +134,6 @@
                     }
                 </div>
 
-                @* Actions Footer *@
                 <div class="d-flex justify-content-between align-items-center border-top pt-4">
                     <a asp-action="List" class="text-decoration-none text-muted fw-bold">
                         <i class="bi bi-arrow-left me-2"></i>Powrót do listy

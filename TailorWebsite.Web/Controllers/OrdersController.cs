@@ -49,7 +49,6 @@ public class OrdersController : Controller
         if (order == null || order.User == null || order.User.Id != userId)
             return NotFound();
 
-        // Pozwól ustawić datę odbioru tylko jeśli zamówienie jest zakończone
         if (order.Status == OrderStatus.Completed && userPickupDate.HasValue)
         {
             await _orderService.SetUserPickupDateAsync(id, userPickupDate.Value);
@@ -129,7 +128,6 @@ public class OrdersController : Controller
         if (domainOrder == null)
             return NotFound();
 
-        // Only allow cancelling pending orders
         if (domainOrder.Status != OrderStatus.Pending)
         {
             TempData["Error"] = "Tego zamówienia nie można anulować.";

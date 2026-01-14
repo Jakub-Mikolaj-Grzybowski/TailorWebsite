@@ -6,7 +6,6 @@ namespace TailorWebsite.DAL.EF;
 
 public class ApplicationDbContext : IdentityDbContext<User, Role, int>
 {
-    // table properties
     public DbSet<Order> Orders { get; set; }
     public DbSet<Service> Services { get; set; }
     public DbSet<Size> Sizes { get; set; }
@@ -20,14 +19,13 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, int>
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);
-        //configuration commands
-        optionsBuilder.UseLazyLoadingProxies(); //enable lazy loading proxies
+        optionsBuilder.UseLazyLoadingProxies(); 
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
-        // Fluent API commands
+
         modelBuilder
             .Entity<Order>()
             .HasOne(s => s.Service)

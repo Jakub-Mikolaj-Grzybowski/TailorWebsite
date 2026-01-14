@@ -36,7 +36,6 @@ public class SizesController : Controller
         }
 
         var size = _mapper.Map<Size>(vm);
-        // user id from claim
         var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(userIdStr) || !int.TryParse(userIdStr, out var userId))
         {
