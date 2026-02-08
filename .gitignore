@@ -2,11 +2,10 @@ bin/
 obj
 .env
 .fake
-przydatne.md
-dane do service.txt
 github/
 .vs
 .vscode
 copilot-instructions.md
+appsetting.json
 
 
