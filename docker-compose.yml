@@ -9,13 +9,12 @@ services:
     ports:
       - "8080:8080"
     environment:
-      # Tu tylko wskazujemy nazwę zmiennej, jej wartość podasz w Portainerze
       - ConnectionStrings__DefaultConnection=${DB_CONNECTION_STRING}
       - ASPNETCORE_ENVIRONMENT=Development
     networks:
-      - app_network
+      - db-network
 
 networks:
-  app_network:
+  db-network:
     external: true
-    name: baza_i_stremio_default
+    name: db-network
