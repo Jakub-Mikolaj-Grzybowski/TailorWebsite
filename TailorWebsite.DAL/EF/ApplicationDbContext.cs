@@ -28,15 +28,15 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, int>
     {
         base.OnModelCreating(modelBuilder);
         
-        // Configure User Id to be auto-generated
+        // Configure User Id to be auto-generated (PostgreSQL identity column)
         modelBuilder.Entity<User>()
             .Property(u => u.Id)
-            .ValueGeneratedOnAdd();
+            .UseIdentityByDefaultColumn();
 
-        // Configure Role Id to be auto-generated
+        // Configure Role Id to be auto-generated (PostgreSQL identity column)
         modelBuilder.Entity<Role>()
             .Property(r => r.Id)
-            .ValueGeneratedOnAdd();
+            .UseIdentityByDefaultColumn();
 
         // Fluent API commands
         modelBuilder
