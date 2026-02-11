@@ -29,6 +29,7 @@ public static class DbSeeder
 
         var newAdminUser = new User
         {
+            
             UserName = adminEmail,
             Email = adminEmail,
             Name = "Admin",

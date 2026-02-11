@@ -27,6 +27,17 @@ public class ApplicationDbContext : IdentityDbContext<User, Role, int>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+        
+        // Configure User Id to be auto-generated
+        modelBuilder.Entity<User>()
+            .Property(u => u.Id)
+            .ValueGeneratedOnAdd();
+
+        // Configure Role Id to be auto-generated
+        modelBuilder.Entity<Role>()
+            .Property(r => r.Id)
+            .ValueGeneratedOnAdd();
+
         // Fluent API commands
         modelBuilder
             .Entity<Order>()

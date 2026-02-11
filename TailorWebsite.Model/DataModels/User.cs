@@ -20,4 +20,5 @@ public class User : IdentityUser<int>
 
     // Navigation property for related sizes
     public virtual ICollection<Size> Sizes { get; set; } = new List<Size>();
+
 }
