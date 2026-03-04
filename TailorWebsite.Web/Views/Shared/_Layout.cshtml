@@ -38,16 +38,11 @@
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                    <ul class="navbar-nav">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" href="#opinion">Dlaczego my?</a></li>
                         <li class="nav-item"><a class="nav-link" href="#servives">Usługi</a></li>
                         <li class="nav-item"><a class="nav-link" href="#about">O zakładzie</a></li>
-                        
-                    </ul>
-                </div>
-                    <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">
@@ -62,21 +57,36 @@
                         }
                     </ul>
                     <partial name="_LoginPartial" />
-                </div>   
+                </div>
             </div>
         </nav>
 
     </header>
-    <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <main role="main" class="pb-3 w-75">
+    @{
+        var isFullWidth = (bool?)ViewData["FullWidth"] ?? false;
+    }
+    @if (isFullWidth)
+    {
+        <main role="main" class="full-width">
             @RenderBody()
         </main>
-    </div>
+    }
+    else
+    {
+        <div class="container d-flex justify-content-center align-items-center min-vh-100">
+            <main role="main" class="pb-3 w-75">
+                @RenderBody()
+            </main>
+        </div>
+    }
 
     <footer class="text-center">
         <div class="container">
-            &copy; 2025 - <strong>TailorWebsite.Web</strong> 
-     
+            <div class="footer-brand mb-1">
+                <i class="bi bi-scissors me-1" style="color:#c5a059;"></i>
+                <strong>Usługi Krawieckie</strong>
+            </div>
+            <div class="small">&copy; @DateTime.Now.Year — Wszelkie prawa zastrzeżone</div>
         </div>
     </footer>
 

@@ -1,39 +1,107 @@
 @model IEnumerable<TailorWebsite.ViewModels.VM.OrderCreateViewModel>
 
+@using TailorWebsite.Model.DataModels
 @{
-    ViewData["Title"] = "Zarządzaj Zamówieniami";
+    ViewData["Title"] = "Zarządzanie Zamówieniami";
 }
 
-<h1>@ViewData["Title"]</h1>
+<section class="position-relative overflow-hidden rounded-4 text-white dark-blue mb-4 shadow p-4">
+    <div class="row align-items-center">
+        <div class="col-lg-8">
+            <h5 class="text-warning text-uppercase letter-spacing-2 mb-2">Panel Administratora</h5>
+            <h1 class="display-5 fw-bold mb-2">Zamówienia</h1>
+            <p class="text-white-50 mb-0">Przeglądaj wszystkie zamówienia i zarządzaj ich statusami.</p>
+        </div>
+        <div class="col-lg-4 text-end d-none d-lg-block">
+            <i class="bi bi-bag-check-fill text-warning" style="font-size: 5rem; opacity: 0.8;"></i>
+        </div>
+    </div>
+</section>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>ID Zamówienia</th>
-            <th>Użytkownik</th>
-            <th>Usługa</th>
-            <th>Ilość</th>
-            <th>Cena Całkowita</th>
-            <th>Status</th>
-            <th>Termin Odbioru</th>
-            <th>Akcje</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var order in Model)
-        {
-            <tr>
-                <td>@order.Id</td>
-                <td>@order.User?.UserName</td>
-                <td>@order.Service?.Name</td>
-                <td>@order.Quantity</td>
-                <td>@(order.TotalPrice.HasValue ? order.TotalPrice.Value.ToString("C") : "-")</td>
-                <td>@order.Status.ToString()</td>
-                <td>@(order.OrderDueDate.HasValue ? order.OrderDueDate.Value.ToShortDateString() : "Oczekujący")</td>
-                <td>
-                    <a asp-action="EditOrder" asp-controller="Admin" asp-route-id="@order.Id" class="btn btn-primary btn-sm">Edytuj</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+    <div class="card-body p-4">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="border-0 py-3 ps-4 rounded-start-3">ID</th>
+                        <th class="border-0 py-3">Użytkownik</th>
+                        <th class="border-0 py-3">Usługa</th>
+                        <th class="border-0 py-3">Ilość</th>
+                        <th class="border-0 py-3">Cena</th>
+                        <th class="border-0 py-3">Status</th>
+                        <th class="border-0 py-3">Termin</th>
+                        <th class="border-0 py-3 pe-4 text-end rounded-end-3">Akcje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (!Model.Any())
+                    {
+                        <tr>
+                            <td colspan="8" class="text-center py-5 text-muted">
+                                <i class="bi bi-inbox display-6 d-block mb-3"></i>
+                                Brak zamówień w systemie.
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach (var order in Model)
+                        {
+                            var statusBadge = order.Status switch
+                            {
+                                OrderStatus.Completed   => "bg-success-subtle text-success border-success-subtle",
+                                OrderStatus.Pending     => "bg-warning-subtle text-warning-emphasis border-warning-subtle",
+                                OrderStatus.Cancelled   => "bg-danger-subtle text-danger border-danger-subtle",
+                                OrderStatus.InProgress  => "bg-info-subtle text-info-emphasis border-info-subtle",
+                                _                       => "bg-light text-secondary border-light-subtle"
+                            };
+                            var statusName = order.Status switch
+                            {
+                                OrderStatus.Completed  => "Zakończone",
+                                OrderStatus.Pending    => "Oczekujące",
+                                OrderStatus.Cancelled  => "Anulowane",
+                                OrderStatus.InProgress => "W realizacji",
+                                _ => order.Status.ToString()
+                            };
+                            <tr>
+                                <td class="ps-4 fw-bold">#@order.Id</td>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <div class="bg-light rounded-circle flex-shrink-0 d-flex align-items-center justify-content-center me-2" style="width:32px;height:32px;">
+                                            <i class="bi bi-person-fill text-secondary"></i>
+                                        </div>
+                                        <span class="small">@order.User?.UserName</span>
+                                    </div>
+                                </td>
+                                <td class="fw-semibold">@order.Service?.Name</td>
+                                <td>@order.Quantity</td>
+                                <td class="fw-bold">@(order.TotalPrice.HasValue ? order.TotalPrice.Value.ToString("C") : "-")</td>
+                                <td>
+                                    <span class="badge @statusBadge border rounded-pill px-3 py-2 fw-normal">
+                                        @statusName
+                                    </span>
+                                </td>
+                                <td>
+                                    @if (order.OrderDueDate.HasValue)
+                                    {
+                                        <span class="text-muted small"><i class="bi bi-calendar-event me-1"></i>@order.OrderDueDate.Value.ToShortDateString()</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted small">Oczekujący</span>
+                                    }
+                                </td>
+                                <td class="text-end pe-4">
+                                    <a asp-action="EditOrder" asp-controller="Admin" asp-route-id="@order.Id" class="btn btn-gold btn-sm rounded-pill px-3 fw-semibold">
+                                        <i class="bi bi-pencil-square me-1"></i> Edytuj
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -2,36 +2,154 @@
 
 @{
     ViewData["Title"] = "Pracownia Krawiecka";
+    ViewData["FullWidth"] = true;
 }
 
-
-<section class="position-relative overflow-hidden rounded-4 text-white hero-section dark-blue">
-    <div class="hero-overlay position-absolute top-200 start-200 w-100 h-100"></div>
+<!-- ===== HERO ===== -->
+<section class="hero-section d-flex align-items-center text-white" id="home">
+    <div class="hero-overlay"></div>
     <div class="container position-relative py-5">
-        <div class="row align-items-center py-4">
-            <div class="col-lg-6">
-                <h1 class="display-5 fw-bold mb-3">Indywidualne szycie na miarę</h1>
-                <p class="lead mb-4">Zamów unikalne projekty dopasowane do Twojego stylu: suknie, garnitury, poprawki i więcej.</p>
-                <a asp-controller="Services" asp-action="Index" class="btn btn-gold  btn-lg me-2">Nasze usługi</a>
-                @if (User?.Identity?.IsAuthenticated ?? false)
-                {
-                    <a asp-controller="Orders" asp-action="Create" class="btn btn-outline-light btn-lg">Złóż zamówienie</a>
-                }
-                else
-                {
-                    var returnUrl = Url.Action("Create", "Orders");
-                    <a asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl" class="btn btn-outline-light btn-lg">Złóż zamówienie</a>
-                }
+        <div class="row">
+            <div class="col-lg-7 col-xl-6">
+                <span class="hero-badge mb-4 d-inline-block">Rzemiosło najwyższej jakości</span>
+                <h1 class="display-4 fw-bold mb-4 lh-sm">
+                    Indywidualne<br>szycie<br><span class="text-gold">na miarę</span>
+                </h1>
+                <p class="lead mb-5 opacity-90">
+                    Zamów unikalne projekty dopasowane do Twojego stylu: suknie, garnitury, poprawki i więcej.
+                </p>
+                <div class="d-flex flex-wrap gap-3">
+                    <a asp-controller="Services" asp-action="Index" class="btn btn-gold btn-lg px-4 py-3">
+                        <i class="bi bi-scissors me-2"></i>Nasze usługi
+                    </a>
+                    @if (User?.Identity?.IsAuthenticated ?? false)
+                    {
+                        <a asp-controller="Orders" asp-action="Create" class="btn btn-outline-light btn-lg px-4 py-3">
+                            Złóż zamówienie <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    }
+                    else
+                    {
+                        var returnUrl = Url.Action("Create", "Orders");
+                        <a asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl" class="btn btn-outline-light btn-lg px-4 py-3">
+                            Złóż zamówienie <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#features" class="hero-scroll-down">
+        <i class="bi bi-chevron-double-down"></i>
+    </a>
+</section>
+
+<!-- ===== STATS STRIP ===== -->
+<section class="features-strip" id="features">
+    <div class="container">
+        <div class="row g-0">
+            <div class="col-md-4 feature-item">
+                <div class="feature-icon"><i class="bi bi-award"></i></div>
+                <div>
+                    <div class="feature-value">15+</div>
+                    <div class="feature-label">Lat doświadczenia</div>
+                </div>
+            </div>
+            <div class="col-md-4 feature-item border-feature">
+                <div class="feature-icon"><i class="bi bi-people"></i></div>
+                <div>
+                    <div class="feature-value">500+</div>
+                    <div class="feature-label">Zadowolonych klientów</div>
+                </div>
+            </div>
+            <div class="col-md-4 feature-item">
+                <div class="feature-icon"><i class="bi bi-bag-heart"></i></div>
+                <div>
+                    <div class="feature-value">100%</div>
+                    <div class="feature-label">Szycie na zamówienie</div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-
-<section class="py-4 rounded-4 gold" id="opinion" style="scroll-margin-top: 40px; ">
+<!-- ===== POPULAR SERVICES ===== -->
+<section class="home-section bg-light-custom" id="servives" style="scroll-margin-top: 80px;">
     <div class="container">
-        <div class="text-center mb-4">
-            <h2 class="fw-semibold">Opinie klientów</h2>
+        <div class="section-header text-center mb-5">
+            <span class="section-tag">Co robimy</span>
+            <h2 class="section-title">Popularne usługi</h2>
+            <p class="section-subtitle">Wybierz usługę i przekonaj się, jak możemy odmienić Twój styl</p>
+        </div>
+        <div class="row g-4">
+            @{
+                var serviceIcons = new[] { "bi-scissors", "bi-gem", "bi-bag-check" };
+                var idx = 0;
+            }
+            @if ((Model?.PopularServices?.Count ?? 0) > 0)
+            {
+                foreach (var service in Model!.PopularServices)
+                {
+                    var icon = serviceIcons[idx % serviceIcons.Length];
+                    idx++;
+                    <div class="col-md-4">
+                        <div class="service-card card h-100 border-0">
+                            <div class="card-body d-flex flex-column p-4">
+                                <div class="service-icon-wrap mb-3">
+                                    <i class="bi @icon"></i>
+                                </div>
+                                <h5 class="card-title fw-bold mb-1">@service.Name</h5>
+                                @if (service.TotalOrders > 0)
+                                {
+                                    <p class="small text-muted mb-3">
+                                        <i class="bi bi-graph-up-arrow me-1 text-warning"></i>
+                                        @service.TotalOrders zamówień
+                                    </p>
+                                }
+                                else
+                                {
+                                    <p class="small text-muted mb-3">Szycie na miarę</p>
+                                }
+                                <div class="mt-auto">
+                                    @if (User?.Identity?.IsAuthenticated ?? false)
+                                    {
+                                        <a asp-controller="Orders" asp-action="Create" asp-route-serviceId="@service.ServiceId" class="btn btn-gold w-100">
+                                            Zamów usługę
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        var returnUrl = Url.Action("Create", "Orders", new { serviceId = service.ServiceId });
+                                        <a asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl" class="btn btn-gold w-100">
+                                            Zamów usługę
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center text-muted py-4">Brak danych o popularnych usługach.</div>
+            }
+        </div>
+        <div class="text-center mt-5">
+            <a asp-controller="Services" asp-action="Index" class="btn btn-outline-dark btn-lg px-5">
+                Zobacz wszystkie usługi <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ===== REVIEWS ===== -->
+<section class="home-section bg-dark-custom text-white" id="opinion" style="scroll-margin-top: 80px;">
+    <div class="container">
+        <div class="section-header text-center mb-5">
+            <span class="section-tag-light">Opinie</span>
+            <h2 class="section-title">Co mówią klienci?</h2>
+            <p class="section-subtitle opacity-75">Sprawdź, co sądzą o naszej pracy osoby, które nam zaufały</p>
         </div>
         <div class="row g-4">
             @if ((Model?.Reviews?.Count ?? 0) > 0)
@@ -39,19 +157,27 @@
                 foreach (var review in Model!.Reviews)
                 {
                     <div class="col-md-4">
-                        <div class="card h-100 shadow-sm border-0 testimonial-tile">
-                            <div class="card-body d-flex flex-column">
+                        <div class="review-card h-100">
+                            <div class="review-stars mb-3">
+                                @for (int s = 1; s <= 5; s++)
+                                {
+                                    <i class="bi @(s <= review.Rating ? "bi-star-fill" : "bi-star") text-warning"></i>
+                                }
+                            </div>
+                            <p class="review-text">"@review.Comment"</p>
+                            <div class="review-footer">
                                 @{
                                     var parts = review.UserFullName!.Trim().Split(' ', StringSplitOptions.RemoveEmptyEntries);
                                     var displayName = parts.Length == 1
                                         ? parts[0]
                                         : $"{parts[0]} {char.ToUpperInvariant(parts[^1][0])}.";
                                 }
-                                <div class="small text-warning fw-semibold mb-2">Ocena: @review.Rating/5</div>
-                                <p class="small mb-3">"@review.Comment"</p>
-                                <div class="mt-auto small text-muted d-flex justify-content-between">
-                                    <span>@displayName</span>
-                                    <span>@review.ReviewDate.ToString("dd.MM.yyyy")</span>
+                                <div class="review-avatar">
+                                    <i class="bi bi-person-circle"></i>
+                                </div>
+                                <div>
+                                    <div class="fw-semibold">@displayName</div>
+                                    <div class="small opacity-60">@review.ReviewDate.ToString("dd.MM.yyyy")</div>
                                 </div>
                             </div>
                         </div>
@@ -60,83 +186,70 @@
             }
             else
             {
-                <div class="col-12">
-                    <div class="alert alert-light text-center mb-0">
-                        Brak opinii do wyświetlenia.
-                    </div>
-                </div>
+                <div class="col-12 text-center opacity-75 py-4">Brak opinii do wyświetlenia.</div>
             }
         </div>
     </div>
 </section>
 
-<section class="py-5 rounded-4 dark-blue" id="servives" style="scroll-margin-top: 10px; ">
+<!-- ===== ABOUT ===== -->
+<section class="home-section bg-light-custom about-section" id="about" style="scroll-margin-top: 80px;">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="fw-semibold">Popularne usługi</h2>
-        </div>
-        <div class="row g-4">
-            @if ((Model?.PopularServices?.Count ?? 0) > 0)
-            {
-                foreach (var service in Model!.PopularServices)
-                {
-                    <div class="col-md-4">
-                        <div class="service-card card h-100 border-0 shadow-sm">
-                            <div class="card-body d-flex flex-column">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <h5 class="card-title mb-0">@service.Name</h5>
-                                  
-                                </div>
-                              
-                                <div class="mt-auto pt-2">
-                                    @if (User?.Identity?.IsAuthenticated ?? false)
-                                    {
-                                        <a asp-controller="Orders" asp-action="Create" asp-route-serviceId="@service.ServiceId" class="btn btn-sm btn-gold w-100">Zamów usługę</a>
-                                    }
-                                    else
-                                    {
-                                        var returnUrl = Url.Action("Create", "Orders", new { serviceId = service.ServiceId });
-                                        <a asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl" class="btn btn-sm btn-gold w-100">Zamów usługę</a>
-                                    }
-                                </div>
-                            </div>
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <div class="about-image-wrap">
+                    <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                         alt="Wnętrze zakładu krawieckiego" class="img-fluid rounded-4 shadow-lg">
+                    <div class="about-exp-badge">
+                        <span class="exp-number">15</span>
+                        <span class="exp-label">lat<br>doświad-<br>czenia</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <span class="section-tag">Kim jesteśmy</span>
+                <h2 class="section-title mb-4">O Naszym Zakładzie</h2>
+                <p class="mb-3 text-secondary">
+                    Nasza pracownia krawiecka to miejsce z duszą i wieloletnią tradycją.
+                    Łączymy klasyczne rzemiosło z nowoczesnymi trendami w modzie.
+                </p>
+                <p class="mb-4 text-secondary">
+                    Oferujemy szeroki wybór tkanin premium oraz profesjonalne doradztwo stylistyczne.
+                    Niezależnie od tego, czy potrzebujesz drobnej poprawki, czy szycia miarowego – jesteśmy do Twojej dyspozycji.
+                </p>
+                <div class="contact-list">
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="bi bi-telephone-fill"></i></div>
+                        <div>
+                            <div class="contact-label">Telefon</div>
+                            <div class="contact-value">+48 123 456 789</div>
                         </div>
                     </div>
-                }
-            }
-            else
-            {
-                <div class="col-12">
-                    <div class="alert alert-light text-center mb-0">
-                        Brak danych o popularnych usługach.
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="bi bi-envelope-fill"></i></div>
+                        <div>
+                            <div class="contact-label">E-mail</div>
+                            <div class="contact-value">kontakt@uslugikrawieckie.pl</div>
+                        </div>
                     </div>
-                </div>
-            }
-        </div>
-    </div>
-</section>
-
-<section id="about" class="section-padding about-section rounded-4 gold" id="about" >
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-6 mb-4 mb-lg-0">
-                    <img src="https://images.unsplash.com/photo-1556905055-8f358a7a47b2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="Wnętrze zakładu krawieckiego" class="img-fluid rounded shadow">
-                </div>
-                <div class="col-lg-6 about-text ps-lg-5">
-                    <h2 class="mb-4">O Naszym Zakładzie</h2>
-                    <p>Nasza pracownia krawiecka to miejsce z duszą i wieloletnią tradycją. Łączymy klasyczne rzemiosło z nowoczesnymi trendami w modzie. </p>
-                    <p>W naszym zakładzie każdy klient traktowany jest wyjątkowo. Oferujemy szeroki wybór tkanin premium oraz profesjonalne doradztwo stylistyczne. Niezależnie od tego, czy potrzebujesz drobnej poprawki, czy szycia miarowego – jesteśmy do Twojej dyspozycji.</p>
-                    
-                    <hr class="border-light my-4">
-                    
-                    <h4>Dane kontaktowe</h4>
-                    <p class="mb-1"><i class="bi bi-telephone-fill text-warning me-2"></i> +48 123 456 789</p>
-                    <p class="mb-1"><i class="bi bi-envelope-fill text-warning me-2"></i> kontakt@uslugikrawieckie.pl</p>
-                    <p class="mb-1"><i class="bi bi-geo-alt-fill text-warning me-2"></i> ul. Krawiecka 15, 00-001 Warszawa</p>
-                    <p class="mt-3 small text-white-50">Zapraszamy od poniedziałku do piątku w godzinach 9:00 - 17:00</p>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="bi bi-geo-alt-fill"></i></div>
+                        <div>
+                            <div class="contact-label">Adres</div>
+                            <div class="contact-value">ul. Krawiecka 15, 00-001 Warszawa</div>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon"><i class="bi bi-clock-fill"></i></div>
+                        <div>
+                            <div class="contact-label">Godziny otwarcia</div>
+                            <div class="contact-value">Poniedziałek – Piątek: 9:00 – 17:00</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
 

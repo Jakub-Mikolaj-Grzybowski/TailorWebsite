@@ -1,50 +1,88 @@
 ﻿@page
 @model RegisterModel
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = "Rejestracja";
+    ViewData["FullWidth"] = true;
 }
 
-
-
-<div class="d-flex justify-content-center align-items-center" style="min-height: 90vh;">
-    <div class="card shadow p-4 p-lg-5 dark-blue rounded-4 border-0" style="max-width: 450px; width: 100%;">
-        <div class="text-center mb-4">
-             <span class="mb-2" style="font-size: 2.5rem;"><i class="bi bi-person-plus-fill text-warning"></i></span>
-            <h2 class="fw-bold mt-2">Załóż konto</h2>
-            <p class="text-white-50">Dołącz do grona naszych zadowolonych klientów</p>
+<div class="auth-split">
+    <!-- Lewa strona -->
+    <div class="auth-split__left d-none d-lg-flex">
+        <div class="auth-split__overlay"></div>
+        <div class="auth-split__brand position-relative">
+            <div class="mb-5">
+                <i class="bi bi-scissors" style="font-size:3rem; color:#c5a059;"></i>
+                <h2 class="text-white fw-bold mt-3 mb-2">Usługi Krawieckie</h2>
+                <p class="text-white-50">Szycie na miarę Twoich marzeń</p>
+            </div>
+            <ul class="auth-perks list-unstyled">
+                <li><i class="bi bi-check-circle-fill text-warning me-2"></i>Indywidualne podejście do klienta</li>
+                <li><i class="bi bi-check-circle-fill text-warning me-2"></i>Szeroki wybór tkanin premium</li>
+                <li><i class="bi bi-check-circle-fill text-warning me-2"></i>Śledzenie statusu zamówienia online</li>
+                <li><i class="bi bi-check-circle-fill text-warning me-2"></i>Zapisane wymiary na przyszłość</li>
+            </ul>
         </div>
-        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <div class="mb-3">
-                <label asp-for="Input.Name" class="form-label fw-semibold text-white">Imię</label>
-                <input asp-for="Input.Name" class="form-control rounded-pill" placeholder="Imię" />
-                <span asp-validation-for="Input.Name" class="text-danger"></span>
+    </div>
+    <!-- Prawa strona -->
+    <div class="auth-split__right d-flex align-items-center justify-content-center py-5">
+        <div class="auth-form-wrap">
+            <div class="text-center mb-4">
+                <div class="auth-icon-wrap mb-3"><i class="bi bi-person-plus-fill"></i></div>
+                <h2 class="fw-bold">Utwórz konto</h2>
+                <p class="text-muted">Dołącz do grona naszych klientów</p>
             </div>
-            <div class="mb-3">
-                <label asp-for="Input.Surname" class="form-label fw-semibold text-white">Nazwisko</label>
-                <input asp-for="Input.Surname" class="form-control rounded-pill" placeholder="Nazwisko" />
-                <span asp-validation-for="Input.Surname" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="Input.Email" class="form-label fw-semibold text-white">Email</label>
-                <input asp-for="Input.Email" class="form-control rounded-pill" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <span asp-validation-for="Input.Email" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="Input.Password" class="form-label fw-semibold text-white">Hasło</label>
-                <input asp-for="Input.Password" class="form-control rounded-pill" autocomplete="new-password" aria-required="true" placeholder="Hasło" />
-                <span asp-validation-for="Input.Password" class="text-danger"></span>
-            </div>
-            <div class="mb-3">
-                <label asp-for="Input.ConfirmPassword" class="form-label fw-semibold text-white">Powtórz hasło</label>
-                <input asp-for="Input.ConfirmPassword" class="form-control rounded-pill" autocomplete="new-password" aria-required="true" placeholder="Powtórz hasło" />
-                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
-            </div>
-            <button id="registerSubmit" type="submit" class="w-100 btn btn-gold rounded-pill mb-3 fw-bold shadow-sm" style="font-size:1.2rem;">Załóż konto</button>
-        </form>
-        <div class="text-center mb-2">
-            <a class="text-decoration-none text-warning small" href="/Identity/Account/Login">Masz już konto? Zaloguj się</a>
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div class="row g-3 mb-2">
+                    <div class="col-6">
+                        <label asp-for="Input.Name" class="auth-label">Imię</label>
+                        <div class="auth-input-group">
+                            <i class="bi bi-person auth-input-icon"></i>
+                            <input asp-for="Input.Name" class="form-control auth-input" placeholder="Imię" />
+                        </div>
+                        <span asp-validation-for="Input.Name" class="text-danger small"></span>
+                    </div>
+                    <div class="col-6">
+                        <label asp-for="Input.Surname" class="auth-label">Nazwisko</label>
+                        <div class="auth-input-group">
+                            <i class="bi bi-person auth-input-icon"></i>
+                            <input asp-for="Input.Surname" class="form-control auth-input" placeholder="Nazwisko" />
+                        </div>
+                        <span asp-validation-for="Input.Surname" class="text-danger small"></span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.Email" class="auth-label">Adres e-mail</label>
+                    <div class="auth-input-group">
+                        <i class="bi bi-envelope auth-input-icon"></i>
+                        <input asp-for="Input.Email" class="form-control auth-input" autocomplete="username" placeholder="name@example.com" />
+                    </div>
+                    <span asp-validation-for="Input.Email" class="text-danger small"></span>
+                </div>
+                <div class="mb-3">
+                    <label asp-for="Input.Password" class="auth-label">Hasło</label>
+                    <div class="auth-input-group">
+                        <i class="bi bi-lock auth-input-icon"></i>
+                        <input asp-for="Input.Password" class="form-control auth-input" autocomplete="new-password" placeholder="••••••••" />
+                    </div>
+                    <span asp-validation-for="Input.Password" class="text-danger small"></span>
+                </div>
+                <div class="mb-4">
+                    <label asp-for="Input.ConfirmPassword" class="auth-label">Powtórz hasło</label>
+                    <div class="auth-input-group">
+                        <i class="bi bi-lock-fill auth-input-icon"></i>
+                        <input asp-for="Input.ConfirmPassword" class="form-control auth-input" autocomplete="new-password" placeholder="••••••••" />
+                    </div>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger small"></span>
+                </div>
+                <button id="registerSubmit" type="submit" class="btn btn-gold w-100 py-3 fw-bold rounded-pill mb-4">
+                    Zarejestruj się <i class="bi bi-arrow-right ms-2"></i>
+                </button>
+                <p class="text-center text-muted small mb-0">
+                    Masz już konto?
+                    <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl" class="text-warning fw-semibold text-decoration-none">Zaloguj się</a>
+                </p>
+            </form>
         </div>
-
     </div>
 </div>
 
