@@ -1,14 +1,26 @@
 ﻿
 .navbar {
   background-color: #0d1b2a;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  font-size: 1.25rem;
 }
 
+.navbar-brand {
+  color: #c5a059 !important;
+  font-size: 1.5rem;
+}
 
-.navbar-brand,
+.navbar-brand .bi-scissors {
+  font-size: 1.5rem;
+}
+
 .nav-link {
   color: #c5a059 !important;
+  font-size: 1.25rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
 }
-
 
 .nav-link:hover {
   color: #f8f5f2 !important;
@@ -17,7 +29,8 @@
 footer {
   background-color: #08111a;
   color: #aaa;
-  padding: 10px 0;
+  padding: 15px 0;
+  font-size: 1.1rem;
 }
 
 footer a {
@@ -43,7 +56,7 @@ main.full-width {
 }
 
 .footer-brand {
-  font-size: 1rem;
-  letter-spacing: 0.02em;
+  font-size: 1.5rem;
+  letter-spacing: 0.03em;
   color: #c5a059;
 }
