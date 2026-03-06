@@ -3,24 +3,29 @@
 
 @{
     ViewData["Title"] = "Nasze Usługi";
+    ViewData["FullWidth"] = true;
     int categoryIndex = 0;
 }
 
-@* Sekcja Nagłówkowa (Styl z Orders/List) *@
-<section class="position-relative overflow-hidden rounded-4 text-white dark-blue mb-5 shadow p-4">
-    <div class="row align-items-center position-relative" style="z-index: 1;">
-        <div class="col-lg-8">
-            <h5 class="text-warning text-uppercase letter-spacing-2 mb-2">Oferta</h5>
-            <h1 class="display-6 fw-bold mb-2">Nasze Usługi</h1>
-            <p class="text-white-50 mb-0">Sprawdź co możemy dla Ciebie zrealizować i zamów online.</p>
-        </div>
-        <div class="col-lg-4 text-end d-none d-lg-block">
-            <i class="bi bi-scissors text-warning" style="font-size: 5rem; opacity: 0.5;"></i>
+<!-- ===== HERO ===== -->
+<section class="profile-hero">
+    <div class="profile-hero__overlay"></div>
+    <div class="container position-relative py-4" style="z-index:1;">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <span class="profile-badge mb-3 d-inline-block">Oferta</span>
+                <h1 class="display-5 fw-bold text-white mb-2">Nasze usługi</h1>
+                <p class="text-white-50 mb-0">Sprawdź co możemy dla Ciebie zrealizować i zamów online.</p>
+            </div>
+            <div class="col-lg-4 d-none d-lg-flex justify-content-end align-items-center">
+                <i class="bi bi-scissors profile-hero__deco"></i>
+            </div>
         </div>
     </div>
 </section>
 
-<div class="container-fluid px-0">
+<section class="profile-section">
+<div class="container">
     <div class="row g-4">
         @* Pasek boczny z kategoriami *@
         <div class="col-lg-3 d-none d-lg-block">
@@ -82,7 +87,7 @@
                                                         <i class="bi bi-star-fill text-warning ms-1" style="font-size: 0.8em;" title="Popularne"></i>
                                                     }
                                                 </h5>
-                                                <span class="fs-5 fw-bold text-dark text-nowrap ms-2">@service.Price.ToString("C")</span>
+                                                <span class="fs-5 fw-bold text-dark text-nowrap ms-2">@service.Price.ToString("N2") PLN</span>
                                             </div>
                                             
                                             <div class="mb-4">
@@ -115,6 +120,7 @@
         </div>
     </div>
 </div>
+</section>
 
 @section Scripts {
     <script>

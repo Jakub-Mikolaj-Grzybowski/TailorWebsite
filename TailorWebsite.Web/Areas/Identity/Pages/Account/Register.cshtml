@@ -37,15 +37,16 @@
                         <label asp-for="Input.Name" class="auth-label">Imię</label>
                         <div class="auth-input-group">
                             <i class="bi bi-person auth-input-icon"></i>
-                            <input asp-for="Input.Name" class="form-control auth-input" placeholder="Imię" />
+                            <input asp-for="Input.Name" class="form-control auth-input" autocomplete="given-name" placeholder="Imię" />
                         </div>
                         <span asp-validation-for="Input.Name" class="text-danger small"></span>
                     </div>
                     <div class="col-6">
                         <label asp-for="Input.Surname" class="auth-label">Nazwisko</label>
                         <div class="auth-input-group">
+
                             <i class="bi bi-person auth-input-icon"></i>
-                            <input asp-for="Input.Surname" class="form-control auth-input" placeholder="Nazwisko" />
+                            <input asp-for="Input.Surname" class="form-control auth-input" autocomplete="family-name" placeholder="Nazwisko" />
                         </div>
                         <span asp-validation-for="Input.Surname" class="text-danger small"></span>
                     </div>
@@ -54,7 +55,7 @@
                     <label asp-for="Input.Email" class="auth-label">Adres e-mail</label>
                     <div class="auth-input-group">
                         <i class="bi bi-envelope auth-input-icon"></i>
-                        <input asp-for="Input.Email" class="form-control auth-input" autocomplete="username" placeholder="name@example.com" />
+                        <input asp-for="Input.Email" class="form-control auth-input" autocomplete="email" placeholder="name@example.com" />
                     </div>
                     <span asp-validation-for="Input.Email" class="text-danger small"></span>
                 </div>

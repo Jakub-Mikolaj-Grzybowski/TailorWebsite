@@ -49,7 +49,16 @@ public class ProfileController : Controller
         return View(vm);
     }
 
-    public async Task<IActionResult> DeleteAccount()
+    [HttpGet]
+    public IActionResult DeleteAccount()
+    {
+        return View();
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    [ActionName("DeleteAccount")]
+    public async Task<IActionResult> DeleteAccountConfirmed()
     {
         var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(userIdStr) || !int.TryParse(userIdStr, out var userId))
@@ -61,12 +70,8 @@ public class ProfileController : Controller
 
         var result = await _userManager.DeleteAsync(user);
         if (!result.Succeeded)
-        {
-           
             return BadRequest("Nie udało się usunąć konta.");
-        }
 
-     
         await HttpContext.SignOutAsync(IdentityConstants.ApplicationScheme);
 
         return RedirectToAction("Index", "Home");

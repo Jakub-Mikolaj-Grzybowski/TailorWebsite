@@ -39,10 +39,10 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="#opinion">Dlaczego my?</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#servives">Usługi</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#about">O zakładzie</a></li>
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index" asp-fragment="servives">Usługi</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index" asp-fragment="opinion">Dlaczego my?</a></li>
+                        <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index" asp-fragment="about">O zakładzie</a></li>
                         @if (User.IsInRole("Admin"))
                         {
                             <li class="nav-item">

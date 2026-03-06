@@ -12,7 +12,7 @@
    ============================================= */
 .hero-section {
   position: relative;
-  min-height: 100vh;
+  min-height: 82vh;
   background: url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1920&auto=format&fit=crop')
     center / cover no-repeat;
   overflow: hidden;
@@ -77,7 +77,7 @@
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  padding: 2.75rem 2rem;
+  padding: 1.75rem 2rem;
   color: #f8f5f2;
   justify-content: center;
 }
@@ -113,7 +113,7 @@
    GENERAL SECTIONS
    ============================================= */
 .home-section {
-  padding: 5.5rem 0;
+  padding: 3.5rem 0;
 }
 
 .bg-dark-custom {
@@ -139,9 +139,9 @@
 }
 
 .section-title {
-  font-size: 2rem;
+  font-size: 1.75rem;
   font-weight: 700;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   color: inherit;
 }
 

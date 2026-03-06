@@ -1,23 +1,29 @@
 @{
     ViewData["Title"] = "Ustawienia konta";
+    ViewData["FullWidth"] = true;
 }
 
 
-<section class="position-relative overflow-hidden rounded-4 text-white dark-blue mb-5 shadow p-4 p-lg-5">
-    <div class="row align-items-center position-relative" style="z-index: 1;">
-        <div class="col-lg-8">
-            <h5 class="text-warning text-uppercase letter-spacing-2 mb-2">Panel Użytkownika</h5>
-            <h1 class="display-5 fw-bold mb-3">Ustawienia Konta</h1>
-            <p class="lead text-white-50 mb-0">Zarządzaj bezpieczeństwem, danymi kontaktowymi i preferencjami swojego konta.</p>
-        </div>
-        <div class="col-lg-4 text-center mt-4 mt-lg-0 d-none d-lg-block">
-            <i class="bi bi-sliders text-warning" style="font-size: 8rem; opacity: 0.8;"></i>
+<!-- ===== HERO ===== -->
+<section class="profile-hero">
+    <div class="profile-hero__overlay"></div>
+    <div class="container position-relative py-4" style="z-index:1;">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <span class="profile-badge mb-3 d-inline-block">Panel użytkownika</span>
+                <h1 class="display-5 fw-bold text-white mb-2">Ustawienia konta</h1>
+                <p class="text-white-50 mb-0">Zarządzaj bezpieczeństwem, danymi kontaktowymi i preferencjami swojego konta.</p>
+            </div>
+            <div class="col-lg-4 d-none d-lg-flex justify-content-end align-items-center">
+                <i class="bi bi-sliders profile-hero__deco"></i>
+            </div>
         </div>
     </div>
 </section>
 
 
-<div class="container px-0">
+<section class="profile-section">
+<div class="container">
     <div class="row g-4">
         
  
@@ -83,3 +89,4 @@
 
     </div>
 </div>
+</section>

@@ -1,18 +1,93 @@
-.dark-blue {
-    background-color: #0d1b2a !important;
-    color: #f8f5f2 !important;
+/* =============================================
+   PROFILE HERO
+   ============================================= */
+.profile-hero {
+  position: relative;
+  background: url('https://images.unsplash.com/photo-1512436991641-6745cdb1723f?q=80&w=1920&auto=format&fit=crop')
+    center / cover no-repeat;
+  padding: 3rem 0 2.5rem;
+  overflow: hidden;
 }
 
-.text-warning {
-    color: #c5a059 !important;
-    /* Kolor zgodny z btn-gold */
+.profile-hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(13, 27, 42, 0.94) 0%,
+    rgba(13, 27, 42, 0.72) 100%
+  );
 }
 
-.service-card {
-    transition: transform .2s ease, box-shadow .2s ease;
+.profile-badge {
+  background: rgba(197, 160, 89, 0.18);
+  border: 1px solid rgba(197, 160, 89, 0.55);
+  color: #c5a059;
+  padding: 0.3rem 1rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 700;
 }
 
-.service-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 1rem 3rem rgba(0, 0, 0, .175) !important;
+.profile-avatar {
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #c5a059, #e8c880);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: #0d1b2a;
+  box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.35);
+  flex-shrink: 0;
+}
+
+.text-gold {
+  color: #c5a059;
+}
+
+.profile-hero__deco {
+  font-size: 7rem;
+  color: rgba(197, 160, 89, 0.15);
+  transform: rotate(-20deg);
+  display: block;
+}
+
+/* =============================================
+   SECTION
+   ============================================= */
+.profile-section {
+  padding: 2.5rem 0 3rem;
+  background-color: #f4f0eb;
+}
+
+/* =============================================
+   PROFILE CARDS
+   ============================================= */
+.profile-card {
+  border-radius: 1.2rem !important;
+  background: #fff;
+}
+
+.profile-card__icon-wrap {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 0.9rem;
+  background: linear-gradient(135deg, #c5a059, #e8c880);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.profile-card__count {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0d1b2a;
+  line-height: 1;
 }
