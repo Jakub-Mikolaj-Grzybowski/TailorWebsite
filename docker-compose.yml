@@ -10,11 +10,14 @@ services:
     environment:
       - ConnectionStrings__DefaultConnection=${DB_CONNECTION_STRING}
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:8785
+    expose:
+      - "8785"
     networks:
       - db-network
       - proxy-network
     healthcheck:
-      test: ["CMD-SHELL", "cat /proc/net/tcp6 | grep 1F90 || exit 1"]
+      test: ["CMD-SHELL", "cat /proc/net/tcp6 | grep 2251 || exit 1"]
       interval: 30s
       timeout: 5s
       retries: 5

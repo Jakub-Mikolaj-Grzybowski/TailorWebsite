@@ -26,5 +26,6 @@ RUN dotnet publish "TailorWebsite.Web.csproj" -c Release -o /app/publish
 # 2. Obraz finalny (uruchomieniowy) - lekki
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS final
 WORKDIR /app
+EXPOSE 8785
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "TailorWebsite.Web.dll"]
